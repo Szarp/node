@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Scalar web page</title>
+        <meta name="description" content="Interaktywny">
+        <link rel="stylesheet" href="webPage.css">
+        <script>
+            var getSize=function(){
+                var size = {
+                  width: window.innerWidth || document.body.clientWidth,
+                  height: window.innerHeight || document.body.clientHeight
+                }
+                var a=document.getElementById("height");
+                
+            }
+            /*
+                  <ul class="tab">
+      <li >
+       <input type="radio" id="tab-1" name="tab-group-1" checked="">
+       <label for="tab-1">Tab One</label>
+       <div class="content">
+           tab#1
+       </div> 
+   </li>
+
+   <li>
+       <input type="radio" id="tab-2" name="tab-group-1">
+       <label for="tab-2">Tab Two</label>
+
+       <div class="content">
+           tab#2
+       </div> 
+   </li>
+      </ul>
+            
+            
+            
+            */
+        </script>
+    </head>
+    <body>
+
+
+
+<div class="flex-container wrap">
+   <div class="flex-item item-size">
+      <div class="tab-title" style=""> jestem</div>
+       
+      <ul class="tabs ">
+         <li >
+           <div class="btnContainer">
+              <label for="tab1" id="label1">tab 1</label>
+              <label for="tab2" id="label2">tab 2</label>
+              <label for="tab3" id="label3">tab 3</label>
+           </div>
+         </li>
+         <li>
+            <input type="radio" checked name="tabs" id="tab1">
+            <div id="tab-content1" class="tab-content">
+            <h3> acctual data</h3>
+             <!-- Your Content Here -->
+            </div>
+         </li>
+         <li>
+            <input type="radio" name="tabs" id="tab2">
+            <div id="tab-content2" class="tab-content">
+                <h3>diagram</h3>
+                <!-- Your Content Here -->
+            </div>
+         </li>
+         <li>
+            <input type="radio" name="tabs" id="tab3">  
+            <div id="tab-content3" class="tab-content">
+                <h3>settings</h3>
+                <!-- Your Content Here -->
+            </div>
+         </li>
+      </ul>  
+   </div> 
+  <div class="flex-item item-size">2</div>
+  <div class="flex-item item-size">3</div>
+  <div class="flex-item item-size">4</div>
+  <div class="flex-item item-size">5</div>
+  <div class="flex-item item-size">6</div>
+</div>
+        
+
+        <input type="button" value="get width" onclick="getWidth()"/>
+        <div id="height" style="width:100%;border: 1px solid black;">
+                szerokość
+        </div>
+        <div id="width" style="width:100%;border: 1px solid black;">
+                wysokość
+        </div>
+        <div class="text"></div>
+        
+    </body>
+</html>

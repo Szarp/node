@@ -1,0 +1,22 @@
+{
+        bartek:{
+            password:"bartek15",
+            md5_pass"teraztutajsuperfajnafunkcjaskutu",
+            email:"jannowak@gmail.com"
+        },
+        jan:{
+            password:"jan15",
+            md5_pass"teraztutdkhdsperfajnafunkcjaskutu",
+            email:"janncjas@gmail.com"
+        },
+        ala:{
+            password:"ala15",
+            md5_pass"teraztutajsupsdljajnafunkcjaskutu",
+            email:"janala@gmail.com"
+        },
+    
+    
+    
+    
+        userList:[bartek,jan,ala]
+}

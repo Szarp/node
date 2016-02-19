@@ -1,0 +1,203 @@
+.tabs { 
+    margin: 0px;
+    position: relative;
+    padding-left: 0px
+}
+ 
+.tabs li {
+    list-style: none;
+}
+.tabs label:hover { /*przy najechaniu to :hover*/
+    background: #3498db;
+}
+.tabs input[type=radio] {
+    display:none;
+}
+ 
+[id^=tab]:checked ~ div[id^=tab-content] {
+    display: block;
+}
+
+[id^=tab]:checked ~ [id^=label]  {
+    background: #08C;
+    color: white;
+}
+.btnContainer{
+    display:flex;
+    height: 75px;
+    width: 100%;
+    line-height:normal;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.tabs label {
+    height:75px;
+    width: 33%;
+    color: #FFFFFF;
+    font-size: 15px;
+    background: #2f1196;
+    margin:auto;
+
+}
+.tab-content {
+    display: none;
+    border: 3px solid black;
+    border-left: 0px;
+    border-right:0px;
+    padding-top: 0px;
+    width: 100%;
+
+}
+.tab-title{
+    margin-top:0px;   
+    height: 100px;  
+    margin-right: 5px;
+    text-align: right;
+    font-size: 20px;
+}
+/*rozmiarowe funkcje---------------------------------------------*/
+/*rozmiarowe funkcje---------------------------------------------*/
+/*rozmiarowe funkcje---------------------------------------------*/
+@media (min-width: 200px) {/* 200px*/
+    .item-size {
+      width: 100%;
+      height: 120vw;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    .tab-title{
+      height:12vw;
+      font-size:5vw;
+    }
+    .tab-content{
+        height: 96vw;
+    }
+    .tabs label{
+        height: 12vw;
+    }
+    .btnContainer{
+        height: 12vw;
+    }
+@media (min-width: 330px) { /* 330px*/
+
+    .item-size {
+      width: 80%;
+      height: 96vw;
+    }
+    .tab-title{
+      height:10vw;
+      font-size:5vw;
+    }
+    .tabs label{
+        height: 10vw;
+    }
+    .btnContainer{
+        height: 10vw;
+    }
+   .tab-content{
+        height: 76vw;
+    }
+}
+@media (min-width: 500px) { /* 500px*/
+    .item-size {
+      width: 45%;
+      height: 54vw;
+    }
+    .tab-title{
+      height:5.5vw;
+      font-size:20px;
+    }
+    .tabs label{
+        height: 5.5vw;
+    }
+    .btnContainer{
+        height: 5.5vw;
+    }
+    .tab-content{
+        height: 43vw;
+    }
+}
+@media (min-width: 750px) { /* 750px*/
+    .item-size {
+      width: 30%;
+      height: 36vw;
+    }
+    .tab-title{
+      height:3.5vw;
+      font-size:20px;
+    }
+    .tabs label{
+        height: 3.5vw;
+    }
+    .btnContainer{
+        height: 3.5vw;
+    }
+    .tab-content{
+        height: 29vw;
+    }
+}
+
+@media (min-width: 1070px) { /* 1070px*/
+    .item-size {
+      width: 23%;
+      height: 28vw;
+    }
+   .tab-title{
+      height:3vw;
+      font-size:20px;
+    }
+    .tabs label{
+        height: 3vw;
+    }
+    .btnContainer{
+        height: 3vw;
+    }
+    .tab-content{
+        height: 22vw;
+    }
+
+}
+/*rozmiarowe funkcje----------------------------------------*/
+/*rozmiarowe funkcje----------------------------------------*/
+/*rozmiarowe funkcje----------------------------------------*/
+.item-size{
+    margin-left: auto;
+    margin-right:auto;
+}
+.flex-item {
+      background: tomato;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: white;
+      font-weight: bold;
+      font-size: 2em;
+      text-align: center;
+   }
+.flex-container {
+      padding: 0;
+      margin: 0px;
+      list-style: none;
+      border: 1px solid silver;
+      -ms-box-orient: horizontal;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -moz-flex;
+      display: -webkit-flex;
+      display: flex;
+      background: lightblue;
+    }
+.text{
+    margin-left: 1px;
+    margin-right: 1px;
+}   
+ .nowrap  { 
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+ }
+
+.wrap{ 
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+ }   
+
