@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Scalar web page</title>
+        <meta name="description" content="Interaktywny">
+        <link rel="stylesheet" href="./css/webPage.css">
+        <link rel="stylesheet" href="./css/radioItem.css">
+         <link rel="stylesheet" href="./css/mediaSize.css">
+
+
+        <script>
+            
+        </script>
+    </head>
+    <body>
+
+
+
+<div class="flex-container wrap">
+   <div class="flex-item item-size" id="radioItem1">
+      <div class="headerFd" id="radioItem1_headerFd"> jestem</div>
+       
+      <ul class="tabItem" id="radioItem1_tabItem">
+         <li >
+           <div class="btnFd" id="radioItem1_btnFd">
+              <label for="tab1" id="radioItem1_labFd1">tab 1</label>
+              <label for="tab2" id="radioItem1_labFd2">tab 2</label>
+              <label for="tab3" id="radioItem1_labFd3">tab 3</label>
+           </div>
+         </li>
+         <li>
+            <input type="radio" checked name="tabItem" id="tab1">
+            <div id="radioItem1_fdData" class="contentFd">
+            <h3> acctual data</h3>
+             <!-- Your Content Here -->
+            </div>
+         </li>
+         <li>
+            <input type="radio" name="tabItem" id="tab2">
+            <div id="radioItem1_fdGraph" class="contentFd">
+                <h3>diagram</h3>
+                <!-- Your Content Here -->
+            </div>
+         </li>
+         <li>
+            <input type="radio" name="tabItem" id="tab3">  
+            <div id="radioItem1_fdSettings" class="contentFd">
+                <h3>settings</h3>
+                <!-- Your Content Here -->
+            </div>
+         </li>
+      </ul>  
+   </div> 
+  <div class="flex-item item-size">2</div>
+  <div class="flex-item item-size">3</div>
+  <div class="flex-item item-size">4</div>
+  <div class="flex-item item-size">5</div>
+  <div class="flex-item item-size">6</div>
+</div>
+        
+
+        <input type="button" value="get width" onclick="getWidth()"/>
+        <div id="height" style="width:100%;border: 1px solid black;">
+                szerokość
+        </div>
+        <div id="width" style="width:100%;border: 1px solid black;">
+                wysokość
+        </div>
+        <div class="text"></div>
+        
+    </body>
+</html>
