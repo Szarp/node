@@ -12,15 +12,24 @@
 .graph .labels.y-labels {
   text-anchor: end;
 }
-
+.text{
+    text-anchor: middle;
+    font-size: 15px;
+    
+}
 
 .graph {
   height: 200px;
   width: 200px;
 }
 
-.graph .grid {
-  stroke: #ccc;
+.grid {
+  stroke: #FFF;
+  stroke-dasharray: 0;
+  stroke-width: 3;
+}
+.labelY{
+    stroke: #FFF;
   stroke-dasharray: 0;
   stroke-width: 1;
 }
@@ -37,6 +46,6 @@
 }
 
 .data {
-  fill: red;
+  fill: blue;
   stroke-width: 1; 
 }

@@ -3,16 +3,15 @@ var app = express();
 var fs = require('fs');
 var bodyParser =require('body-parser')
 var multer = require('multer');
+app.use(bodyParser.json());
+//app.use(multer);
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing
 //registration
-function register(){
-    var getLogin=function(user_obj){
-        var login = Object.keys(user_obj)[0];
-        addToUserList(login,user_obj);
-        
-    }
-    var addToUserList=function(login,user_obj){
-        var userList= JSON.parse(fs.readFileSync(__dirname + '/json/user-list.json', 'utf8'));
 
+    var addToUserList=function(login,user_obj){
+        //var userList= JSON.parse(fs.readFileSync(__dirname + '/json/users-list.json', 'utf8'));
+        var parsed=toString(fs.readFileSync(__dirname + '/json/users-list.json', 'utf8'));
+        var userList=JSON.parse(parsed);
         if(!userList[login]){
             userList.push(user_obj);
             console.log(userList);
@@ -22,6 +21,13 @@ function register(){
             console.log("invalid login");
             return("invalid login");
         }
+        return;
+    }
+function register(){
+    var getLogin=function(user_obj){
+        var login = Object.keys(user_obj)[0];
+        addToUserList(login,user_obj);
+        
     }
     var checkStatus=function(login){
         var userList= JSON.parse(fs.readFileSync(__dirname + '/json/user-list.json', 'utf8'));
@@ -34,7 +40,25 @@ function register(){
     }
   
 }
-
+function isJSON(data) {
+   var ret = true;
+   try {
+      JSON.parse(data);
+   }catch(e) {
+      ret = false;
+   }
+   return ret;
+}
+app.post('/register', function(req, res){
+     var params =  '{"name":"jan","id":"hg"}';
+    var registerParams=JSON.parse(params);
+        //var status=addToUserList(req.body.login,req.body);
+	//var obj2 = JSON.parse(fs.readFileSync(__dirname + '/json/name-id.json', 'utf8'));
+    //if(isJSON(req.body))
+    console.log(isJSON(req.body));
+   // console.log(obj2);
+    res.send(registerParams);
+});
 /*dodaj w przyszłości
 
 var data = "do shash'owania";
@@ -49,9 +73,7 @@ crypto.createHash('md5').update(data).digest("hex");
 
 //registration
 //app.use(require('connect').bodyParser());
-app.use(bodyParser.json());
-//app.use(multer);
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+// application/x-www-form-urlencoded
 
 /*
 fs.readFile('./json/name-id.json', 'utf8', function (err, data) {
@@ -74,7 +96,7 @@ app.get('/', function(req, res){
 
 //res.send(obj.name);
 	//app.use(express.static('public'));
-	res.sendFile( __dirname + '/public/client.html');
+	res.sendFile( __dirname + '/public/login.html');
 	//res.sendFile( __dirname + '/public/js/main.js');
 });
 app.listen(3000, function () {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Registration</title>
+        <meta name="description" content="Interaktywny">
+        <link rel="stylesheet" href="">
+        <script src=md5.js></script>
+        
+           </head>
+    <script>
+            
+function sendRequest(){
+   var http = new XMLHttpRequest();
+   var url = "get_data";
+    var params = {"name":"bartek","id":"hg"};//wysyłamy tylko coś pzy pomocy ...
+   var obj=JSON.stringify(params);
+   var param ="bartek"
+http.open("POST", url, true);
+
+//Send the proper header information along with the request
+http.setRequestHeader("Content-type", "application/json");
+http.setRequestHeader("Content-length", obj.length);
+http.setRequestHeader("Connection", "close");
+
+http.onreadystatechange = function() {//Call a function when the state changes.
+    if(http.readyState == 4 && http.status == 200) {
+        console.log(http.responseText);
+    }
+}
+http.send(obj);
+}
+    var sendObj = function(url,json_obj){
+    var http = new XMLHttpRequest();
+    //var url = "get_data";
+    var string_obj=JSON.stringify(json_obj);
+    http.open("POST", url, true);
+    http.setRequestHeader("Content-type", "application/json");
+    http.setRequestHeader("Content-length", json_obj.length);
+    http.setRequestHeader("Connection", "close");
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            response(http.responseText);
+        }
+    }
+    http.send(string_obj);
+}
+        var response=function(string){
+            console.log(string);
+        }
+var md=function(string){
+    var a=MD5(string);
+    console.log(a);
+    
+    
+}
+function myFunction() {
+    var x = document.getElementById("registerForm");
+    var json={
+            login:document.getElementById("login").value,
+            password:document.getElementById("password").value,
+            email:document.getElementById("email").value
+    };
+    sendObj('register',json)
+    sendRequest();
+    console.log(json);    
+}
+    
+    </script>
+    <body>
+      <ul>
+<li><label class="" for="inputLogin">Login</label>
+<input id="login" class="form-control" type="login"  placeholder="Login"></li>
+<li><label class="sr-only" for="inputPassword">Password</label>
+<input id="password" class="" type="password"  placeholder="Password"></li>
+<li><label class="sr-only" for="inputEmail">Email address</label>
+<input id="email" class="form-control" type="email" autofocus=""  placeholder="Email address"></li>
+<button class="" type="" onclick="myFunction()">Sing in</button>
+  </ul>    
+        <button class="" type="" onclick="md('bartek')">Sing in</button>
+    </body>
+</html>

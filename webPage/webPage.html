@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,11 +8,8 @@
         <link rel="stylesheet" href="./css/webPage.css">
         <link rel="stylesheet" href="./css/radioItem.css">
          <link rel="stylesheet" href="./css/mediaSize.css">
-
-
-        <script>
-            
-        </script>
+         <link rel="stylesheet" href="./css/webGraph.css">
+        <script type="text/javascript" src="webPage.js"></script>
     </head>
     <body>
 
@@ -34,14 +30,14 @@
          <li>
             <input type="radio" checked name="tabItem" id="tab1">
             <div id="radioItem1_fdData" class="contentFd">
-            <h3> acctual data</h3>
-             <!-- Your Content Here -->
+                <h3>data</h3>
             </div>
          </li>
          <li>
             <input type="radio" name="tabItem" id="tab2">
             <div id="radioItem1_fdGraph" class="contentFd">
                 <h3>diagram</h3>
+                <input type="button" onclick="createGraph()" value="btn">
                 <!-- Your Content Here -->
             </div>
          </li>
