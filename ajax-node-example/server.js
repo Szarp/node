@@ -5,13 +5,13 @@ var bodyParser =require('body-parser')
 var multer = require('multer');
 app.use(bodyParser.json());
 //app.use(multer);
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing
+app.use(bodyParser.urlencoded({ extended: false })); // for parsing
 //registration
 
     var addToUserList=function(login,user_obj){
         //var userList= JSON.parse(fs.readFileSync(__dirname + '/json/users-list.json', 'utf8'));
-        var parsed=toString(fs.readFileSync(__dirname + '/json/users-list.json', 'utf8'));
-        var userList=JSON.parse(parsed);
+        var text=fs.readFileSync(__dirname + '/json/users-list.txt');
+        var userList=JSON.parse(text);
         if(!userList[login]){
             userList.push(user_obj);
             console.log(userList);
@@ -23,24 +23,13 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing
         }
         return;
     }
-function register(){
+
     var getLogin=function(user_obj){
         var login = Object.keys(user_obj)[0];
         addToUserList(login,user_obj);
         
     }
-    var checkStatus=function(login){
-        var userList= JSON.parse(fs.readFileSync(__dirname + '/json/user-list.json', 'utf8'));
-        if(userList.userList[login]){
-        //userList.push(user_obj);
-            //sendMessage("zajete");
-            console.log("ok");
-            return("ok");
-        }   
-    }
-  
-}
-function isJSON(data) {
+    function isJSON(data) {
    var ret = true;
    try {
       JSON.parse(data);
@@ -49,15 +38,52 @@ function isJSON(data) {
    }
    return ret;
 }
+    var checkStatus=function(login){
+        var text=fs.readFileSync(__dirname + '/json/users-list',"utf-8");
+        var obj=returnJSON(text);
+        //obj['coolness']={'abc':"34.33"};
+        obj.push({'abc':"34.33"});
+            console.log(obj);
+        //var userList=JSON.parse(text);
+        /*var length=userList.userList.length;
+        for(var i=0;i<length;i++){
+            if(userList.userList[i]==login){
+            //userList.push(user_obj);
+                //sendMessage("zajete");
+                console.log("jest wolne miejsce");
+                return("ok");
+            }   
+        }*/
+        return obj;
+    }
+  
+
+function returnJSON(data) {
+   var par=false;
+   var ret =data;
+   try {
+      JSON.parse(data);
+   }catch(e) {
+      par = true;
+   }
+    if(ret==true){
+        ret=JSON.parse(data);
+    }
+   return ret;
+}
 app.post('/register', function(req, res){
-     var params =  '{"name":"jan","id":"hg"}';
-    var registerParams=JSON.parse(params);
+    // var params =  '{"name":"jan","id":"hg"}';
+    var registerParams=returnJSON(req.body);
         //var status=addToUserList(req.body.login,req.body);
 	//var obj2 = JSON.parse(fs.readFileSync(__dirname + '/json/name-id.json', 'utf8'));
+    var json=checkStatus('jana');
+    var json2=returnJSON(json);
+   console.log(json2);
+    //console.log(json2);
     //if(isJSON(req.body))
-    console.log(isJSON(req.body));
-   // console.log(obj2);
-    res.send(registerParams);
+    //console.log(registerParams);
+    //console.log(obj2);
+    res.send(json);
 });
 /*dodaj w przyszłości
 

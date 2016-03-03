@@ -6,11 +6,26 @@
         <title>Registration</title>
         <meta name="description" content="Interaktywny">
         <link rel="stylesheet" href="">
-        <script src=md5.js></script>
         
            </head>
     <script>
-            
+   var jan={
+        bartek:{
+            password:"bartek15",
+            md5_pass:"teraztutajsuperfajnafunkcjaskutu",
+            email:"jannowak@gmail.com"
+        },
+        jan:{
+            password:"jan15",
+            md5_pass:"teraztutdkhdsperfajnafunkcjaskutu",
+            email:"janncjas@gmail.com"
+        },
+        ala:{
+            password:"ala15",
+            md5_pass:"teraztutajsupsdljajnafunkcjaskutu",
+            email:"janala@gmail.com"
+        }
+};    
 function sendRequest(){
    var http = new XMLHttpRequest();
    var url = "get_data";
@@ -41,32 +56,41 @@ http.send(obj);
     http.setRequestHeader("Connection", "close");
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
-            response(http.responseText);
+            response(JSON.parse(http.responseText));
         }
     }
     http.send(string_obj);
 }
         var response=function(string){
-            console.log(string);
+            
+            var obj=string;
+            console.log(string,string.ala);
+          //  var obj2=JSON.parse(string);
+           // console.log(obj2.ala);
         }
-var md=function(string){
-    var a=MD5(string);
-    console.log(a);
-    
-    
-}
+
+
 function myFunction() {
-    var x = document.getElementById("registerForm");
-    var json={
+    //var x = document.getElementById("registerForm");
+/*    var json={
             login:document.getElementById("login").value,
             password:document.getElementById("password").value,
             email:document.getElementById("email").value
     };
+*/
+    var json={
+            login:'Jan',
+            password:'Nowak',
+            email:'jannowak@gmail.com'
+    };
     sendObj('register',json)
-    sendRequest();
+    //sendRequest();
     console.log(json);    
 }
-    
+    function test(){
+        console.log(jan.ala);
+        
+    }
     </script>
     <body>
       <ul>
@@ -78,6 +102,6 @@ function myFunction() {
 <input id="email" class="form-control" type="email" autofocus=""  placeholder="Email address"></li>
 <button class="" type="" onclick="myFunction()">Sing in</button>
   </ul>    
-        <button class="" type="" onclick="md('bartek')">Sing in</button>
+        <button class="" type="" onclick="test()">test</button>
     </body>
 </html>
