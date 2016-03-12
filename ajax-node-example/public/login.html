@@ -68,8 +68,31 @@ http.send(obj);
           //  var obj2=JSON.parse(string);
            // console.log(obj2.ala);
         }
+        var checkLogin=function(string){
+            var specialCharakters="~!@#$%^&*()_-+={}[]\|:;,.?";
+            var bigLetters="ABCDEFGHIJKLMNOPRSTUWXYZ";
+            var smallLetters="abcdefghijklmnoprstuwxyz";
+            var digits="0123456789";
+            var marks=specialCharakters+bigLetters+smallLetters+digits;
+            
+            if(string.length<9){
+                return 'To short'   
+            }
 
-
+            
+            for(var i=0;i<string.length;i++){
+                if(marks.indexOf(string[i])==-1){
+                    return 'Invalid charakter'
+                    //break;
+                }
+            }
+            return null;
+        }
+    function checkIfLogin(string){
+	  	var ret=checkLogin(string);
+        if(ret==null){console.log('ok')}
+        else{console.log(ret);}
+    }
 function myFunction() {
     //var x = document.getElementById("registerForm");
 /*    var json={
@@ -88,7 +111,11 @@ function myFunction() {
     console.log(json);    
 }
     function test(){
-        console.log(jan.ala);
+        //var str = "Hello world, welcome to the universe.";
+        //var n = str.indexOf(" "); 
+        //var a=Date();
+        //console.log(n);
+        checkIfLogin('SDascsAS298');
         
     }
     </script>

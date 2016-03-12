@@ -8,82 +8,62 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing
 //registration
 
-    var addToUserList=function(login,user_obj){
-        //var userList= JSON.parse(fs.readFileSync(__dirname + '/json/users-list.json', 'utf8'));
-        var text=fs.readFileSync(__dirname + '/json/users-list.txt');
-        var userList=JSON.parse(text);
-        if(!userList[login]){
-            userList.push(user_obj);
-            console.log(userList);
-            return("ok");
-        }
-        else{
-            console.log("invalid login");
-            return("invalid login");
-        }
-        return;
-    }
 
-    var getLogin=function(user_obj){
-        var login = Object.keys(user_obj)[0];
-        addToUserList(login,user_obj);
+
+
+    var checkStatus=function(login){
+        var text=fs.readFileSync(__dirname + '/json/users-list.json',"utf-8");
+        console.log(text);
+        var a=JSON.parse(text);
+        a['coola']={'abc':"34.33"};
+        delete a['cool'];
+        var x=JSON.stringify(a);
+        console.log(a);
+        fs.writeFileSync(__dirname + '/json/users-list.json', x, 'utf-8');
+        return a;
+    }
+    var addKeyValue=function(obj,key,value){
+           obj[key]=value;
+           return obj;
         
     }
-    function isJSON(data) {
-   var ret = true;
-   try {
-      JSON.parse(data);
-   }catch(e) {
-      ret = false;
-   }
-   return ret;
-}
-    var checkStatus=function(login){
-        var text=fs.readFileSync(__dirname + '/json/users-list',"utf-8");
-        var obj=returnJSON(text);
-        //obj['coolness']={'abc':"34.33"};
-        obj.push({'abc':"34.33"});
-            console.log(obj);
-        //var userList=JSON.parse(text);
-        /*var length=userList.userList.length;
-        for(var i=0;i<length;i++){
-            if(userList.userList[i]==login){
-            //userList.push(user_obj);
-                //sendMessage("zajete");
-                console.log("jest wolne miejsce");
-                return("ok");
-            }   
-        }*/
-        return obj;
+    var addDate=function(obj){
+     obj['joinDate']=Date();   
+     return obj;
     }
-  
-
-function returnJSON(data) {
-   var par=false;
-   var ret =data;
-   try {
-      JSON.parse(data);
-   }catch(e) {
-      par = true;
-   }
-    if(ret==true){
-        ret=JSON.parse(data);
-    }
-   return ret;
-}
+    var checkAccessibility=function(obj,key){
+        for(var k in obj) {
+            if (obj[k]==obj[key]) {
+                //console.log(obj[k]);
+                return 'invalid username';
+                
+            }
+    
+        }
+        return 'ok';
+    } 
 app.post('/register', function(req, res){
     // var params =  '{"name":"jan","id":"hg"}';
-    var registerParams=returnJSON(req.body);
+    var loginData=req.body;
+        var user = {
+       login: req.body.login,
+       email: req.body.email,
+       password: req.body.password,
+       //Num: req.body.num
+   };
+    console.log(user);
+    addDate(user);
+    console.log(user);
         //var status=addToUserList(req.body.login,req.body);
 	//var obj2 = JSON.parse(fs.readFileSync(__dirname + '/json/name-id.json', 'utf8'));
-    var json=checkStatus('jana');
-    var json2=returnJSON(json);
-   console.log(json2);
+   // var json=checkStatus('jana');
+    //var json2=returnJSON(json);
+   //console.log(json2);
     //console.log(json2);
     //if(isJSON(req.body))
     //console.log(registerParams);
     //console.log(obj2);
-    res.send(json);
+    res.send('ok');
 });
 /*dodaj w przyszłości
 
@@ -94,20 +74,6 @@ crypto.createHash('md5').update(data).digest("hex");
 
 
 */
-
-
-
-//registration
-//app.use(require('connect').bodyParser());
-// application/x-www-form-urlencoded
-
-/*
-fs.readFile('./json/name-id.json', 'utf8', function (err, data) {
-  if (err) throw err;
-  obj = JSON.parse(data);
-});
-*/
-
 app.post('/get_data', function(req, res){
      var params =  '{"name":"jan","id":"hg"}';
     //var obj2=JSON.parse(req.body);
@@ -115,8 +81,7 @@ app.post('/get_data', function(req, res){
     console.log(req.body);
    // console.log(obj2);
     res.send(params);
-});
-     
+});  
 app.get('/', function(req, res){
   //res.send('Hello World');
 

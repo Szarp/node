@@ -1,8 +1,10 @@
+
 {
         bartek:{
             password:"bartek15",
             md5_pass:"teraztutajsuperfajnafunkcjaskutu",
-            email:"jannowak@gmail.com"
+            email:"jannowak@gmail.com",
+            joinData:
         },
         jan:{
             password:"jan15",
@@ -13,5 +15,6 @@
             password:"ala15",
             md5_pass:"teraztutajsupsdljajnafunkcjaskutu",
             email:"janala@gmail.com"
-        }
+        },
+    usersList:["bartek","jan","ala"]
 }
