@@ -1,61 +1,70 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-var bodyParser =require('body-parser')
-var multer = require('multer');
-var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 app.use(bodyParser.json());
-//app.use(multer);
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing
 app.use(cookieParser());
-//registration
 
 
-/*
+app.post('/register', function(req, res){
+    var params =  '{"name":"jan","id":"hg"}';
+    var loginData = req.body;
+      console.log(loginData);
+    var a = 'blad';
+    if(newUserCheck.testUserLogin(loginData)){
+        if(addNewUser.addUser(loginData)){
+             a='dodano do listy';
+        }
+         
+    }
+
+    console.log(a+'  '+loginData.login);
+    var a = loginUser.login({"login":'jan',"password":'jan123',"cookie":3567898756});
+    res.send(a);
+});
+
 // set a cookie
 app.use(function (req, res, next) {
   // check if client sent cookie
-  var cookie = req.cookies.cookieName;
-  if (cookie === undefined)
-  {
-    // no: set a new cookie
-    var randomNumber=Math.random().toString();
-    randomNumber=randomNumber.substring(2,randomNumber.length);
-    res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
-    console.log('cookie created successfully');
-  } 
-  else
-  {
+    var cookie = req.cookies.cookieName;
+    if (cookie === undefined){
+        // no: set a new cookie
+        var randomNumber=Math.random().toString();
+        randomNumber=randomNumber.substring(2,randomNumber.length);
+        res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
+        console.log('cookie created successfully');
+    } 
+    else{
     // yes, cookie was already present 
-    console.log('cookie exists', cookie);
-  } 
-  next(); // <-- important!
+        console.log('cookie exists', cookie);
+    } 
+    next(); // <-- important!
 });
 
 // let static middleware do its job
-app.use(express.static(__dirname + '/public'));
-*/
-app.post('/register', function(req, res){
+//app.use(express.static(__dirname + '/public'));
+app.post('/a', function(req, res){
+    // var params =  '{"name":"jan","id":"hg"}';
+    //res.cookie('cookiename', 'cookievalue', { maxAge: 900000, httpOnly: true });
+
+    res.send('hi');
+});
+app.post('/login', function(req, res){
     // var params =  '{"name":"jan","id":"hg"}';
     var loginData=req.body;
       console.log(loginData);
     var a='blad';
-     if(newUserCheck.testUserLogin(loginData)){
-          if(addNewUser.addUser(loginData)){
+     if(loginUser.login(loginData)){
              a='dodano do listy';
           }
          
-     }
 
     console.log(a+'  '+loginData.login);
     res.send(a);
 });
-app.post('/a', function(req, res){
-    // var params =  '{"name":"jan","id":"hg"}';
-    res.cookie('cookiename', 'cookievalue', { maxAge: 900000, httpOnly: true });
 
-    //res.send(a);
-});
 /*dodaj w przyszłości
 
 var data = "do shash'owania";
@@ -81,6 +90,90 @@ app.get('/', function(req, res){
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
+var loginUser=(function(){
+        readFile=function(){
+            var file=fs.readFileSync(__dirname + '/json/users-list.json',"utf-8");
+            return JSON.parse(file);
+        }
+
+        writeSesion=function(obj){
+            var parsedObj=JSON.stringify(obj);
+            fs.writeFileSync(__dirname + '/json/loginUsers.json', parsedObj, 'utf-8');
+            //console.log()
+        }
+        readSesion=function(){
+            var file = fs.readFileSync(__dirname + '/json/loginUsers.json', 'utf-8');
+            return JSON.parse(file);
+            
+        }
+        test_accessibility=function(file,loginObj){
+            for(var k in file) {
+                if (file[k]==file[loginObj.login]) {
+                    if(file[k].password!=loginObj.password){
+                        //console.log(obj[k]);
+                        throw 'invalid username or login';
+                        break;
+                    }
+                }
+                    
+            }
+        }
+        addKeyValue=function(obj,key,value){
+           obj[key]=value;
+           return obj;
+        }
+        //testy  
+        addToLoginList=function(obj){    
+            if(tryToLogin(obj)){
+                var login = obj.login;
+                var password=obj.password;
+                var cookie = obj.cookie;
+                //var MD5pass='sd';//ta funkcja
+                var file=readSesion();
+                writeSesion(addKeyValue(file,cookie,login));
+                return true;
+            }
+            return false;
+        }
+        tryToLogin=function(obj){    
+            var file=readFile();
+            try{
+                //test_readFile(file);
+                //test_writeFile(newObj,file);
+                test_accessibility(file,obj);
+            }
+            catch(e){
+                console.log('blad: '+e);
+                return false;
+            }
+         
+        return true;
+        }
+        //testy
+        test_Login=function(){
+            var obj={
+                "login":'jan',
+                "password":'jan123',
+                "cookie":3567898756
+            };
+            var file={"jan":{"email":"jannowak@gmail.com","password":"jan123","MD5":"sd"}};
+            try{
+                test_accessibility(file,obj);
+            }
+            catch(e){
+                console.log('blad: '+e);
+                return false;
+            }
+            
+            
+        }
+
+    return{
+        login:addToLoginList,
+        test:test_Login
+
+    };
+})();
 var addNewUser=(function(){
         readFile=function(){
             var file=fs.readFileSync(__dirname + '/json/users-list.json',"utf-8");
@@ -123,7 +216,8 @@ var addNewUser=(function(){
             var MD5pass='sd';//ta funkcja
             var file=readFile();
             addDate(obj);
-            var newObj=addKeyValue(file,login,{email:email,password:password,MD5:MD5pass});
+            var date=obj.joinDate;
+            var newObj=addKeyValue(file,login,{email:email,password:password,MD5:MD5pass,joinDate:date});
             console.log(newObj);
             writeFile(newObj);
             try{
