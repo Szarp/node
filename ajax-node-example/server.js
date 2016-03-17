@@ -3,24 +3,38 @@ var app = express();
 var fs = require('fs');
 var bodyParser =require('body-parser')
 var multer = require('multer');
+var cookieParser = require('cookie-parser')
 app.use(bodyParser.json());
 //app.use(multer);
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing
+app.use(cookieParser());
 //registration
 
-    var checkStatus=function(login){
-        var text=fs.readFileSync(__dirname + '/json/users-list.json',"utf-8");
-        console.log(text);
-        var a=JSON.parse(text);
-        a['coola']={'abc':"34.33"};
-        delete a['cool'];
-        var x=JSON.stringify(a);
-        console.log(a);
-        fs.writeFileSync(__dirname + '/json/users-list.json', x, 'utf-8');
-        return a;
-    }
 
+/*
+// set a cookie
+app.use(function (req, res, next) {
+  // check if client sent cookie
+  var cookie = req.cookies.cookieName;
+  if (cookie === undefined)
+  {
+    // no: set a new cookie
+    var randomNumber=Math.random().toString();
+    randomNumber=randomNumber.substring(2,randomNumber.length);
+    res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
+    console.log('cookie created successfully');
+  } 
+  else
+  {
+    // yes, cookie was already present 
+    console.log('cookie exists', cookie);
+  } 
+  next(); // <-- important!
+});
 
+// let static middleware do its job
+app.use(express.static(__dirname + '/public'));
+*/
 app.post('/register', function(req, res){
     // var params =  '{"name":"jan","id":"hg"}';
     var loginData=req.body;
@@ -35,6 +49,12 @@ app.post('/register', function(req, res){
 
     console.log(a+'  '+loginData.login);
     res.send(a);
+});
+app.post('/a', function(req, res){
+    // var params =  '{"name":"jan","id":"hg"}';
+    res.cookie('cookiename', 'cookievalue', { maxAge: 900000, httpOnly: true });
+
+    //res.send(a);
 });
 /*dodaj w przyszłości
 
@@ -54,6 +74,7 @@ app.post('/get_data', function(req, res){
     res.send(params);
 });  
 app.get('/', function(req, res){
+    
 	res.sendFile( __dirname + '/public/login.html');
 
 });
@@ -218,3 +239,4 @@ var newUserCheck=(function(){
 
     };
 })();
+

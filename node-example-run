@@ -1,0 +1,2 @@
+pkill -f "node /home/bartek/gitrepo/node/ajax-node-example/server.js"
+ node /home/bartek/gitrepo/node/ajax-node-example/server.js
