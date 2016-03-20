@@ -1,92 +1,3 @@
-var express = require('express');
-var app = express();
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false })); // for parsing
-app.use(cookieParser());
-
-
-app.post('/register', function(req, res){
-    var params =  '{"name":"jan","id":"hg"}';
-    var loginData = req.body;
-      console.log(loginData);
-    var a = 'blad';
-    if(userModule.addUser(loginData)){
-        a='user added'+loginData.login;
-         
-    }
-
-    //console.log(a+'  '+loginData.login);
-    //var a = loginUser.login({"login":'jan',"password":'jan123',"cookie":3567898756});
-    res.send(a);
-});
-
-// set a cookie
-app.use(function (req, res, next) {
-  // check if client sent cookie
-    var cookie = req.cookies.cookieName;
-    if (cookie === undefined){
-        // no: set a new cookie
-        var randomNumber=Math.random().toString();
-        randomNumber=randomNumber.substring(2,randomNumber.length);
-        res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
-        console.log('cookie created successfully');
-    } 
-    else{
-    // yes, cookie was already present 
-        console.log('cookie exists', cookie);
-    } 
-    next(); // <-- important!
-});
-
-// let static middleware do its job
-//app.use(express.static(__dirname + '/public'));
-app.post('/a', function(req, res){
-    // var params =  '{"name":"jan","id":"hg"}';
-    //res.cookie('cookiename', 'cookievalue', { maxAge: 900000, httpOnly: true });
-
-    res.send('hi');
-});
-app.post('/login', function(req, res){
-    // var params =  '{"name":"jan","id":"hg"}';
-    var loginData=req.body;
-      console.log(loginData);
-    var a='blad';
-     
-         
-
-    console.log(a+'  '+loginData.login);
-    res.send(a);
-});
-
-/*dodaj w przyszłości
-
-var data = "do shash'owania";
-var crypto = require('crypto');
-crypto.createHash('md5').update(data).digest("hex");
-//funkcja skrótu
-
-
-*/
-app.post('/get_data', function(req, res){
-     var params =  '{"name":"jan","id":"hg"}';
-    //var obj2=JSON.parse(req.body);
-	//var obj2 = JSON.parse(fs.readFileSync(__dirname + '/json/name-id.json', 'utf8'));
-    console.log(req.body);
-   // console.log(obj2);
-    res.send(params);
-});  
-app.get('/', function(req, res){
-    userModule.test();
-	res.sendFile( __dirname + '/public/login.html');
-
-});
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
-
 
 
 
@@ -103,7 +14,8 @@ var userModule=(function(){
             if(!file[cookie]){throw 'user undefined'};
            return file[cookie];
         }
-        readFile = function(location){
+        }
+        readFile=function(location){
             var file=fs.readFileSync(location,"utf-8");
             return JSON.parse(file);
         }
@@ -116,7 +28,7 @@ var userModule=(function(){
             for(var k in file) {
                 if (file[k]==file[loginObj.login]) {
                     if(file[k].password==loginObj.password){
-                        //console.log(file[k]);
+                        //console.log(obj[k]);
                         //throw 'invalid username or login';
                         return true;
                     }
@@ -125,23 +37,22 @@ var userModule=(function(){
             }
             return false;
         }
+        test_accessibilityOfLoginPass=function(file,loginObj){
+            var file={"Jaxcvb":{"email":"jannowak@gmail.com","password":"dNowakgjk","MD5":"sd","joinDate":"Thu Mar 17 2016 23:46:33 GMT+0100 (CET)"},"Faxcvsddb":{"email":"jannowak@gmail.com","password":"dNowakgjk","MD5":"sd","joinDate":"Thu Mar 17 2016 23:46:33 GMT+0100 (CET)"}};
+            var loginObj={"Jaxcvb":{"email":"jannowak@gmail.com","password":"dNowakgjk","MD5":"sd","joinDate":"Thu Mar 17 2016 23:46:33 GMT+0100 (CET)"}}
+            var check=accessibilityOfLoginPass(file,loginObj);
+            if(!check){throw 'cant corect check login';}
+        }
         addKeyValue=function(obj,key,value){
            obj[key]=value;
            return obj;
         }
-        test_accessibilityOfLoginPass=function(file,loginObj){
-            var file={"Jaxcvb":{"email":"jannowak@gmail.com","password":"dNowakgjk","MD5":"sd","joinDate":"Thu Mar 17 2016 23:46:33 GMT+0100 (CET)"},"Faxcvsddb":{"email":"jannowak@gmail.com","password":"dNowakgjk","MD5":"sd","joinDate":"Thu Mar 17 2016 23:46:33 GMT+0100 (CET)"}};
-            var loginObj={login:"Jaxcvb","email":"jannowak@gmail.com","password":"dNowakgjk","MD5":"sd","joinDate":"Thu Mar 17 2016 23:46:33 GMT+0100 (CET)"}
-            var check=accessibilityOfLoginPass(file,loginObj);
-            if(!check){throw 'cant corect check login';}
-        }
-        test_addKeyValue = function(){
+        test_addKeyValue(){
             var obj = {};
             var key = 'a';
             var value = 123;
             var newObj=addKeyValue(obj,key,value);
-            //console.log(newObj);
-            if(newObj.a!=123){throw 'cant add key-value';}
+            if(newObj!={'a':123}){throw 'cant add key-value';}
             
         }
         //testy  
@@ -178,12 +89,10 @@ var userModule=(function(){
             var file=readFile(userListFile);
             addDate(obj);
             var date=obj.joinDate;
-            if(chcekPropertyOfLogin(obj)){
-                var newObj=addKeyValue(file,login,{email:email,password:password,MD5:MD5pass,joinDate:date});
-                console.log(newObj);
-                writeFile(userListFile,newObj);
-                return true;
-            }
+            var newObj=addKeyValue(file,login,{email:email,password:password,MD5:MD5pass,joinDate:date});
+            console.log(newObj);
+            writeFile(userListFile,newObj);
+        return true;
         }
         //testy
         checkPropertyOfArray=function(string,length){
@@ -240,11 +149,11 @@ var userModule=(function(){
 
         tryInvalidLogin=function(){
              var login={
-                login:'abcd"',
+                login:'abcd',
                 email:'jan@gmail.com',
                 password:'ASASD#da"'
              };
-             if(checkPropertyOfArray(login)!=false){
+             if(checkPropertyOfLogin(login)!=false){
                  throw 'invald login goes on';
              }
         }
@@ -254,47 +163,28 @@ var userModule=(function(){
                 email:'jan@gmail.com',
                 password:'ASASD#da289'
             } ;
-            //var check=
-            if(checkPropertyOfArray(login)!=false){
+            if(checkPropertyOfLogin(login)!=false){
                 throw 'correct login doesnt go on'
             }
         }
-        deleteFormLoginList=function(file,cookie){
-            delete file[cookie];
-            return file;
-        }
         testModule=function(){
             try{
-                //tryInvalidLogin();
-                //tryCorrectLogin();
+                tryInvalidLogin();
+                tryCorrectLogin();
                 test_addKeyValue();
                 test_findUserByCookie();
                 test_accessibilityOfLoginPass();
-                test_logout();
             } 
             catch(e){
                 console.log('blad' + e);
                 //return false;
             }
         }
-    test_logout=function(){
-        var cookie=123456;
-        var file={"123456":'jan'};
-        var check=deleteFormLoginList(file,cookie);
-        console.log(check);
-        for(var prop in check) {
-            if(obj.hasOwnProperty(prop)){
-                throw 'cant logout'
-            }
-                
-        }
-    }
-    
     return{
         test:testModule,
         login:addToLoginList,
-        addUser:addUserToFile,
-        logout:deleteFormLoginList
+        test:test_Login,
+        addUser:addUserToFile
         //tryLogins=tryLogins
 
     };
