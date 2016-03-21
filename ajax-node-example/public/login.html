@@ -8,44 +8,7 @@
         <link rel="stylesheet" href="">
         
            </head>
-    <script>
-   var jan={
-        bartek:{
-            password:"bartek15",
-            md5_pass:"teraztutajsuperfajnafunkcjaskutu",
-            email:"jannowak@gmail.com"
-        },
-        jan:{
-            password:"jan15",
-            md5_pass:"teraztutdkhdsperfajnafunkcjaskutu",
-            email:"janncjas@gmail.com"
-        },
-        ala:{
-            password:"ala15",
-            md5_pass:"teraztutajsupsdljajnafunkcjaskutu",
-            email:"janala@gmail.com"
-        }
-};    
-function sendRequest(){
-   var http = new XMLHttpRequest();
-   var url = "get_data";
-    var params = {"name":"bartek","id":"hg"};//wysyłamy tylko coś pzy pomocy ...
-   var obj=JSON.stringify(params);
-   var param ="bartek"
-http.open("POST", url, true);
-
-//Send the proper header information along with the request
-http.setRequestHeader("Content-type", "application/json");
-http.setRequestHeader("Content-length", obj.length);
-http.setRequestHeader("Connection", "close");
-
-http.onreadystatechange = function() {//Call a function when the state changes.
-    if(http.readyState == 4 && http.status == 200) {
-        console.log(http.responseText);
-    }
-}
-http.send(obj);
-}
+    <script>  
     var sendObj = function(url,json_obj){
     var http = new XMLHttpRequest();
     //var url = "get_data";
@@ -68,73 +31,7 @@ http.send(obj);
           //  var obj2=JSON.parse(string);
            // console.log(obj2.ala);
 }
-var newUserCheck=(function(){
-        checkPropertyOfArray=function(string){
-            var specialCharakters="~!@#$%^&*()_-+={}[]\|:;,.?";
-            var bigLetters="ABCDEFGHIJKLMNOPRSTUWXYZ";
-            var smallLetters="abcdefghijklmnoprstuwxyz";
-            var digits="0123456789";
-            var marks=specialCharakters+bigLetters+smallLetters+digits;
-            
-            if(string.length<8){
-                return 'to short';
-            }
-            for(var i=0;i<string.length;i++){
-                if(marks.indexOf(string[i])==-1){
-                    return 'invalid mark';
-                }
-            }
-            return;
-        }
-        retPropertyOfArray=function(string){
-	  	    var retFrom=checkPropertyOfArray(string);
-            if(retFrom){ throw retFrom}
-        }
-        checkAccessibility=function(obj,key){
-            for(var k in obj) {
-                if (obj[k]==obj[key]) {
-                    //console.log(obj[k]);
-                    throw 'invalid username';
-                    break;
-                }
-            }
-        }
-        retUserFile=function(){
-            var file=fs.readFileSync(__dirname + '/json/users-list.json',"utf-8");
-            return JSON.parse(file);
-        }
-        
-        testFile=function(parsedFile){
-            if(!parsedFile){throw 'cant read file'}
-            
-        }
-        chcekPropertyOfLogin=function(obj){     
-            var login=obj.login;
-            var email=obj.email;
-            var password=obj.password;
-            var file={bartek:{},ala:{}};
-            try{
-                retPropertyOfArray(login);
-                retPropertyOfArray(email);
-                retPropertyOfArray(password);
-                testFile(file);
-                checkAccessibility(file,login);
-                
-            }
-            catch(e){
-                console.log('proba rejestracji  '+login+'  '+e);
-                return false;
-            }
-         
-        return true;
-        }
-        //testy
- 
-    return{
-        testUserLogin:chcekPropertyOfLogin,
 
-    };
-})();
     
 function myFunction() {
     //var x = document.getElementById("registerForm");
@@ -145,7 +42,7 @@ function myFunction() {
     };
 */
     var json={
-            login:'Jaxcvbkjkgnd',
+            login:'Bartek123',
             password:'dNowakgjk',
             email:'jannowak@gmail.com'
     };
@@ -159,11 +56,13 @@ function myFunction() {
         //var a=Date();
         //console.log(n);
             var json={
-            login:'Jand',
+            login:'Bartek123',
             password:'dNowakgjk',
-            cookie:3456789876543
+            //cookie:3456789876543
     };
-        sendObj('login',json)
+        
+        //sendObj('login',json)
+        sendObj('logout',{})
         //var a=newUserCheck.testUserLogin(json);
         //console.log(a);
         

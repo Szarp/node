@@ -3,25 +3,12 @@ var app = express();
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var userMod = require('./userModule.js');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing
 app.use(cookieParser());
 
 
-app.post('/register', function(req, res){
-    var params =  '{"name":"jan","id":"hg"}';
-    var loginData = req.body;
-      console.log(loginData);
-    var a = 'blad';
-    if(userModule.addUser(loginData)){
-        a='user added'+loginData.login;
-         
-    }
-
-    //console.log(a+'  '+loginData.login);
-    //var a = loginUser.login({"login":'jan',"password":'jan123',"cookie":3567898756});
-    res.send(a);
-});
 
 // set a cookie
 app.use(function (req, res, next) {
@@ -40,24 +27,35 @@ app.use(function (req, res, next) {
     } 
     next(); // <-- important!
 });
-
-// let static middleware do its job
-//app.use(express.static(__dirname + '/public'));
 app.post('/a', function(req, res){
-    // var params =  '{"name":"jan","id":"hg"}';
-    //res.cookie('cookiename', 'cookievalue', { maxAge: 900000, httpOnly: true });
-
     res.send('hi');
+});
+app.post('/register', function(req, res){
+    var params =  '{"name":"jan","id":"hg"}';
+    var loginData = req.body;
+    console.log(loginData);
+    var a = 'blad';
+    if(userModule.addUser(loginData)){
+        a='user added'+loginData.login;
+         
+    }
+    res.send(a);
 });
 app.post('/login', function(req, res){
     // var params =  '{"name":"jan","id":"hg"}';
     var loginData=req.body;
-      console.log(loginData);
-    var a='blad';
+    var a= 'false'
+    loginData['cookie']=req.cookies.cookieName
+      //console.log(req.cookies.cookieName);
+    if(userModule.login(loginData)){
+        a='ok';
+        
+    }
+    //var a='blad';
      
          
 
-    console.log(a+'  '+loginData.login);
+    //console.log(a+'  '+loginData.login);
     res.send(a);
 });
 
@@ -77,9 +75,19 @@ app.post('/get_data', function(req, res){
     console.log(req.body);
    // console.log(obj2);
     res.send(params);
-});  
+});
+app.post('/logout', function(req, res){
+    var cookie = req.cookies.cookieName;
+    userModule.logout(cookie);
+    console.log(cookie);
+    res.send('ok');
+    
+});
 app.get('/', function(req, res){
-    userModule.test();
+    var user = new userMod(); 
+    var a =user.testModule();
+    console.log(a);
+    //userModule.test();
 	res.sendFile( __dirname + '/public/login.html');
 
 });
@@ -88,11 +96,13 @@ app.listen(3000, function () {
 });
 
 
-
-
+/* ******************************************************************************/
+/* ******************************************************************************/
+/* ******************************************************************************/
+/* ******************************************************************************/
 var userModule=(function(){
-        var sesionFile=__dirname+'/json/loginUsers.json';
-        var userListFile=__dirname+'/json/users-list.json';
+        var sessionFile =__dirname+'/json/loginUsers.json';
+        var userListFile =__dirname+'/json/users-list.json';
         test_findUserByCookie=function(){
             var cookie=34567890123890;
             var file={34567890123890:'jan',3456789079234899:'bartek'};
@@ -148,11 +158,11 @@ var userModule=(function(){
         addToLoginList=function(obj){    
             if(tryToLogin(obj)){
                 var login = obj.login;
-                var password=obj.password;
+                //var password=obj.password;
                 var cookie = obj.cookie;
                 //var MD5pass='sd';//ta funkcja
                 var file=readFile(sessionFile);
-                writeFile(sesionFile,addKeyValue(file,cookie,login));
+                writeFile(sessionFile,addKeyValue(file,cookie,login));
                 return true;
             }
             return false;
@@ -219,12 +229,12 @@ var userModule=(function(){
         
         chcekPropertyOfLogin=function(obj){
             var login=obj.login;
-            var email=obj.email;
+            //var email=obj.email;
             var password=obj.password;
             var file=readFile(userListFile);
             try{
                 retPropertyOfArray(login,5);
-                retPropertyOfArray(email,5);
+                //retPropertyOfArray(email,5);
                 retPropertyOfArray(password,8);
                 checkAccessibility(file,login);
                 
@@ -263,6 +273,12 @@ var userModule=(function(){
             delete file[cookie];
             return file;
         }
+        logoutUser=function(cookie){
+            var file = readFile(sessionFile);
+            var newFile = deleteFormLoginList(file,cookie);
+            writeFile(sessionFile,newFile);
+            
+        }
         testModule=function(){
             try{
                 //tryInvalidLogin();
@@ -294,7 +310,7 @@ var userModule=(function(){
         test:testModule,
         login:addToLoginList,
         addUser:addUserToFile,
-        logout:deleteFormLoginList
+        logout:logoutUser
         //tryLogins=tryLogins
 
     };
