@@ -6,11 +6,11 @@
         <title>Registration</title>
         <meta name="description" content="Interaktywny">
         <link rel="stylesheet" href="">
-        <link rel="stylesheet" href="../../webPage/css/webPage.css">
-        <link rel="stylesheet" href="../../webPage/css/radioItem.css">
-         <link rel="stylesheet" href="../../webPage/css/mediaSize.css">
-         <link rel="stylesheet" href="../../webPage/css/webGraph.css">
-        <script type="text/javascript" src="webPage.js"></script>
+        <link rel="stylesheet" href="css/webPage.css">
+        <link rel="stylesheet" href="css/radioItem.css">
+         <link rel="stylesheet" href="css/mediaSize.css">
+         <link rel="stylesheet" href="css/webGraph.css">
+        <script type="text/javascript" src="js/webPage.js"></script>
         
            </head>
 
@@ -88,9 +88,23 @@ function myFunction() {
 }
         function register(){
             
-            sendObj('register',json)
+        var login = document.getElementById("login");
+        var pass =document.getElementById("password");
+        var email =document.getElementById("email");
+            console.log(login.value,pass.value);
+        var json={
+            login:login.value,
+            password:pass.value,
+            email:email.value
+        }
+           sendObj('register',json,showText)
             
             
+        }
+        function showText(string){
+            var a=document.getElementById('radioItem1_fdSettings')
+            a.innerHTML=string;
+            console.log(string);
         }
         function login(){
         var login = document.getElementById("loginLogin");
@@ -100,8 +114,7 @@ function myFunction() {
             login:login.value,
             password:pass.value
         }
-
-            
+           sendObj('login',json,showText)
             
         }
     function test(){
@@ -164,7 +177,7 @@ function myFunction() {
          <li>
             <input type="radio" name="tabItem" id="tab3">  
             <div id="radioItem1_fdSettings" class="contentFd">
-                <h2>-.- I told u</h2>
+               jzk
                 <!-- Your Content Here -->
             </div>
          </li>
