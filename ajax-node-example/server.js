@@ -27,8 +27,38 @@ app.use(function (req, res, next) {
     } 
     next(); // <-- important!
 });
-app.post('/a', function(req, res){
-    res.send('hi');
+app.post('/haslo', function(req, res){
+    var cookie = req.cookies.cookieName;
+    var value=req.body.value;
+    var sessionFile =__dirname+'/json/loginUsers.json';
+    var file=fs.readFileSync(sessionFile,"utf-8");
+    var json= JSON.parse(file);
+    var response;
+    var hasloOdpowiedz={
+        gCode:'disp("hello")',
+        gcode:'disp("hello")',
+        matlab:'+15 +5 -4 -6 0',
+        matLab:'+15 +5 -4 -6 0',
+        szyfr:'tak to szyfr - rzym',
+        Cezar:'tak, to jest szyfr cezara ;)',
+        cezar:'tak, to jest szyfr cezara ;)',
+        BONGO:'Brawo, prezenty odblokowne',
+        bongo:'Brawo, prezenty odblokowne'
+    }
+    if(json[cookie]=='Bartek'){
+        if(hasloOdpowiedz[value]){
+            response=hasloOdpowiedz[value];
+        }
+        else{
+            responese='invalid pass';
+        }
+    
+    }
+    else{ 
+        response='pls log in';
+    }
+    
+    res.send(response);
 });
 app.post('/register', function(req, res){
     var params =  '{"name":"jan","id":"hg"}';
@@ -48,7 +78,7 @@ app.post('/login', function(req, res){
     loginData['cookie']=req.cookies.cookieName
       //console.log(req.cookies.cookieName);
     if(userModule.login(loginData)){
-        a='next helper';
+        a='makieta_skrzyzowania';
         
     }
     //var a='blad';
@@ -118,7 +148,7 @@ app.get('/js/webPage.js', function(req, res){
 
 });
 
-app.listen(3000, function () {
+app.listen(4658, function () {
   console.log('Example app listening on port 3000!');
 });
 
@@ -337,7 +367,8 @@ var userModule=(function(){
         test:testModule,
         login:addToLoginList,
         addUser:addUserToFile,
-        logout:logoutUser
+        logout:logoutUser,
+        readFile:readFile
         //tryLogins=tryLogins
 
     };

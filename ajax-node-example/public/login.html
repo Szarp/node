@@ -101,10 +101,23 @@ function myFunction() {
             
             
         }
-        function showText(string){
-            var a=document.getElementById('radioItem1_fdSettings')
+        function showResponse(string){
+            var a=document.getElementById('response')
             a.innerHTML=string;
-            console.log(string);
+            //console.log(string);  
+            
+            
+        }
+        function sendPass(){
+            var haslo=document.getElementById('haslo');
+            var json = {value:haslo.value}
+            sendObj('haslo',json,showResponse)
+            
+        }
+        function showText(string){
+            //var a=document.getElementById('radioItem1_fdSettings')
+            //a.innerHTML=string;
+            //console.log(string);
         }
         function login(){
         var login = document.getElementById("loginLogin");
@@ -114,7 +127,7 @@ function myFunction() {
             login:login.value,
             password:pass.value
         }
-           sendObj('login',json,showText)
+           sendObj('login',json,showResponse)
             
         }
     function test(){
@@ -177,7 +190,10 @@ function myFunction() {
          <li>
             <input type="radio" name="tabItem" id="tab3">  
             <div id="radioItem1_fdSettings" class="contentFd">
-               jzk
+                <label class="sr-only" for="inputPassword"></label>
+                <input id="haslo" class="" type="login"  placeholder="Haslo">
+                <button class="" type="" onclick="sendPass()">Sprawdz haslo</button>
+                <div id='response'>Lets fun begin</div>
                 <!-- Your Content Here -->
             </div>
          </li>
