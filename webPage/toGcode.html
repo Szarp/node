@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Graph try</title>
+        <meta name="description" content="Interaktywny">
+        <link rel="stylesheet" href="./css/webGraph.css">
+        
+        
+        
+           </head>
+    <body>
+<script>
+    var mainBox_elements='';
+    function createBlock(x,y){
+        var el=document.getElementById("mainDiv");
+        var style='height="'+x+'" width="'+y+'"';
+        var b=createSvg.polyline('fill="none" stroke="#0074d9"',['0,0','0,'+y,x+','+y,x+',0','0,0']);
+        var a=createSvg.svg(style,b);
+        el.innerHTML=a;
+          mainBox_elements+=a;
+        console.log(mainBox_elements);
+        addElementtoSVG();
+    }
+    var addElementtoSVG=function(){
+        var el=document.getElementById("mainDiv");
+        var a=createSvg.line(10,10,20,20);
+        el.innerHTML='';
+        var string='<circle cx="150" cy="150" r="40" stroke="green" stroke-width="4" fill="yellow" />'+'</svg>';
+        mainBox_elements=mainBox_elements.replace("</svg>",string);
+        console.log('sdv',mainBox_elements);  
+       el.innerHTML=mainBox_elements;
+        
+    }
+    function cos(){
+var svg = document.getElementsByTagName('svg')[0]; //Get svg element
+var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'path'); //Create a path in SVG's namespace
+newElement.setAttribute("d","M 0 0 L 10 10"); //Set path's data
+newElement.style.stroke = "#000"; //Set stroke colour
+newElement.style.strokeWidth = "5px"; //Set stroke width
+svg.appendChild(newElement);
+    }
+    function createGraph(){
+    //var getLabel=getMinLabel();//min max medium
+    var el=document.getElementById("mainDiv");
+    x = 50;  
+    y = 50;  
+    min=20;
+    max=30;
+    style='height:'+x+'px';
+    //elements=[labelY(x,y),labelX(max,min,y),minMaxText(max,min,y)];
+    elements="";
+    elements+=createSvg.group('grid',createGrids(x,y));
+       
+       elements+=createSvg.group('labelY',labelY(x,y));
+       elements+=createSvg.group('labelY',labelX(25,20,y));
+       elements+=createSvg.group('text',minMaxText(25,20,x,y));
+       //console.log(text);
+       
+       text=createSvg.svg(style,elements);
+       el.innerHTML=text;
+    
+      //createSvg.tryTest();
+   }
+       var createSvg=(function(){
+        addElementToSVG=function(old,element){
+            var string=element+'</svg';
+            return old.replace("</svg>",string);
+        }
+        lineElement=function (x1,y1,x2,y2){
+            return '<line x1="'+x1+'" x2="'+x2+'" y1="'+y1+'" y2="'+y2+'"></line>';
+        }
+        svgElement=function(style,elements){
+            //<g class="labels y-labels"></g>
+            var text="";
+            elements =[].concat(elements);
+            for(var i=0;i<elements.length;i++){
+                   text+=elements[i];
+            }
+         return '<svg style="'+style+'">'+text+'</svg>';  
+            
+        }
+        textElement=function(x,y,msg){
+            //<text x="80" y="248">5</text>
+            return '<text x="'+x+'" y="'+y+'">'+msg+'</text>';
+        }
+        polylineElement=function(style,points){
+            var text="";   
+            for (var i=0;i<points.length;i++){
+                   text+=points[i];
+                   text+=" ";
+            }
+            return '<polyline '+style+' points="'+text+'"/>';    
+        }
+        groupElement=function(className,elements){
+            //<g class="labels y-labels"></g>
+            var text="";
+            elements =[].concat(elements);
+            for(var i=0;i<elements.length;i++){
+                   text+=elements[i];
+            }
+         return '<g class="'+className+'">'+text+'</g>';       
+        }
+        //testy
+        tryTest=function(){
+            try{
+                testGroup();
+                testPolyline();
+                testLine();
+            }
+            catch(e){console.log(e);}
+        }
+        testPolyline=function(){
+            var a=createSvg.polylineElement( 'fill="none" stroke="#0074d9"',['10,10','20,20','30,30'])
+            assertEqual('<polyline fill="none" stroke="#0074d9" points="10,10 20,20 30,30 "/>',a)  
+        }
+        testGroup=function(){
+            var a=groupElement('labels',['<line </>','<g>']);
+                b=groupElement('labels','<line </>');
+            assertEqual(a,'<g class="labels"><line </><g></g>');
+            assertEqual(b,'<g class="labels"><line </></g>');
+        }
+        testLine=function(){
+            var a=lineElement(10,10,20,20)
+            assertEqual(a,'<line x1="10" x2="20" y1="10" y2="20"></line>');
+        }
+    return{
+        text:textElement,
+        polyline:polylineElement,
+        group:groupElement,
+        svg:svgElement,
+        line:lineElement,
+        tryTest:tryTest,
+        addElement:addElementToSVG
+    };
+    
+})(); 
+        
+        
+        
+ </script>
+
+
+<div id='mainDiv' style='border:solid black 1px'>
+</div>
+        <button onclick='createBlock(150,150)'>dfh</button>
+    </body>
+</html>
