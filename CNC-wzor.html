@@ -6,59 +6,68 @@
 <script>
    // var y = (yA−yB)/(xA−xB)*x+(yA−(yA−yB)/(xA−xB)*xA)
 var CNCride = function(){
-    //this.drillWidth
-    parallelLine=function (){
-        var a;
-        var b;
-        var drill;
+    this.drillWidth=0.5;
+    this.parallelLine=function(a,b,direction){
+        var a1=a;
+        var b1=b;
+        //w zaleznosci od a oraz od kierunku wektora rysujemy takie proste
         if(a>0){
-            if(stan==gora){
-                b+=drill;
+            if(direction=='up'){
+                b+=this.drillWidth;
             }
             else{
-                b-=drill;
+                b-=this.drillWidth;
             }
         }
         if(a==0){
-            if(stan==gora){
-                b+=drill;
+            if(direction=='up'){
+                b+=this.drillWidth;
             }
             else{
-                b-=drill;
+                b-=this.drillWidth;
             }
         }
         if(a<0){
-            if(stan==gora){
-                b-=drill;
+            if(direction=='up'){
+                b-=this.drillWidth;
             }
             else{
-                b+=drill;
+                b+=this.drillWidth;
             }
         }
-
+        return {
+            'a':round(a,3),
+            'b':round(b,3)
+        };
     }
 
-    getStrightFromCordinates = function (a,b){
+    this.getStrightFromCordinates = function (a,b){
+        //a i b jako tablica 2 kordynatow
         var xA=a[0];
         var xB=b[0];
         var yA=a[1];
         var yB=b[1];
+        //wyrzucenie pionowych i poziomych funkcji
         if(yA-yB==0||xA-xB==0){
             return;
         }
         else{
+            //wzor na prosta
             var a1= (yA-yB);
             var a2=(xA-xB);
             var a = (a1/a2);
             var b = yA-(a1/a2*xA);
             console.log ('y='+round(a,3)+'x+'+round(b,3));
-            return[round(a,3),round(b,3)];
+            return{
+                'a':round(a,3),
+                'b':round(b,3)
+            }
         }
     }
-    vectorDirection = function (a,b){
+    this.vectorDirection = function (a,b){
         //kierunek jest z a do b
-        var x =relation(a[0],b[0]);
-        var y =relation(a[1],b[1]);
+        var x =this.relation(a[0],b[0]);
+        var y =this.relation(a[1],b[1]);
 
         if(x>0 && y>0||x>0 && y<0){
             return 'up';
@@ -68,17 +77,83 @@ var CNCride = function(){
         }
         //ma returnowac gora lub dol
     }
-    relation = function(a,b){ 
-        //zwraca -1,0,1 w zaleznosci od <,>,=
+    this.relation = function(a,b){ 
+        //zwraca -1,0,1 w zaleznosci od <,=,0
         var x=a-b;
         if(x<0){return -1}
         if(x>0){return 1}
         if(x==0){return 0}
     }
-    relation_test= function(){
+    this.relation_test= function(){
         if(1!=relation(5,3)||0!=relation(5,5)|| -1!=relation(3,5)){
             throw 'relation error';
         }
+    }
+    this.figure_test=function(){
+        var figure={
+            fig1:{
+                points:{
+                    '0':[1,0],
+                    '1':[5,3],
+                    '2':[1,6],
+                    '3':[0,3]
+                }
+            },
+            'fig2':{
+                points:{
+                    '0':[4,0],
+                    '1':[8,3],
+                    '2':[4,6],
+                    '3':[0,3]
+                }
+                
+            }
+        }
+        
+    }
+    this.drawStright_test=function(){
+        var vectors={
+            vec1:{
+                x1:0,
+                y1:0,
+                x2:1,
+                y2:1,
+                status:'up'
+            },
+            vec2:{
+                x1:0,
+                y1:0,
+                x2:-1,
+                y2:1,
+                status:'down'
+            },
+            vec3:{
+                x1:0,
+                y1:0,
+                x2:-1,
+                y2:-1,
+                status:'down'
+            },
+            vec4:{
+                x1:0,
+                y1:0,
+                x2:1,
+                y2:-1,
+                status:'up'
+            },
+        };
+
+        for(var i=1;i<6;i++){
+            var obj=vectors['vec'+i];
+            var a=[obj.x1,obj.y1]
+            var b=[obj.x2,obj.y2]
+            var oldStright=this.getStrightFromCordinates(a,b)
+            console.log('prosta wspolczynniki',oldStright.a,oldStright.b)
+            var direction=this.vectorDirection(a,b);
+            var stright=this.parallelLine(oldStright.a,oldStright.b,direction);
+            console.log('prosta rownolegla',stright.a,stright.b)
+        }
+        
     }
     this.vectorDirection_test=function(){
         var vectors={
@@ -159,9 +234,11 @@ function round(num, decimals){
         var a = [5,10];
         var b = [10,20];
         var c = new CNCride();
+        c.drillWidth=0.5
         //getLenghtFromAllCordinates([0,0],[0,4], [3,0]);
         //getStrightFromCordinates(a,b);
-        c.vectorDirection_test();
+        //c.vectorDirection_test()
+        c.drawStright_test();
         //CNCride.vectorDirection_test();
         
         

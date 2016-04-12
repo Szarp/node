@@ -14,25 +14,17 @@
 <script>
     var mainBox_elements='';
     function createBlock(x,y){
-        var el=document.getElementById("mainDiv");
+        //var el=document.getElementById("mainDiv");
         var style='height="'+x+'" width="'+y+'"';
-        var b=createSvg.polyline('fill="none" stroke="#0074d9"',['0,0','0,'+y,x+','+y,x+',0','0,0']);
-        var a=createSvg.svg(style,b);
-        el.innerHTML=a;
+        //var b=createSvg.polyline('fill="none" stroke="#0074d9"',['0,0','0,'+y,x+','+y,x+',0','0,0']);
+        var a=createSvg.svg(style,'');
+        //el.innerHTML=a;
           mainBox_elements+=a;
         console.log(mainBox_elements);
-        addElementtoSVG();
+        return a;
+        //createSvg.addElement("mainDiv",b);
     }
-    var addElementtoSVG=function(){
-        var el=document.getElementById("mainDiv");
-        var a=createSvg.line(10,10,20,20);
-        el.innerHTML='';
-        var string='<circle cx="150" cy="150" r="40" stroke="green" stroke-width="4" fill="yellow" />'+'</svg>';
-        mainBox_elements=mainBox_elements.replace("</svg>",string);
-        console.log('sdv',mainBox_elements);  
-       el.innerHTML=mainBox_elements;
-        
-    }
+
     function cos(){
 var svg = document.getElementsByTagName('svg')[0]; //Get svg element
 var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'path'); //Create a path in SVG's namespace
@@ -63,22 +55,91 @@ svg.appendChild(newElement);
     
       //createSvg.tryTest();
    }
-       var createSvg=(function(){
+    
+    var figurePrototype=function(){
+        
+        this.solidFill=true;
+        this.pocketHeight=2;
+        this.generateColor=function(){}
+    }
+    function circleFigure(){
+        figurePrototype.call(this);
+        this.radius=30;
+        this.pointsPossition=[[0,0]]
+        this.drawCircle=function(){
+        this.heightColor='#00cc00' //generateColor();
+            return '<circle cx="'+this.pointsPossition[0][0]+'" cy="'+this.pointsPossition[0][1]+'" r="'+this.radius+'" style="stroke:#006600; fill:'+this.heightColor+'"/>'
+        }
+    }
+    var exaplesObjects={
+        fig0:{
+            specie:'circle',//pierscien(annulus),line,shape
+            body:{
+                pocketHeight:2,//glebokosc
+                pointsPossition:[[15,15]],
+                radious:5,
+                fillSolid:true
+            }
+        },
+        fig1:{
+            type:'line',//pierscien(annulus),line,shape
+            pocketHeight:2,//glebokosc
+            pointsPossition:[[0,0],[15,15]],
+        },
+        fig2:{
+            type:'polyline',//pierscien(annulus),line,shape
+            pocketHeight:2,//glebokosc
+            pointsPossition:[[0,0],[0,15],[15,15],[15,0]],
+            fillSolid:true
+        },
+        fig3:{
+            type:'annulus',//pierscien(annulus),line,shape
+            pocketHeight:2,//glebokosc
+            pointsPossition:[[30,30]],
+            //esential elemnts^
+            //in case of type
+            Radious:10,
+            radious:5,
+            fillSolid:true
+        }
+    }
+    var createSvg=(function(){
+        addElementtoSVG=function(id,element){
+            var el=readDiv(id);
+            console.log(el);
+            element+='</svg>';
+            mainBox_elements=mainBox_elements.replace("</svg>",element);
+            var a=refreshDiv(mainBox_elements,el);
+            console.log('svg:',mainBox_elements);  
+            //el.innerHTML=mainBox_elements;
+
+        }
+        readDiv=function(id){
+            var el=document.getElementById(id);
+            console.log(el);
+            return el;
+        }
+        refreshDiv=function(element,el){
+            el.innerHTML='';
+            el.innerHTML=element;
+            return element;
+            
+        }
         addElementToSVG=function(old,element){
-            var string=element+'</svg';
+            var string=element+'</svg>';
             return old.replace("</svg>",string);
         }
-        lineElement=function (x1,y1,x2,y2){
-            return '<line x1="'+x1+'" x2="'+x2+'" y1="'+y1+'" y2="'+y2+'"></line>';
+        lineElement=function (x1,y1,x2,y2, style){
+            return '<line x1="'+x1+'" x2="'+x2+'" y1="'+y1+'" y2="'+y2+' style:"'+style+'></line>';
         }
         svgElement=function(style,elements){
             //<g class="labels y-labels"></g>
-            var text="";
+            /*var text="";
             elements =[].concat(elements);
             for(var i=0;i<elements.length;i++){
                    text+=elements[i];
-            }
-         return '<svg style="'+style+'">'+text+'</svg>';  
+            }*/
+         return '<svg '+style+'>'+elements+'</svg>';  
             
         }
         textElement=function(x,y,msg){
@@ -132,18 +193,32 @@ svg.appendChild(newElement);
         svg:svgElement,
         line:lineElement,
         tryTest:tryTest,
-        addElement:addElementToSVG
+        addElement:addElementtoSVG
     };
     
 })(); 
-        
+        function test(){
+            var a=createBlock(150,150);
+            var x=new circleFigure();
+            var element=x.drawCircle();
+            var b=createSvg.polyline( 'fill="block" stroke="#0074d9"',['10,10','20,20','0,20'])
+            createSvg.addElement('mainDiv',element);
+            createSvg.addElement('mainDiv',b);
+            console.log(x);
+            
+        }
         
         
  </script>
 
 
 <div id='mainDiv' style='border:solid black 1px'>
+    <svg>
+
+    <circle cx="40" cy="40" r="24" style="stroke:#006600; fill:#00cc00"/>
+
+</svg>
 </div>
-        <button onclick='createBlock(150,150)'>dfh</button>
+        <button onclick='test()'>dfh</button>
     </body>
 </html>
