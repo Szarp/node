@@ -8,7 +8,7 @@ var userMod=function(){
         self.test_addKeyValue = function(){
             var obj = {};
             var key = 'a';
-            var value = 1623;
+            var value = 123;
             var newObj=addKeyValue(obj,key,value);
             //console.log(newObj);
             if(newObj.a!=123){throw 'cant add key-value';}
