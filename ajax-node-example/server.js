@@ -97,8 +97,8 @@ app.listen(3000, function () {
 
 
 /* ******************************************************************************/
-/* ******************************************************************************/
-/* ******************************************************************************/
+/* ******************ctr + j - idź do deklaracji zmiennej*********************************/
+/* *****************ctrl + t - idź do definicji ***********************/
 /* ******************************************************************************/
 var userModule=(function(){
         var sessionFile =__dirname+'/json/loginUsers.json';
@@ -120,6 +120,7 @@ var userModule=(function(){
         writeFile=function(location,obj){
             var parsedObj=JSON.stringify(obj);
             fs.writeFileSync(location, parsedObj, 'utf-8');
+            //o co chodzi z tą szybką edycją
             
         }
         accessibilityOfLoginPass=function(file,loginObj){
