@@ -62,3 +62,21 @@
     text-align:;
     
 }
+.scaleColor{
+    background-color:none;
+    
+}
+.scaleColor ul{
+    padding-left: 15px;
+    padding-right: 5px;
+    color: blue;
+    list-style: none;
+    
+}
+.scaleColor li{
+    height: 15px;
+    width: 40px;
+    background-color:lightblue;
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
