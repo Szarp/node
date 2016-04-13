@@ -1,0 +1,272 @@
+<html>
+<head>
+<title>matma</title>
+</head>
+<body>
+<script>
+   // var y = (yA−yB)/(xA−xB)*x+(yA−(yA−yB)/(xA−xB)*xA)
+var CNCride = function(){
+    this.drillWidth=0.5;
+    this.parallelLine=function(a,b,direction){
+        var a1=a;
+        var b1=b;
+        //w zaleznosci od a oraz od kierunku wektora rysujemy takie proste
+        if(a>0){
+            if(direction=='up'){
+                b+=this.drillWidth;
+            }
+            else{
+                b-=this.drillWidth;
+            }
+        }
+        if(a==0){
+            if(direction=='up'){
+                b+=this.drillWidth;
+            }
+            else{
+                b-=this.drillWidth;
+            }
+        }
+        if(a<0){
+            if(direction=='up'){
+                b-=this.drillWidth;
+            }
+            else{
+                b+=this.drillWidth;
+            }
+        }
+        return {
+            'a':round(a,3),
+            'b':round(b,3)
+        };
+    }
+
+    this.getStrightFromCordinates = function (a,b){
+        //a i b jako tablica 2 kordynatow
+        var xA=a[0];
+        var xB=b[0];
+        var yA=a[1];
+        var yB=b[1];
+        //wyrzucenie pionowych i poziomych funkcji
+        if(yA-yB==0||xA-xB==0){
+            return;
+        }
+        else{
+            //wzor na prosta
+            var a1= (yA-yB);
+            var a2=(xA-xB);
+            var a = (a1/a2);
+            var b = yA-(a1/a2*xA);
+            console.log ('y='+round(a,3)+'x+'+round(b,3));
+            return{
+                'a':round(a,3),
+                'b':round(b,3)
+            }
+        }
+    }
+    this.vectorDirection = function (a,b){
+        //kierunek jest z a do b
+        var x =this.relation(a[0],b[0]);
+        var y =this.relation(a[1],b[1]);
+
+        if(x>0 && y>0||x>0 && y<0){
+            return 'up';
+        }
+        if(x<0 && y>0||x<0 && y<0){
+            return 'down';
+        }
+        //ma returnowac gora lub dol
+    }
+    this.relation = function(a,b){ 
+        //zwraca -1,0,1 w zaleznosci od <,=,0
+        var x=a-b;
+        if(x<0){return -1}
+        if(x>0){return 1}
+        if(x==0){return 0}
+    }
+    this.relation_test= function(){
+        if(1!=relation(5,3)||0!=relation(5,5)|| -1!=relation(3,5)){
+            throw 'relation error';
+        }
+    }
+    this.figure_test=function(){
+        var figure={
+            fig1:{
+                points:{
+                    '0':[1,0],
+                    '1':[5,3],
+                    '2':[1,6],
+                    '3':[0,3]
+                }
+            },
+            'fig2':{
+                points:{
+                    '0':[4,0],
+                    '1':[8,3],
+                    '2':[4,6],
+                    '3':[0,3]
+                }
+                
+            }
+        }
+        
+    }
+    this.drawStright_test=function(){
+        var vectors={
+            vec1:{
+                x1:0,
+                y1:0,
+                x2:1,
+                y2:1,
+                status:'up'
+            },
+            vec2:{
+                x1:0,
+                y1:0,
+                x2:-1,
+                y2:1,
+                status:'down'
+            },
+            vec3:{
+                x1:0,
+                y1:0,
+                x2:-1,
+                y2:-1,
+                status:'down'
+            },
+            vec4:{
+                x1:0,
+                y1:0,
+                x2:1,
+                y2:-1,
+                status:'up'
+            },
+        };
+
+        for(var i=1;i<6;i++){
+            var obj=vectors['vec'+i];
+            var a=[obj.x1,obj.y1]
+            var b=[obj.x2,obj.y2]
+            var oldStright=this.getStrightFromCordinates(a,b)
+            console.log('prosta wspolczynniki',oldStright.a,oldStright.b)
+            var direction=this.vectorDirection(a,b);
+            var stright=this.parallelLine(oldStright.a,oldStright.b,direction);
+            console.log('prosta rownolegla',stright.a,stright.b)
+        }
+        
+    }
+    this.vectorDirection_test=function(){
+        var vectors={
+            vec1:{
+                x1:0,
+                y1:0,
+                x2:1,
+                y2:1,
+                status:'up'
+            },
+            vec2:{
+                x1:0,
+                y1:0,
+                x2:-1,
+                y2:1,
+                status:'down'
+            },
+            vec3:{
+                x1:0,
+                y1:0,
+                x2:-1,
+                y2:-1,
+                status:'down'
+            },
+            vec4:{
+                x1:0,
+                y1:0,
+                x2:1,
+                y2:-1,
+                status:'up'
+            },
+        };
+        for(var i=1;i<6;i++){
+            var a=vectors['vec'+i];
+            var retstatus=vectorDirection([a.x1,a.y1],[a.x2,a.y2]);
+            if(retstatus!=a.status){
+                throw 'invalid vector direction';
+            }
+            //console.log (vectors['vec'+i]);
+            console.log (retstatus);
+        
+        };
+    }
+}
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+function getLenghtFromCordinates(tab1,tab2){
+    var lenght=Math.sqrt(Math.pow((tab2[0]-tab1[0]), 2) + Math.pow((tab2[1]-tab1[1]), 2));
+    //console.log(lenght);
+    return lenght;
+}
+function getLenghtFromAllCordinates(tabX,tabY, tabZ){
+    var lengthab = getLenghtFromCordinates(tabX, tabY);
+    var lengthac = getLenghtFromCordinates(tabX, tabZ);
+    var lengthbc = getLenghtFromCordinates(tabZ, tabY);
+    console.log(lengthab,lengthac,lengthbc);
+}
+function toRadians (angle) {
+  return angle * (Math.PI / 180);
+}
+
+function getSin(degree){
+    var radians=toRadians(degree);
+    return Math.sin(radians);
+    
+}
+
+function kw(x){
+    var kwad = Math.pow(x, 2);
+    return kwad;
+}
+
+function round(num, decimals){
+    var x=Math.pow(10, decimals) ;
+    return Math.round(num * x) / x;
+    
+}
+    function test(){
+        var a = [5,10];
+        var b = [10,20];
+        var c = new CNCride();
+        c.drillWidth=0.5
+        //getLenghtFromAllCordinates([0,0],[0,4], [3,0]);
+        //getStrightFromCordinates(a,b);
+        //c.vectorDirection_test()
+        c.drawStright_test();
+        //CNCride.vectorDirection_test();
+        
+        
+    }
+
+function miaraKata(lenght1, length2, length3){
+    var cosa = kw(lengt*h3) - kw(lenght1) - kw(length2) + 2*lenght1*length2;
+    var sina = getSin(270) - cosa;
+    
+}
+
+function licz(){
+    var x = document.getElementById("lolz").value;
+    //var ax2 = prompt("Wpisz kąt");
+    var ax2 = miaraKata();
+    var a = ax2/2;
+    var sina = getSin(ax2);
+    document.getElementById("myTextarea").innerHTML = round(sina, 3);
+}
+ </script>
+<div>
+    <input type="number" value="" id="lolz"/>
+    <input type="button" value="click" OnClick="test()"/>
+	<textarea id="myTextarea" name="something">tutaj wynik</textarea>
+
+
+</div>
+
+</body>
+
+</html>
