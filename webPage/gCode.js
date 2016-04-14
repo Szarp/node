@@ -1,4 +1,145 @@
-function createGraph(){
+  var mainBox_elements='';
+    function createBlock(x,y){
+        //var el=document.getElementById("mainDiv");
+        var style='height="'+x+'" width="'+y+'"';
+        //var b=createSvg.polyline('fill="none" stroke="#0074d9"',['0,0','0,'+y,x+','+y,x+',0','0,0']);
+        var a=createSvg.svg(style,'');
+        //el.innerHTML=a;
+          mainBox_elements+=a;
+        console.log(mainBox_elements);
+        return a;
+        //createSvg.addElement("mainDiv",b);
+    }
+
+    function createGraph(){
+    //var getLabel=getMinLabel();//min max medium
+    var el=document.getElementById("mainDiv");
+    x = 50;  
+    y = 50;  
+    min=20;
+    max=30;
+    style='height:'+x+'px';
+    //elements=[labelY(x,y),labelX(max,min,y),minMaxText(max,min,y)];
+    elements="";
+    elements+=createSvg.group('grid',createGrids(x,y));
+       
+       elements+=createSvg.group('labelY',labelY(x,y));
+       elements+=createSvg.group('labelY',labelX(25,20,y));
+       elements+=createSvg.group('text',minMaxText(25,20,x,y));
+       //console.log(text);
+       
+       text=createSvg.svg(style,elements);
+       el.innerHTML=text;
+    
+      //createSvg.tryTest();
+   }
+    
+    var figurePrototype=function(){
+        
+        this.solidFill=true;
+        this.pocketHeight=2;
+        this.generateColor=function(){}
+    }
+    function circleFigure(){
+        figurePrototype.call(this);
+        this.radius=30;
+        this.pointsPossition=[[0,0]]
+        this.drawCircle=function(){
+        this.heightColor='#00cc00' //generateColor();
+            return '<circle cx="'+this.pointsPossition[0][0]+'" cy="'+this.pointsPossition[0][1]+'" r="'+this.radius+'" style="stroke:#006600; fill:'+this.heightColor+'"/>'
+        }
+    }
+    var exaplesObjects={
+        fig0:{
+            specie:'circle',//pierscien(annulus),line,shape
+            body:{
+                pocketHeight:2,//glebokosc
+                pointsPossition:[[15,15]],
+                radious:5,
+                fillSolid:true
+            }
+        },
+        fig1:{
+            type:'line',//pierscien(annulus),line,shape
+            pocketHeight:2,//glebokosc
+            pointsPossition:[[0,0],[15,15]],
+        },
+        fig2:{
+            type:'polyline',//pierscien(annulus),line,shape
+            pocketHeight:2,//glebokosc
+            pointsPossition:[[0,0],[0,15],[15,15],[15,0]],
+            fillSolid:true
+        },
+        fig3:{
+            type:'annulus',//pierscien(annulus),line,shape
+            pocketHeight:2,//glebokosc
+            pointsPossition:[[30,30]],
+            //esential elemnts^
+            //in case of type
+            Radious:10,
+            radious:5,
+            fillSolid:true
+        }
+    }
+ 
+        function test(){
+            var a=createBlock(150,150);
+            var x=new circleFigure();
+            var element=x.drawCircle();
+            var b=createSvg.polyline( 'fill="block" stroke="#0074d9"',['10,10','20,20','0,20'])
+            createSvg.addElement('mainDiv',element);
+            createSvg.addElement('mainDiv',b);
+            console.log(x);
+            
+        }
+        var scaleExapleJSON={
+            divName:'svgColor',//set position
+            divClass:'svgColor',
+            possMax:115,
+            possMin:0,
+            poits:7,
+            beginLine:[10,10],
+            endLine:[10,125],
+            lineStyle:'',
+            poitsStyle:'',
+            test:{
+                lineName:'label',
+                podzialka:'',
+                onlyMinMax:false,
+                pointsName:['0','','2','','4','','6','']
+            }
+        }
+function scaleTest(){
+    var el=document.getElementById("scaleDiv");
+    //console.log(el.innerHTML);
+    style='height="'+115+'" width="'+105+ '" border="1px black"';
+    var svg=createSvg.svg(style,'');
+    var div=createSvg.div('svgColor','svgColor');
+    div+=svg+'</div>';
+    el.innerHTML+=div;
+    console.log('test: ',div);
+    //var b='<circle cx="0" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />'
+    var a=createSvg.line(10,0,20,0,'"stroke:rgb(255,0,0);stroke-width:2"');
+    createSvg.addElement('svgColor',a);
+    //createSvg.addElement('svgColor',b)
+    var x1=20;
+    var max=105;
+    var colors=7;
+    var text="";
+    var b=max/colors;
+    console.log('wspolczynnik b:',b);
+    var a=5;
+    for(var i=-1;i<colors;i++){
+        text+=createSvg.line(10,a,x1,a,'"stroke:rgb(255,0,0);stroke-width:2"');
+        a+=b;
+    }
+    createSvg.addElement('svgColor',text)
+    console.log('powstale linie:',text)
+    
+    
+}
+
+function scaleColorGraph(){
     //var getLabel=getMinLabel();//min max medium
     var el=document.getElementById("scaleDiv");
     x = el.clientHeight;
@@ -6,7 +147,7 @@ function createGraph(){
     heigh = y-50;
     min=20;
     max=30;
-    style='height='+x+'px'+' width='+y+'px';
+    style='height='+x+'px'+' width='+50+'px';
     //elements=[labelY(x,y),labelX(max,min,y),minMaxText(max,min,y)];
     elements="";
     elements+=createSvg.group('grid',createGrids(x,y));
@@ -14,6 +155,8 @@ function createGraph(){
      //  elements+=createSvg.group('labelY',labelY(x,y));
        elements+=createSvg.group('labelY',labelX(25,20,y));
        elements+=createSvg.group('text',minMaxText(25,20,x,y));
+    var a=createSvg.line(0,0,50,50,'stroke="black" stroke-width="20"')
+    console.log(a);
        //console.log(text);
        
        text=createSvg.svg(style,elements);
@@ -24,7 +167,7 @@ function createGraph(){
 function createGrids(x,y){
     var text="";
     text+=createSvg.line(30,30,30,y-30);
-    text+=createSvg.line(30,y-30,x-30,y-30);
+    //text+=createSvg.line(30,y-30,x-30,y-30);
     return text;
     
 }
@@ -66,26 +209,45 @@ function minMaxText(max,min,y){
     console.log(text);
     return text;
 }
-function cos(){
-     var gridX='<g class="grid x-grid">'+line_gridX+'</g>';
-     gridY='<g class="grid y-grid">'+line_gridY+'</g>';
-     labelX='<g class="labels x-labels">'+splitLines+'</g>';
-     labelY='<g class="labels y-labels">'+minMaxText+tickLine+'</g>';
-     polyline='<polyline fill="none" stroke="#0074d9" stroke-width="5" '+points+'/>';
-     svgEnd='</svg>';
-}
-var createSvg=(function(){
-        lineElement=function (x1,y1,x2,y2){
-            return '<line x1="'+x1+'" x2="'+x2+'" y1="'+y1+'" y2="'+y2+'"></line>';
+   var createSvg=(function(){
+       divForSVG=function(idName,className){
+           return '<div class="'+className+'" id="'+idName+'">'
+           
+       }
+        addElementTo=function(id,element){
+            var el=readDiv(id);
+            var value=el.innerHTML;
+            
+            element+='</svg>';
+            value=value.replace('</svg>',element);
+            console.log('value test:',value);
+            var a=refreshDiv(value,el);
+            console.log('refreshed div: ',a);  
+            //el.innerHTML=mainBox_elements;
+
+        }
+        readDiv=function(id){
+            var el=document.getElementById(id);
+            console.log(el);
+            return el;
+        }
+        refreshDiv=function(element,el){
+            el.innerHTML='';
+            el.innerHTML=element;
+            return element;
+            
+        }
+        lineElement=function (x1,y1,x2,y2, style){
+            return '<line x1="'+x1+'" x2="'+x2+'" y1="'+y1+'" y2="'+y2+'"  style='+style+'/>';
         }
         svgElement=function(style,elements){
             //<g class="labels y-labels"></g>
-            var text="";
+            /*var text="";
             elements =[].concat(elements);
             for(var i=0;i<elements.length;i++){
                    text+=elements[i];
-            }
-         return '<svg  '+style+'>'+text+'</svg>';  
+            }*/
+         return '<svg '+style+'>'+elements+'</svg>';  
             
         }
         textElement=function(x,y,msg){
@@ -138,27 +300,9 @@ var createSvg=(function(){
         group:groupElement,
         svg:svgElement,
         line:lineElement,
+        div:divForSVG,
         tryTest:tryTest,
+        addElement:addElementTo
     };
     
-})();
-    var assertEqual = function (val_1,val_2,msg){
-	   if(val_1!==val_2){
-	   throw(msg || (val_1 +" does not equal to " + val_2));
-        }
-    }
-    var compareStrings = function (val_1,val_2){
-	      throw( val_1+'  '+val_2);
-       
-    }
- var testy=(function(){
-        tryTest=function(){
-            try{
-                testPolyline();
-            }
-            catch(e){console.log(e);}
-        }
-     return{
-         tryTest:tryTest
-     };
- })();
+})(); 

@@ -64,10 +64,14 @@
 }
 .scaleColor{
     background-color:none;
+    height: 200px;
+    z-index:3;
     
 }
 .scaleColor ul{
-    padding-left: 15px;
+    position: relative;
+    z-index: 5;
+    padding-left: 30px;
     padding-right: 5px;
     color: blue;
     list-style: none;
@@ -79,4 +83,14 @@
     background-color:lightblue;
     margin-bottom: 0px;
     border-radius: 0px;
+}
+.svgColor{
+position: relative; 
+   top: -125px; 
+   left: 0px;
+    height: 115px;
+    width: 105px;
+    z-index:0;
+    background-color: lightgray;   
+    display: block;
 }
