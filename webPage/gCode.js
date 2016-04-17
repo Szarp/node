@@ -120,28 +120,28 @@ function scaleLabel(){
     this.beginLine=[10,10];
     this.endLine=[10,125];
     this.lineStyle='';
-    this.poitsStyle:'';
+    this.poitsStyle='';
     this.chceckIfHorizontal=function(){}//pierwszy parametr jest x lub y
     this.gridElement=function(className){
         return'<g class="'+className+'">';
     }
     this.divForSVG=function(){
-        return '<div class="'+this.divClass+'" id="'this.divName+'">';
+        return '<div class="'+this.divClass+'" id="'+this.divName+'">';
     }
     this.svg=function(){
         return '<svg height="'+this.svgHeight+'" width="'+this.svgWidth+ '">'
     }
     this.smallLines=function(){
-    var x1=20;
-    var max=105;
-    var colors=7;
-    var text="";
-    var b=this.possMax/colors;
-    console.log('wspolczynnik b:',b);
-    var a=5;//begin na oko
-    for(var i=-1;i<this.points;i++){             text+=createSvg.line(this.possMin,a,x1,a);
-        a+=b;
-    }
+        var x1=20;
+        var max=105;
+        var colors=7;
+        var text="";
+        var b=this.possMax/colors;
+        console.log('wspolczynnik b:',b);
+        var a=5;//begin na oko
+        for(var i=-1;i<this.points;i++){             text+=createSvg.line(this.possMin,a,x1,a);
+            a+=b;
+        }
     }
 }
 function scaleTest(){
