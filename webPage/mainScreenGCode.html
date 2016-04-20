@@ -10,125 +10,114 @@
         <link rel="stylesheet" href="./css/radioItem.css">
          <link rel="stylesheet" href="./css/mediaSize.css">
          <link rel="stylesheet" href="./css/webGraph.css">
+        <link rel="stylesheet" href="./css/elementsMenu.css">
         <link rel="stylesheet" href="./css/gCode.css">
         <script type="text/javascript" src="gCode.js"></script>
+        <script type="text/javascript" src="elementsMenu.js"></script>
+
         
     </head>
     <body>
         <script>
         </script>
-<div class="overlay">
+ 
+
+<ul class="navigation">
+  <li><a href="#">Home</a></li>
+  <li><a href="#">About</a></li>
+  <li><a href="#">Products</a></li>
+  <li><a href="#">Contact</a></li>
+</ul>
+
+<div class="mainContent">
     <div class="flex-container2">
         <div class="leftMenu pageStyle">
-            <div class="elementsList"><h2>elements</h2>
-            <ul>
-                <li onclick="goTo()">Left Circle</li>
-                <li onclick="goTo()">sqare 10*10</li>
-                <li onclick="goTo()">line</li>
-            </ul> 
+            <div class="boxed-group" id="elementsContent">
+                    <h3>elements</h3>
+                <div class="boxed-group-inner" style="padding:0px;">
+                    <div class="search-repo">
+                        <input type="text" tabindex="2" aria-label="Find a repository…" placeholder="Find a repository…"  id="your-repos-filter">  
+                        <ul>
+                            <li><button onclick='sortFn("circle")'>circle</button></li>
+                            <li><button onclick='sortFn("line")'>line</button></li>
+                            <li><button onclick='sortFn("all")'>all</button></li>
+                            <li><button>more</button></li>
+                        </ul>
+                    </div>
+                    <div class="scrollableList" id='elementsList'>
+                <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>3</li>
+                        <li>7</li>
+                        <li>8</li>
+                        <li>9</li>
+                        <li>10</li>
+                        <li>11</li>
+                        <li>12</li>
+                    </ul>
+                        </div>
+                    <div style="margin-top:5px;">
+                        <a class="edit-btn btn" onclick="test5()">add</a>
+                        <a class="edit-btn btn" onclick="addli()">refresh</a>
+                        <a class="edit-btn btn" onclick="">edit</a>
+                    </div>
+                </div>
             </div>
-             <div class="panel-body">
-            <table class="table">
-              <tr>
-                <td>classname:</td>
-                <td>                        
-                    <input class="toolInput" id="toolPointsPosition"  type="number">
-                </td>
-              </tr>
-              <tr>
-                </table>
-            <table style="margin-left:40px;">
-                <tr>
-                <td>points:</td>
-                <td>                        
-                    <input class="toolInput" id="toolPointsPosition"  type="number">
-                </td>
-              </tr>
-              <tr>
-                <td>pocket:</td>
-                <td>                        
-                    <input class="toolInput" id="toolPointsPosition"  type="number">
-                </td>
-              </tr>
-            </table> 
-                        <!--
-            <table class="table">
-            <tbody>
-                <tr>
-                    <td>
-                        <label for="toolRadius" class="control-label">specie</label>
-                    </td>
-                    <td>
-                        <select id="fillPropertySpecie">
+            <div class="panelBody">
+                <table style=" color:darkviolet; text-align:left;">
+                  <tr>
+                    <td>classname:</td>
+                    <td>                        
+                        <select  id="fillPropertySpecie">
                             <option value="1">Circle</option>
                             <option value="2">Points</option>
+                            <option value="3">Circle</option>
+                            <option value="4">Points</option>                  <option value="5">Circle</option>
+                            <option value="6">Points</option>                  <option value="7">Circle</option>
+                            <option value="8">Points</option>                  <option value="9">Circle</option>
+                            <option value="10">Points</option>
                         </select>
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="toolRadius" class="control-label">Radius</label>
+                  </tr>
+                    <tr><td>Body:</td></tr>
+                </table>
+                <table style="margin-left:40px; color:darkviolet;">
+                    <tr>
+                    <td>points:</td>
+                    <td>                        
+                        <input class="toolInput" id="toolPointsPosition"  type="number">
                     </td>
-                    <td>
-                        <input class="tool-input" id="toolRadius" min="0.1" step="0.1" type="number">
+                  </tr>
+                  <tr>
+                    <td>pocket:</td>
+                    <td>                        
+                        <input class="toolInput" id="toolPointsPosition"  type="number">
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="toolPointsPosition" class="control-label">Position</label>
-                    </td>
-                    <td>
-                        <input class="tool-input" id="toolPointsPosition" step="any" type="number">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="toolPocketHeight" class="control-label">Pocket height</label>
-                    </td>
-                    <td>
-                        <input class="tool-input" id="toolPointsPosition" step="any" type="number">
-                    </td>
-                    <td>
-                        <input class="tool-input" id="toolPocketHeight" step="0.1" min="0" type="number">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="toolFillSolid" class="control-label">Fill</label>
-                    </td>
-                    <td>
-                        <select id="fillProperty">
-                            <option value="1">Full</option>
-                            <option value="2">Outside</option>
-                        </select>
-                    </td>
-
-                </tr>
-                </tbody>
-                 </table>-->
-         </div>
-
+                  </tr>
+                </table> 
+            </div>
         </div>
         <div class="mainArea pageStyle">1</div>
         <div class="rightMenu pageStyle" >
-            <div class="scaleColor" id="scaleDiv"><h2>scale
-                <button onclick="scaleTest()">btn</button></h2>
-                <ul>
-                    <tr style="background-color:red"> </tr>
-                    <li style="background-color:orange"> </li>
-                    <li style="background-color:yeallow"> </li>
-                    <li style="background-color:green"> </li>
-                    <li style="background-color:aqua"> </li>
-                    <li style="background-color:blue"> </li>
-                    <li style="background-color:indigo"> </li>
-                    <li style="background-color:purple"> </li>
-                </ul>
+            <div class="scaleColor" id="scaleDiv">
+                <h2>scale<button onclick="scaleTest()">btn</button></h2>
+                    <ul>
+                        <tr style="background-color:red"> </tr>
+                        <li style="background-color:orange"> </li>
+                        <li style="background-color:yeallow"> </li>
+                        <li style="background-color:green"> </li>
+                        <li style="background-color:aqua"> </li>
+                        <li style="background-color:blue"> </li>
+                        <li style="background-color:indigo"> </li>
+                        <li style="background-color:purple"> </li>
+                    </ul>
             </div>
-            
-            <div style="border: 1px solid black;
-    border-radius: 10px; height:100px; background:#847FB2;">cos jeszcze</div>
-        </div>
-
+            <div style="border: 1px solid black;border-radius: 10px; height:100px; background:#847FB2;">cos jeszcze</div>
+            </div>
     </div>
 </div>
     </body>
