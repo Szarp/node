@@ -205,6 +205,17 @@ select {
     font-size: 13px;
     padding: 10px;
 }
+.boxed-group-section{
+    background: #fff none repeat scroll 0 0;
+    border-top: 1px solid #d8d8d8;
+    color: #666;
+    font-size: 13px;
+    padding: 10px;
+    color: #4078c0;
+    }
+.first{
+    border-top:none;
+}
 .scrollableList{
     padding: 0px;    
 }

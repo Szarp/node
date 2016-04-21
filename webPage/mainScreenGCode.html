@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="./css/gCode.css">
         <script type="text/javascript" src="gCode.js"></script>
         <script type="text/javascript" src="elementsMenu.js"></script>
+        <script type="text/javascript" src="editElementsMenu.js"></script>
 
         
     </head>
@@ -67,38 +68,78 @@
                     </div>
                 </div>
             </div>
-            <div class="panelBody">
-                <table style=" color:darkviolet; text-align:left;">
-                  <tr>
-                    <td>classname:</td>
-                    <td>                        
-                        <select  id="fillPropertySpecie">
-                            <option value="1">Circle</option>
-                            <option value="2">Points</option>
-                            <option value="3">Circle</option>
-                            <option value="4">Points</option>                  <option value="5">Circle</option>
-                            <option value="6">Points</option>                  <option value="7">Circle</option>
-                            <option value="8">Points</option>                  <option value="9">Circle</option>
-                            <option value="10">Points</option>
-                        </select>
-                    </td>
-                  </tr>
-                    <tr><td>Body:</td></tr>
-                </table>
-                <table style="margin-left:40px; color:darkviolet;">
-                    <tr>
-                    <td>points:</td>
-                    <td>                        
-                        <input class="toolInput" id="toolPointsPosition"  type="number">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>pocket:</td>
-                    <td>                        
-                        <input class="toolInput" id="toolPointsPosition"  type="number">
-                    </td>
-                  </tr>
-                </table> 
+            <div class="boxed-group">
+                <h3>Edit Elements</h3>
+                <div class="boxed-group-inner">
+                    <div class="boxed-group-section first">
+                        <table>
+                          <tr>
+                            <td>classname:</td>
+                            <td>                        
+                                <select  id="specieSelect">
+                                    <option  onclick="test5()" value="circle">Circle</option>
+                                    <option onclick="test5()" value="2">Points</option>
+                                    <option onclick="test5()" value="line">Line</option>
+                                    <option onclick="test5()" value="4">sth</option>
+                                </select>
+                            </td>
+                          </tr>
+                            <tr>
+                                <td>fill:</td>
+                                <td>                        
+                                    <select  id="fillPropertySpecie">
+                                        <option value="1">solid</option>
+                                        <option value="2">out</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="boxed-group-section" id="circleForm">
+                        <table>
+                            <tr>
+                            <td>point position:</td>
+                            <td>                        
+                                <input class="toolInput" id="pointsPosition_circleInput"   min='0' type="text">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>pocket height:</td>
+                            <td>                        
+                                <input class="toolInput" id="pocketHeight_circleInput" type="number">
+                            </td>
+                          </tr>
+                            <tr>
+                            <td>radious:</td>
+                            <td>                        
+                                <input class="toolInput" id="radious_circleInput" type="number">
+                            </td>
+                          </tr>
+                        </table> 
+                    </div>
+                    <div class="boxed-group-section" id="lineForm" style="display:none;">
+                        <table>
+                            <tr>
+                            <td>points number:</td>
+                            <td>                        
+                                <input class="toolInput" id="pointsNumber_lineInput"   min='0' type="number">
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>points position:</td>
+                            <td>                        
+                                <input class="toolInput" id="pointsPosition_lineInput"   min='0' type="number">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>pocket:</td>
+                            <td>                        
+                                <input class="toolInput" id="pocketHeight_lineInput" type="number">
+                            </td>
+                          </tr>
+                        </table> 
+                    </div>
+                </div>
             </div>
         </div>
         <div class="mainArea pageStyle">1</div>

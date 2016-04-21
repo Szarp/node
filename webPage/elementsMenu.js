@@ -106,7 +106,7 @@ function sortElements(){
     }
 }
 function elementsUl(){
-    elementsJson.call(this)
+    elementsJson.call(this);
     //console.log(this.json);
     this.createUlList=function(){
         var text=''
@@ -133,6 +133,7 @@ function elementsUl(){
     }
 }
     var test5=function(){
-
+        var a= new editElements();
+        a.tests();
         
     }
