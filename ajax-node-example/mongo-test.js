@@ -5,9 +5,7 @@ var test = require('assert');
 var fs = require('fs');
 
 var url = 'mongodb://localhost:27017/test';
-var linkData =__dirname+'/json/input.json';
-var file=fs.readFileSync(linkData,"utf-8");
-var data= JSON.parse(file);
+
 function change(){
     //console.log(data);
     //var newData=data;
@@ -30,25 +28,67 @@ function change(){
 }
 function display(s){
     for (var i=0; i<s.length;i++){
-        console.log(s[i]);
+        console.log(s[i], 'heys');
          
     }
     
     
 }
-var exampleData = {
-    'data':{
-        'type':'acc',
-        'version':'0.0.1',
-        'description':'data from ',
-        'time':'new data',
-        data:{
-            accX:[],
-            accY:[],
-            accZ:[],
-            time:[]
-        }
+function readData(){
+    // this. data columnsName = {time:[], accX:[], accY:[] accZ:[]};
+    this.readJsonFile = function(){
+            var file=fs.readFileSync(this.location,"utf-8");
+            return JSON.parse(file);
+    }
+    //dataFile = function(){}
+    this.parseData = function(){
+        var newColumns=this.columns;
+        var dataL=this.data.length / this.columns.length;
+        var columnsL = this.columns.length
+        for (var i = 0; i < dataL; i++){
+            for (var k = 0; k < columnsL; k++){
+                //nie di
+                newColumns[k].push(data[i*columnsL+k]);
+                //console.log(time);
+            }
+        }   
+        return  newColumns;
+    } 
+    
 }
+    function readData_test(){
+        //console.log('hh');
+        ///*
+        var read = new readData();
+        read.location = __dirname+'/json/input.json';
+        //var file = fs.readFileSync(linkData,"utf-8");
+        read.data = read.readJsonFile();
+        read.columns = {'time':[], 'accX':[], 'accY':[], 'accZ':[]};
+        var newData = read.parseData();
+        display(newData);
+        //*/
+    }
+function exampleData(){
+    this.version='0.0.1';
+    this.array= {
+        'data':{
+            'type':this.type,
+            'version':this.version,
+            'description':this.description,
+            'time':this.time,
+            'data':{
+                'accX':this.accX,
+                'accY':this.accY,
+                'accZ':this.accZ,
+                'time':this.time
+            }
+        }
+    }
+    var data = function(){
+        return this.array;
+    }
+};
+
 //fs.readFileSync()
 
 var insertDocument = function(db, callback) {
@@ -88,10 +128,11 @@ var insertDocument = function(db, callback) {
 MongoClient.connect(url, function(err, db) {
   //console.log('jesr');
     test.equal(null, err);
-  insertDocument(db, function() {
+  /*insertDocument(db, function() {
       db.close();
-  });
-});//*/
+  });*/
+    db.close();
+});//
 //var MongoClient = require('mongodb').MongoClient,
  
 // Connection url
@@ -99,7 +140,7 @@ MongoClient.connect(url, function(err, db) {
 // Connect using MongoClient
 
 MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
-console.log('hey');
+//console.log('hey');
   // Create a collection we want to drop later
   var collection = db.collection('simple_query');
 
@@ -113,7 +154,8 @@ console.log('hey');
       test.equal(null, err);
       //test.equal(3, docs.length);
         console.log(docs, " hey");
-        change();
+        //change();
+        readData_test();
       
     });
     var cursor = collection.find({});
