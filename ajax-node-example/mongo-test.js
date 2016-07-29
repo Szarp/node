@@ -27,9 +27,12 @@ function change(){
     display(time);    
 }
 function display(s){
-    for (var i=0; i<s.length;i++){
-        console.log(s[i], 'heys');
-         
+    for (k in s){
+        var a = s[k];
+        console.log('aa');
+        for (var i = 0; i<129; i++){
+            console.log(a[i], 'heys');
+        }
     }
     
     
@@ -42,51 +45,63 @@ function readData(){
     }
     //dataFile = function(){}
     this.parseData = function(){
-        var newColumns=this.columns;
-        var dataL=this.data.length / this.columns.length;
-        var columnsL = this.columns.length
+        var newColumns =this.columns;
+        var dataL = Object.keys(this.data).length / Object.keys(this.columns).length;
+        //console.log('dataL: ',dataL );
+        var columnsL = Object.keys(this.columns).length;
+        
         for (var i = 0; i < dataL; i++){
-            for (var k = 0; k < columnsL; k++){
+            var para = 0;
+            for (key in newColumns){
                 //nie di
-                newColumns[k].push(data[i*columnsL+k]);
+                newColumns[key].push(this.data[i*columnsL+para]);
+                para++;
                 //console.log(time);
             }
         }   
         return  newColumns;
-    } 
+    }
+ 
     
 }
     function readData_test(){
-        //console.log('hh');
+        console.log('hh');
         ///*
-        var read = new readData();
+        var read = new accData();
         read.location = __dirname+'/json/input.json';
         //var file = fs.readFileSync(linkData,"utf-8");
         read.data = read.readJsonFile();
-        read.columns = {'time':[], 'accX':[], 'accY':[], 'accZ':[]};
+        //read.columns = {'time':[], 'accX':[], 'accY':[], 'accZ':[]};
         var newData = read.parseData();
         display(newData);
         //*/
     }
-function exampleData(){
-    this.version='0.0.1';
-    this.array= {
+//class 
+var accData = new readData();
+{
+    accData.time = 'not yet';
+    accData.columns = {'time':[], 'accX':[], 'accY':[], 'accZ':[]};
+    accData.version = '0.0.1';
+    accData.description = 'not yet';
+    accData.type = 'accData';
+    accData.array = {
         'data':{
             'type':this.type,
             'version':this.version,
             'description':this.description,
             'time':this.time,
             'data':{
-                'accX':this.accX,
-                'accY':this.accY,
-                'accZ':this.accZ,
-                'time':this.time
+                'accX':this.columns['accX'],
+                'accY':this.columns['accY'],
+                'accZ':this.columns['accZ'],
+                'time':this.columns['time']
             }
         }
     }
-    var data = function(){
-        return this.array;
+    accData.data = function(){
+        return accData.array;
     }
+
 };
 
 //fs.readFileSync()
