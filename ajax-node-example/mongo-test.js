@@ -41,50 +41,55 @@ function readData(){
     // this. data columnsName = {time:[], accX:[], accY:[] accZ:[]};
     this.readJsonFile = function(){
             var file=fs.readFileSync(this.location,"utf-8");
-            return JSON.parse(file);
+        //test.unequal(file)
+            this.data = JSON.parse(file);
+        //test.equal(null,)
     }
     //dataFile = function(){}
     this.parseData = function(){
-        var newColumns =this.columns;
+        this.newColumns = this.columns;
         var dataL = Object.keys(this.data).length / Object.keys(this.columns).length;
         //console.log('dataL: ',dataL );
         var columnsL = Object.keys(this.columns).length;
         
         for (var i = 0; i < dataL; i++){
             var para = 0;
-            for (key in newColumns){
+            for (key in this.columns){
                 //nie di
-                newColumns[key].push(this.data[i*columnsL+para]);
+                this.columns[key].push(this.data[i*columnsL+para]);
                 para++;
                 //console.log(time);
             }
         }   
-        return  newColumns;
+        //return  newColumns;
     }
  
     
 }
-    function readData_test(){
-        console.log('hh');
+    function createData(dirname, objClass){
+        //console.log('hh');
         ///*
-        var read = new accData();
-        read.location = __dirname+'/json/input.json';
+        //var read = new accData();
+        //  __dirname+'/json/input.json';
+        objClass.location = dirname;
         //var file = fs.readFileSync(linkData,"utf-8");
-        read.data = read.readJsonFile();
+        objClass.readJsonFile();
         //read.columns = {'time':[], 'accX':[], 'accY':[], 'accZ':[]};
-        var newData = read.parseData();
-        display(newData);
+        objClass.parseData();
+        
+        return objClass.retData();
+        //display(newData);
         //*/
     }
 //class 
-var accData = new readData();
-{
-    accData.time = 'not yet';
-    accData.columns = {'time':[], 'accX':[], 'accY':[], 'accZ':[]};
-    accData.version = '0.0.1';
-    accData.description = 'not yet';
-    accData.type = 'accData';
-    accData.array = {
+function accData(){
+    readData.call(this);
+    this.time = 'not yet';
+    this.columns = {'time':[], 'accX':[], 'accY':[], 'accZ':[]};
+    this.version = '0.0.1';
+    this.description = 'not yet';
+    this.type = 'accData';
+    this.array = {
         'data':{
             'type':this.type,
             'version':this.version,
@@ -98,85 +103,54 @@ var accData = new readData();
             }
         }
     }
-    accData.data = function(){
-        return accData.array;
+    this.retData = function(){
+        return this.array;
     }
 
 };
 
 //fs.readFileSync()
 
-var insertDocument = function(db, callback) {
-   db.collection('restaurants').insertOne( {
-      "address" : {
-         "street" : "2 Avenue",
-         "zipcode" : "10075",
-         "building" : "1480",
-         "coord" : [ -73.9557413, 40.7720266 ]
-      },
-      "borough" : "Manhattan",
-      "cuisine" : "Italian",
-      "grades" : [
-         {
-            "date" : new Date("2014-10-01T00:00:00Z"),
-            "grade" : "A",
-            "score" : 11
-         },
-         {
-            "date" : new Date("2014-01-16T00:00:00Z"),
-            "grade" : "B",
-            "score" : 17
-         }
-      ],
-      "name" : "Vella",
-      "restaurant_id" : "41704620"
-   }, function(err, result) {
-    //assert.equal(err, null);
-    console.log("Inserted a document into the restaurants collection.");
-    callback();
+var insertDocument = function(dbCollection, dataToSave) {
+    //var collection = this.collection; 
+    console.log(dataToSave);
+    ///*
+    dbCollection.insertMany([dataToSave], {w:1}, function(err, result) {
+    test.equal(null, err);
+    console.log(result);
   });
+  //*/
 };
 
-
-// Connection url
- ///*
 MongoClient.connect(url, function(err, db) {
-  //console.log('jesr');
-    test.equal(null, err);
-  /*insertDocument(db, function() {
-      db.close();
-  });*/
-    db.close();
-});//
-//var MongoClient = require('mongodb').MongoClient,
- 
-// Connection url
-//var url = 'mongodb://localhost:27017/test';
-// Connect using MongoClient
-
-MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
 //console.log('hey');
   // Create a collection we want to drop later
-  var collection = db.collection('simple_query');
-
+    var dirName = __dirname+'/json/input.json';
+    var data = createData(dirName, new accData());
+  var collection = db.collection('data');
+    //var a = new insertDocument(db);
+    //a.collection = 'data'; 
+    
+    //insertDocument(collection, data);
+    
   /*
     // Insert a bunch of documents for the testing
   collection.insertMany([{a:1}, {a:2}, {a:3}], {w:1}, function(err, result) {
     test.equal(null, err);
   });*/
     // Peform a simple find and return all the documents
-    collection.find({'a':1}).toArray(function(err, docs) {
+    collection.find({type:'accData'}).toArray(function(err, docs) {
       test.equal(null, err);
       //test.equal(3, docs.length);
         console.log(docs, " hey");
         //change();
-        readData_test();
+       // readData_test();
       
     });
     var cursor = collection.find({});
       // Fetch the first object off the cursor
       cursor.each(function(err, item) {
-          console.log(item, ' nice');
+         // console.log(item, ' nice');
         // If the item is null then the cursor is exhausted/empty and closed
         if(item == null) {
 
@@ -192,3 +166,12 @@ MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
       db.close();
  
 });
+/*
+
+db.listCollections().toArray(function(err, items) {
+    console.log(items);
+  test.equal(null, err);
+  //db.close();
+});
+
+*/
