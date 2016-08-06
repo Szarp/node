@@ -66,7 +66,7 @@ function readData(){
  
     
 }
-    function createData(dirname, objClass){
+    function prepreDataToSave(dirname, objClass){
         //console.log('hh');
         ///*
         //var read = new accData();
@@ -126,7 +126,7 @@ MongoClient.connect(url, function(err, db) {
 //console.log('hey');
   // Create a collection we want to drop later
     var dirName = __dirname+'/json/input.json';
-    var data = createData(dirName, new accData());
+    var data = prepreDataToSave(dirName, new accData());
   var collection = db.collection('data');
     //var a = new insertDocument(db);
     //a.collection = 'data'; 
@@ -137,9 +137,12 @@ MongoClient.connect(url, function(err, db) {
     // Insert a bunch of documents for the testing
   collection.insertMany([{a:1}, {a:2}, {a:3}], {w:1}, function(err, result) {
     test.equal(null, err);
-  });*/
+  });
+  */
     // Peform a simple find and return all the documents
-    collection.find({type:'accData'}).toArray(function(err, docs) {
+    
+    
+    collection.find({},{_id:0,"data.data":1}).toArray(function(err, docs) {
       test.equal(null, err);
       //test.equal(3, docs.length);
         console.log(docs, " hey");
@@ -147,12 +150,13 @@ MongoClient.connect(url, function(err, db) {
        // readData_test();
       
     });
-    var cursor = collection.find({});
+    /*
+    var cursor = collection.find({'data.type':'accData'});
       // Fetch the first object off the cursor
       cursor.each(function(err, item) {
          // console.log(item, ' nice');
         // If the item is null then the cursor is exhausted/empty and closed
-        if(item == null) {
+        
 
           // Show that the cursor is closed
           cursor.toArray(function(err, items) {
@@ -160,9 +164,9 @@ MongoClient.connect(url, function(err, db) {
               
             // Let's close the db
            
+        });
           });
-        };
-          });
+          */
       db.close();
  
 });
