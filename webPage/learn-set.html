@@ -11,18 +11,20 @@
         <link rel="stylesheet" href="./css/webPage.css">
         <link rel="stylesheet" href="./css/radioItem.css">
          <link rel="stylesheet" href="./css/mediaSize.css">
-         <link rel="stylesheet" href="./css/webGraph.css">
-        <link rel="stylesheet" href="./css/elementsMenu.css">
-        <link rel="stylesheet" href="./css/gCode.css">
-        <script type="text/javascript" src="learn-set.js"></script>
+      <!--  <script type="text/javascript" src="learn-set.js"></script> -->
+        <script type="text/javascript" src="shapes.js"></script>
 </head>
 <body>
     
 <div class="flex-container cards">
   
-  <div class="flex-item item-size oneCard">5</div>
-  <div class="flex-item item-size oneCard">6</div>
+  <div id="try" class="flex-item item-size oneCard">
+     </div>
+    <div class="flex-item item-size oneCard"><button onclick="tryOnceMore()">heyheyhey</button>
 </div>
+    
+    </div>      
+    <div><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 90 130" ><defs> <pattern id="pattern-stripe" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(90)"> <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect></pattern> <mask id="mask-stripe"> <rect x="0" y="0" width="1000px" height="1000px" fill="url(#pattern-stripe)" /> </mask> </defs><path class="colorGreen full" style="stroke-width: 3;  transform: scale(1.2,1.2); transform-origin-x:400px;" d="m 100,100 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z"/><path class="open colorGreen" style="stroke-width: 3;  transform: scale(1.2,1.2); transform-origin-x:400px;" d="m 100,100 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z"/></svg></div>
     <!--
 <div class="flex-container cards">
   <div class="flex-item item-size oneCard">4</div>
@@ -34,70 +36,7 @@
 <div class="rectangle">dsd</div>
 -->
 
-    <div class="diad" >
-     <svg 
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        width="500"
-        height="500"
-        
-     >
-         <!-- viewBox="0 0 90 130" -->
-      <defs>
-        <pattern id="pattern-stripe" 
-          width="4" height="4" 
-          patternUnits="userSpaceOnUse"
-          patternTransform="rotate(90)">
-          <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect>
-        </pattern>
-        <mask id="mask-stripe">
-          <rect x="0" y="0" width="1000px" height="1000px" fill="url(#pattern-stripe)" />
-        </mask>      
-      </defs>
-         
-         <rect class="hbar lol" x="30" y="200" width="10" height="50"></rect>
-          <path class="colorGreen striped" style=" stroke-width: 3;  transform: scale(1.2,1.2); transform-origin-x:400px;"
-       d="m 100,100 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z
-          m 100,0 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z m 100,0 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z"
-        />
-        
-         <path class="colorGreen open" style=" stroke-width: 3;  transform: scale(1.2,1.2); transform-origin-x:400px;"
-       d="m 100,100 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z"
-        />
 
-<!--  <path d="M 100 100 L 300 100 L 200 300 z"
-        fill="" stroke="red" stroke-width="3" class="hbar lol"/>
-        <path d="M 100 100 L 300 100 L 200 300 z"
-        fill="none" stroke="red" stroke-width="3" /> -->
-
-       />
-         
-</svg>
-    <svg>
-      <defs>
-        <pattern id="pattern-stripe" 
-          width="4" height="4" 
-          patternUnits="userSpaceOnUse"
-          patternTransform="rotate(90)">
-          <rect width="2" height="4" transform="translate(0,0)" fill="white"></rect>
-        </pattern>
-        <mask id="mask-stripe">
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
-        </mask>      
-      </defs>
-
-      <!-- bar chart -->
-      <rect class="hbar thing-2" x="0" y="0" width="50" height="100"></rect>
-      <rect class="hbar thing-2" x="51" y="50" width="50" height="50"></rect>
-      <rect class="hbar thing-2" x="102" y="25" width="50" height="75"></rect>
-      
-      <!-- horizontal bar chart -->
-      <rect class="hbar thing-1" x="0" y="200" width="10" height="50"></rect>
-      <rect class="hbar thing-1" x="0" y="251" width="123" height="50"></rect>
-      <rect class="hbar thing-1" x="0" y="302" width="41" height="50"></rect>
-      
-    </svg>
-    </div>
         
     </body>
 </html>
