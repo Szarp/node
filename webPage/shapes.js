@@ -15,20 +15,16 @@ function tryOnceMore2(){
     
 }
 function tryOnceMore(){
-    var cardt= new cardl();
-    cardt.cardParametrs('try',2,2,2,1);
+    var cardt = new cardCreator();
+    cardt.cardParametrs('try',0,0,0,0);
+    //   shape   |  color  | number|  shading
+    //------------------------------------
+    //0| oval    |  red    | one   |  solid
+    //1| diamond |  green  | two   |  striped
+    //2| squiggle|  purple | three |  open
 }
-function createCard(shape, color, number, shading){
-   // card.cardCreator();
-    
-}
-var cardExample = {
-    shape:['diamond','oval','squiggle'],
-    color:['colorRed','colorGreen','colorPurple'],
-    number:['one','two','three'],
-    shading:['solid','striped','open']
-    }
-function cardl(){
+
+function cardCreator(){
     this.squiggle = new squiggle();
     this.oval = new oval();
     this.diamond = new diamond();
@@ -36,9 +32,10 @@ function cardl(){
     this.shading = ['solid','striped','open'];
     this.number = ['one','two','three'];
     this.shape = ['oval', 'diamond', 'squiggle'];
-    this.cardCreator = function(shapeType,colorType,numberType,shadingType){
+    function(shapeType,colorType,numberType,shadingType) {
         if (shapeType == 'diamond'){
-            this.card=this.diamond;
+            this.card = this.diamond;
+            //throw('err');
         }
         else if (shapeType == 'oval'){
             this.card = new oval();
@@ -48,36 +45,47 @@ function cardl(){
             this.card = this.squiggle;
             
         }
+        else{throw('wrong shape: '+shapeType+ 'in function cardCreator')}
         this.card.color = colorType;
         this.card.shading = shadingType;
         this.card.number(numberType);
         this.card.pathsCreator();
         this.card.svgCreator(this.x,this.y);
         this.pushSvg(this.card.svg);
-        console.log(this.card.style);
+        //console.log(this.card.style);
     }
     this.localization = function(id){
         this.el = document.getElementById(id);
+        if(this.el == null){throw('wrong id:'+ id+'in function localization')}
+        
             this.y = this.el.clientWidth;
             this.x = this.el.clientHeight;
         //do porawy wpisane na twardo
     }
-    this.cardParametrs = function(id,nShape,nColor,nNumber,nShading){          
-       this.localization(id); this.cardCreator(this.shape[nShape],this.color[nColor],this.number[nNumber],this.shading[nShading]);    
+    this.cardParametrs = function(id,nShape,nColor,nNumber,nShading){
+       this.localization(id);
+       this.checkValues([nShape,nColor,nNumber,nShading]); this.cardCreator(this.shape[nShape],this.color[nColor],this.number[nNumber],this.shading[nShading]);    
+    }
+    this.checkValues = function(values){
+        for(var i = 0; i<4; i++){
+            if(values[i]<0 ||values[i]>2){
+                throw('o can onl use numbers from 0 to 2 in function cardParametrs')
+            }
+            if(values[i] == null){
+                throw('value is null in function cardParametrs')
+            }
+            
+        }
     }
     this.pushSvg = function(svg){
         this.el.innerHTML = svg;
     }
-
 }
 function diamond(){
-    //this.viewBox //liczba
-    //this.shading //open full striped
     this.style = "stroke-width: 3;  transform: scale(1.2,1.2); transform-origin-x:400px;";
     this.one = function(){
         this.d = ['d="m 100,100 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z"']
         this.viewBox = "0 0 90 130";
-        
     }
     this.two = function(){
         this.d = ['d=" m 100,100 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z m 70,0 c -2.18523,-3.44062 -27.20487,-46.97704 -27.10492,-47.16498 0.0708,-0.13317 6.31653,-11.15013 13.87935,-24.48215 l 13.75059,-24.24003 1.05013,1.76146 c 5.41148,9.07705 26.64746,46.0736 26.57729,46.302 -0.12455,0.40544 -27.10013,47.96674 -27.40772,48.32323 -0.13542,0.15695 -0.47055,-0.0678 -0.74472,-0.49953 z"'];
@@ -117,6 +125,7 @@ function svgCreator(){
         else if(number == 'three'){
             this.three();
         }
+        else{throw('wrong number: '+number+'in function svgCreator')}
         
     }
     this.svgCreator = function(x,y){
@@ -180,7 +189,6 @@ function oval(){
         this.paths = "";
         for (var i = 0; i<this.d.length; i++){
             this.paths+='<rect class="' +this.class+'" style="'+this.style+'" ' +this.d[i]+'/>'
-            
         }
         for (var i = 0; i<this.d.length; i++){
             this.paths+='<rect class="' +this.borderStyle+'" style="'+this.style+'" ' +this.d[i]+'/>'
