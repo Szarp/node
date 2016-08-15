@@ -1,20 +1,63 @@
-function tryOnceMore2(){
-    var el = document.getElementById('try');
-    x = el.clientHeight;
-    y = el.clientWidth;
-    console.log('hey');
-    var card = new oval();
-    card.color = 'colorGreen';
-    card.shading = 'open';
-    card.three();
-    card.pathsCreator();
-    card.svgCreator(x,y);
-    el.innerHTML = card.svg;
-    console.log(card.d[0]);
-    console.log(card.svg);
+//var last=0;
+//var time = new measureTime();
+function tryOnceMore(){
+    var x = new deckOfCards();
+    //x.cardFromNumber(80);
+    var y = x.fullSetDeck();
+    //time.stopStart();
+    console.log(y);
+    
 }
-function randomizeCards(){
-    //this.lastRandom
+function gameSession(){
+    //add events for click
+    //create deck of cards
+    //save those cards
+    //done measure time
+    //check if set
+    
+    
+}
+function setTable(){
+    this.pattern = ['pat0','pat1'];
+    this.findTable = ['try0','try1','try2','try3'];
+    this.setEventToTable = function(){
+        for(var i=0;i<this.findTable.length;i++){
+            var el = document.getElementById(this.findTable[i]);
+            el.addEventListener("click", somefunction, false);
+            
+            
+        }
+        
+    }
+    
+    
+}
+function deckOfCards(){
+    this.findThirdCard = function(first,secend){
+        var thirdCard = [0,0,0,0];
+        //this.pattern = [0,1,2];
+        for (var i=0;i<4;i++){
+            if(first[i]==secend[i]){
+                thirdCard[i] = first[i];   
+            }
+            else{thirdCard[i] = 3 -first[i] - secend[i]; 
+                
+            }
+        }
+        return thirdCard;
+    }
+    this.createSimilarCards = function(pattern){
+        console.log(pattern);
+        this.z = pattern;
+        var z =pattern
+        this.w = this.z;
+        this.w[1]='hey';
+        console.log(this.z,z,pattern);
+      
+        //console.log(z);
+        //similarCards[x]=[0,0,0,0];
+        return;// similarCards;
+    }
     this.fromRandom = function(){
         //do until function but dont know how
         var randomNumber = Math.floor(Math.random()*10000);
@@ -24,58 +67,86 @@ function randomizeCards(){
         this.lastRandom = randomNumber;
         var card = [0,0,0,0];
         for (var i = 0; i<4; i++){
-            card[i]=randomNumber%10;
+            card[i] = randomNumber%10;
             randomNumber -= card[i];
             randomNumber = randomNumber/10;
-            card[i]=card[i]%3;
+            card[i] = card[i]%3;
         }
         return card;    
     }
-    this.findThirdCard = function(first,secend){
-        this.thirdCard = [0,0,0,0];
-        //this.pattern = [0,1,2];
-        for (var i=0;i<4;i++){
-            if(first[i]==secend[i]){
-                this.thirdCard[i] = first[i];   
-            }
-            else{this.thirdCard[i] = 3 -first[i] - secend[i]; 
-                
-            }
+    this.fullSetDeck = function(){
+        var newDeck = this.numberDeck();
+        console.log(newDeck);
+        var shuffledDeck = this.shuffle(newDeck);
+        var setDeck = [];
+        for(var i=0;i<81;i++){
+            setDeck[i]=this.cardFromNumber(shuffledDeck[i]);
         }
-        return this.thirdCard;
+        return setDeck;
     }
-    this.createSimilarCards = function(pattern){
-        var z = pattern;
-        console.log( z);
-        var similarCards = [];
-        var x = randomOneOf(4);
-        var y =[];
-        var newPat;    
+    this.shuffle = function(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
+    }
+    this.numberDeck =function(){
+        var deck=[];
+        for(var i=0;i<81;i++){
+            deck[i]=i;
+        }
+        this.shuffle(deck);
+        return deck;
+    }
+    this.cardFromNumber = function(number){
+        if(number >80 ||number<0){
+            throw('wrong number: '+number+' in cardFromNumber');
+        }
+        var params = [0,0,0,0];
         for(var i=0;i<4;i++){
-            y[i]=randomOneOf(4); 
+          this.rest = number % 3;
+            number -= this.rest;
+            number = number/3;
+            params[i]=this.rest;
         }
-        console.log(y);
-        for (var i=0;i<4;i++){
-        
-        newPat = z;
-            newPat[0] = 'hey';
-            console.log( z);
-            //similarCards[randomNumber % 4][i] = 'hey';//randomOneOf(3);
-            //console.log(similarCards[i]);
-           // similarCards[i] = newPat;
-            
-        }
-        console.log(z);
-        similarCards[x]=[0,0,0,0];
-        return similarCards;
+        return params;
     }
     
+    
 }
+function measureTime(){
+    this.lastClick = 1;//end
+    this.start = function(){
+        this.time = new Date();
+        this.startTime = this.time.getTime();
+        this.lastClick = 0;
+    }
+    this.end = function (){
+        this.time = new Date();
+        this.endTime = this.time.getTime();
+        this.difference = this.endTime - this.startTime ;
+        this.lastClick = 1;
+    }
+    this.stopStart = function(){
+        if(this.lastClick == 1){
+            this.start();
+        }
+        else{
+            time.end();
+        }
+    }
+}
+
 function randomOneOf(number){
     var randomNumber = Math.floor(Math.random()*10);
     return randomNumber % number;
 }
-function tryOnceMore(){
+
+function tryOnceMore3(){
     var cardt = new cards();
     var random = new randomizeCards();
     var card = random.fromRandom();
@@ -83,13 +154,19 @@ function tryOnceMore(){
     var card3 = random.findThirdCard(card,card2);
     cardt.cardParametrs('pat0',card);
     cardt.cardParametrs('pat1',card2);
-    var x = random.createSimilarCards(card3);
+    //var x = random.createSimilarCards([0,0,0,0]);
     var id;
+    var x=[];
+    var rand =randomOneOf(4);
+    for(var i=0;i<4;i++){
+        x[i]=random.fromRandom();
+    }
+    x[rand]=card3;
     //console.log(id);
     for(var i=0;i<4;i++){
         id= 'try'+i
-        //cardt.cardParametrs(id,x[i]);
-       // console.log(id +'  '+ x[i])
+        cardt.cardParametrs(id,x[i]);
+        //console.log(id +'  '+ x[i])
         
     }
     //   shape   |  color  | number|  shading
