@@ -1,35 +1,146 @@
-//var last=0;
+var last=0;
+    var x = new speedSetFinding();
 //var time = new measureTime();
 function tryOnceMore(){
-    var x = new deckOfCards();
+
     //x.cardFromNumber(80);
-    var y = x.fullSetDeck();
+     //x.setEventToTable(function(){console.log('hey')});
+    x.prepareTable();
+    x.setStartMode();
+    if(last==0){x.onStart();last=1;}
+    else{x.nextRound();}
+    //x.onEnd();
     //time.stopStart();
-    console.log(y);
+    //console.log(y);
+}
+function freeFunc(){
     
+    console.log('kk');
+}
+function somefunction(){
+    console.log('hey');
+}
+function speedSetFinding(){
+    //mode = random, from full deck
+    //gameSession.call(this);
+    this.roundCounter;
+    measureTime.call(this);
+    gameSession.call(this);
+    deckOfCards.call(this);
+    cards.call(this);
+    clickTheTable.call(this);
+    this.onStart = function(){
+        this.roundCounter=0;
+        this.whenEnd=3;
+        this.startTime();
+        //this.nextRound;
+        //this.test();
+        //this.prepareTable
+        //this.nextRound();
+        //this.onEn
+        //time begin
+        //next round
+        console.log('hey');
+    }
+    this.nextRound = function(){
+        console.log('hdey');     
+        console.log(this.roundCounter)
+        this.roundCounter++;
+        this.prepareData();
+        if(this.roundCounter>this.whenEnd){
+            this.onEnd();
+        }
+        
+    }
+    this.onEnd = function(){
+        this.endTime();
+        console.log(this.difference);
+        //time end
+        //show what u have done
+        
+    }
+    this.prepareData = function(){
+        var randCards = [this.fromRandom(),this.fromRandom()];
+        this.fillFindTableRandom(randCards);
+        this.fillPattern(randCards);
+    }
+    this.prepareTable = function(){
+    this.setEventToTable(this);
+        
+    }
+    this.test = function(){
+        console.log('hhy');
+        
+    }
 }
 function gameSession(){
-    //add events for click
-    //create deck of cards
+        this.startBtn = 'start';
+    //speedSetFinding.call(this);
+    cards.call(this);
+    deckOfCards.call(this);
+    clickTheTable.call(this);
+    this.setStartMode = function(){
+        var el = document.getElementById(this.startBtn);
+        //el.addEventListener("click",freeFunc,false);
+        console.log('tutaj event');
+        
+    }
+    this.fillPattern = function(cards){
+        
+        for(var i=0;i<this.pattern.length;i++){
+            this.cardParametrs(this.pattern[i],cards[i]);
+            
+        }
+    }
+    //do poprawy 
+    this.fillFindTableRandom = function(twoCards){
+        if(twoCards.length != 2){
+            throw('wrong nuber of cards in function fillFindTable');
+        }
+        var thirdCard = this.findThirdCard(twoCards[0],twoCards[1])
+        var fillTableLength = this.findTable.length;
+        var cardsToFill = [];
+        for(var i=0;i<fillTableLength;i++){
+            cardsToFill[i] = this.fromRandom();
+            //this.cardParametrs(this.pattern[i],cards[i]);
+            
+        }
+        cardsToFill[this.randomOneOf(fillTableLength)] = thirdCard;
+        for(var i=0;i<fillTableLength;i++){
+            this.cardParametrs(this.findTable[i],cardsToFill[i]);
+        }
+        
+    }
+    this.randomOneOf = function(number){
+        var x = 10;
+        if(number>10){x=100;}
+        if(number>100){x=1000;}
+        var randomNumber = Math.floor(Math.random()*x);
+        return randomNumber % number;
+    }
+    //done add events for click
+    //how those events should look
+    //done create deck of cards
     //save those cards
     //done measure time
     //check if set
     
     
 }
-function setTable(){
+function clickTheTable(){
+    this.somefunction = function(){console.log('hey');};
     this.pattern = ['pat0','pat1'];
     this.findTable = ['try0','try1','try2','try3'];
-    this.setEventToTable = function(){
+    var el;
+    this.setEventToTable = function(functionName){
         for(var i=0;i<this.findTable.length;i++){
-            var el = document.getElementById(this.findTable[i]);
-            el.addEventListener("click", somefunction, false);
-            
+            el = document.getElementById(this.findTable[i]);
+            //el.addEventListener("click", functionName.nextRound, false);
+            console.log('i tutaj tez');
             
         }
         
     }
-    
     
 }
 function deckOfCards(){
@@ -120,12 +231,13 @@ function deckOfCards(){
 }
 function measureTime(){
     this.lastClick = 1;//end
-    this.start = function(){
+    this.startTime = function(){
         this.time = new Date();
         this.startTime = this.time.getTime();
         this.lastClick = 0;
+        console.log('in startTime');
     }
-    this.end = function (){
+    this.endTime = function (){
         this.time = new Date();
         this.endTime = this.time.getTime();
         this.difference = this.endTime - this.startTime ;
@@ -139,11 +251,6 @@ function measureTime(){
             time.end();
         }
     }
-}
-
-function randomOneOf(number){
-    var randomNumber = Math.floor(Math.random()*10);
-    return randomNumber % number;
 }
 
 function tryOnceMore3(){
