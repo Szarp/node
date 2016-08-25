@@ -39,6 +39,7 @@
 .cards{
     flex-wrap: nowrap;
     justify-content: center;
+    background: red;
     
 }
 .patternCard{
@@ -54,8 +55,8 @@
 .oneCard{
    /* margin-left: 10px;
     margin-right: 10px;*/
-    width: 40vw;
-    height: 20vw;
+    width: 10em;
+    height: 6em;
     border-radius: 20px;
     border: 5px white solid;  
     

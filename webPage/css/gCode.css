@@ -12,10 +12,12 @@
 }
 
 .mainArea{
-    width: 850px;
-    background: #E0E4FF;
+    /*width: 850px;*/
+    /*margin-right: 100px;*/
+    
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 50px;
+    
 }
 .pageStyle{
     margin-left: 5px;
@@ -32,8 +34,8 @@
     left:0px;
     z-index:1000;
 }
-.flex-container2 {
-    height: 90vh;
+.patternCards {
+    height: 40vh;
     justify-content: space-between;
       list-style: none;
       -ms-box-orient: horizontal;
@@ -44,6 +46,18 @@
       display: -webkit-flex;
       display: flex;
     }
+.findTable {
+    height: 50vh;
+    justify-content: center;
+      list-style: none;
+      -ms-box-orient: horizontal;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -moz-flex;
+      display: -webkit-flex;
+      display: flex;
+}
 .elementsList{
     text-align: left;
     font-size:15px;
@@ -66,7 +80,7 @@
 
 }
 .code{
-    text-align:;
+
     
 }
 .scaleColor{
@@ -153,8 +167,28 @@ select {
   -webkit-flex-flow: row wrap;
   justify-content: flex-end;
 }
+.choseMenu{
+    list-style: none;
+    margin: 0;
+    padding-top: 1em;
 
+
+}
+.choseMenu a{
+    /*display:inline-flex;*/
+    text-decoration: none;
+    border: 1px solid red;
+  /*display: block;*/
+  padding: 0.2em;
+  color: #333;
+}
+.choseMenu li{
+    text-align: center;
+    padding-bottom: 1em;
+}
 .navigation a {
+    margin: 0;
+    padding: 0;
   text-decoration: none;
   display: block;
   padding: 1em;
@@ -250,7 +284,7 @@ select {
     justify-content: space-around;
     list-style: outside none none;
     margin-top: 6px;
-    padding-left:0px;"
+    padding-left:0px;
 }
 .search-repo li{
     border-bottom: 2px solid red;

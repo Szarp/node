@@ -10,13 +10,31 @@
     <link rel="stylesheet" href="./css/webGraph.css">
         <link rel="stylesheet" href="./css/webPage.css">
         <link rel="stylesheet" href="./css/radioItem.css">
+         <link rel="stylesheet" href="./css/gCode.css">
 
-      <!--  <script type="text/javascript" src="learn-set.js"></script> -->
+       <script type="text/javascript" src="learn-set.js"></script> 
         <script type="text/javascript" src="shapes.js"></script>
 </head>
-<body>
-    
-<div class="flex-container cards">
+<body onload="testd()">
+    <ul class="navigation">
+  <li><a id="navbar_home">Home</a></li>
+  <li><a href="#">About</a></li>
+  <li><a href="#">Products</a></li>
+  <li><a href="#">Contact</a></li>
+</ul>
+
+<div class="mainContent" >
+    <div id="choseMenu" style="display:block;">
+    <ul class="choseMenu">
+  <li><a id="newgame" >New Game</a></li>
+  <li><a id="setting" >Settings</a></li>
+  <li><a id="credits" >Credits</a></li>
+  <li><a id="contact" >Contact</a></li>
+</ul>
+
+    </div>
+<div id="gameArea" style="display:none;" class="mainArea pageStyle">
+<div class="patternCards cards">
   
   <div id="pat0" class="flex-item item-size patternCard">
      </div>
@@ -26,16 +44,16 @@
     </div>      
     
     
-<div class="flex-container wrap">
+<div class="findTable wrap">
   <div id="try0" class="flex-item oneCard"></div>
   <div id="try1" class="flex-item oneCard"></div>
   <div id="try2" class="flex-item oneCard"></div>
   <div id="try3" class="flex-item oneCard"></div>
     
 </div>
-
-
-<button id="start" onclick="tryOnceMore()">heyheyhey</button>
+</div>
+</div>
+<button id="start" onclick="">heyheyhey</button>
 
         <!--65-->
     </body>

@@ -6,7 +6,7 @@ function tryOnceMore(){
     //x.cardFromNumber(80);
      //x.setEventToTable(function(){console.log('hey')});
     //x.prepareTable();
-    x.setStartMode();
+
     if(last<=0){last=1;}
     else{
         x.nextRound();
@@ -15,21 +15,12 @@ function tryOnceMore(){
     //time.stopStart();
     //console.log(y);
 }
-function freeFunc(){
-    x.onStart();
-    console.log('kk');
-}
-function func2(){
-    x.nextRound();
-    
-}
-function somefunction(){
-    console.log('hey');
-}
+
 function speedSetFinding(){
     //mode = random, from full deck
     //gameSession.call(this);
     this.roundCounter;
+    this.whenEnd=3;
     measureTime.call(this);
     gameSession.call(this);
     deckOfCards.call(this);
@@ -37,16 +28,10 @@ function speedSetFinding(){
     clickTheTable.call(this);
     this.onStart = function(){
         this.roundCounter=0;
-        this.whenEnd=3;
         this.startTime();
         //this.nextRound;
         //this.test();
-        this.prepareTable();
-        //this.nextRound();
-        //this.onEn
-        //time begin
-        //next round
-        console.log('hey');
+        this.prepareTable('on');
     }
     this.nextRound = function(){
         this.roundCounter++;
@@ -58,9 +43,10 @@ function speedSetFinding(){
     }
     this.onEnd = function(){
         this.endTime();
+        this.prepareTable('off');
         console.log(this.difference);
-        
-        throw('must restart');
+        //funcToRestart
+        //throw('must restart');
         //time end
         //show what u have done
         
@@ -70,9 +56,15 @@ function speedSetFinding(){
         this.fillFindTableRandom(randCards);
         this.fillPattern(randCards);
     }
-    this.prepareTable = function(){
-    this.setEventToTable(this);
-        
+    this.prepareTable = function(state){
+        if(state =='on'){
+            this.setEventToTable();
+        }
+        else if(state == 'off'){
+            this.removeEventToTable();
+            this.clearTable();
+        }
+        else{ throw('wrong state:'+ state+ 'in function prepareTable')}
     }
     this.test = function(){
         console.log('hhy');
@@ -80,15 +72,15 @@ function speedSetFinding(){
     }
 }
 function gameSession(){
-        this.startBtn = 'start';
+    this.startBtn = 'start';
     //speedSetFinding.call(this);
     cards.call(this);
     deckOfCards.call(this);
     clickTheTable.call(this);
     this.setStartMode = function(){
         var el = document.getElementById(this.startBtn);
-        el.addEventListener("click",freeFunc,false);
-        console.log('tutaj event');
+        el.addEventListener("click",onStartTable,false);
+        //console.log('tutaj event');
         
     }
     this.fillPattern = function(cards){
@@ -138,16 +130,30 @@ function clickTheTable(){
     this.pattern = ['pat0','pat1'];
     this.findTable = ['try0','try1','try2','try3'];
     var el;
-    this.setEventToTable = function(functionName){
+    this.setEventToTable = function(){
         for(var i=0;i<this.findTable.length;i++){
             el = document.getElementById(this.findTable[i]);
-            el.addEventListener("click", func2, false);
-            console.log('i tutaj tez');
+            el.addEventListener("click", onEventTable, false);
+            //console.log('i tutaj tez');
+        }
+    }
+    this.removeEventToTable = function(){
+        for(var i=0;i<this.findTable.length;i++){
+            el = document.getElementById(this.findTable[i]);
+            el.removeEventListener("click", onEventTable, false);
+            //console.log('i tutaj tez');
             
         }
         
     }
-    
+    this.clearTable = function(){
+        for(var i=0;i<this.findTable.length;i++){
+            this.clearField(this.findTable[i]);
+        }
+        for(var i=0;i<this.pattern.length;i++){
+            this.clearField(this.pattern[i]);
+        }
+    }
 }
 function deckOfCards(){
     this.findThirdCard = function(first,secend){
@@ -328,6 +334,10 @@ function cards(){
             this.x = this.el.clientHeight;
         //do porawy wpisane na twardo
     }
+    this.clearField = function(id){
+        this.localization(id);
+        this.pushSvg("");
+    }
     this.cardParametrs = function(id,nParam){
        this.localization(id);
        this.checkValues(nParam); this.cardCreator(this.shape[nParam[0]],this.color[nParam[1]],this.number[nParam[2]],this.shading[nParam[3]]);    
@@ -335,7 +345,7 @@ function cards(){
     this.checkValues = function(values){
         for(var i = 0; i<4; i++){
             if(values[i]<0 ||values[i]>2){
-                throw('o can onl use numbers from 0 to 2 in function cardParametrs')
+                throw('u can onl use numbers from 0 to 2 in function cardParametrs')
             }
             if(values[i] == null){
                 throw('value is null in function cardParametrs')
