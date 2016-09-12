@@ -3,9 +3,12 @@ var changesList=[];
 function asd(){
     var x=new getSubstitution();
     x.creatKeyList();
+   // console.log(x.keyList);
     x.allKeyElements();
-    x.changeIdForElements();
-    //console.log(x.keyElements);
+    //var a=x.returnCategoryName('teachersid');
+   x.changeIdForElements();
+    //x.changeIdForElements();
+    console.log();
     
     
 }
@@ -16,38 +19,66 @@ function getSubstitution(){
     this.substitutionList={};
     this.keyElements=[];
     this.changeIdForElements=function(){
-    for (var i=0;i<this.dataArray.length;i++){
-        var actualChange=this.dataArray[i];
-        for (k in actualChange){
-            if (k == 'changes'){
-                var toChange = actualChange[k];
-                for(var i=0; i<toChange.length;i++){
-                    for (l in toChange[i]){
-                        console.log(l +"  "+toChange[i][l]);
+        for (var i=0;i<this.dataArray.length;i++){
+            var actualChange=this.dataArray[i];
+            for (k in actualChange){
 
+                if (k == 'changes'){
+                    /*
+                    var toChange = actualChange[k];
+                    for(var i=0; i<toChange.length;i++){
+                        for (l in toChange[i]){
+                           // console.log(l +"  "+toChange[i][l]);
+
+                        }
                     }
+    */
                 }
 
-            }
-            else{
-                console.log(k +"  "+this.dataArray[k]);
-            }
-        }
-    }
-    
-}
-
-this.findInCatgory=function(category,element){
-    var findingList=keyLisit[category];
-    for(var i=0;i<findingList.length;i++){
-        for (k in findingList[i]){
-            if(k==element){
-                return findingList[i][k];
+                else{
+                    var help=''
+                    var a=this.returnCategoryName(k);
+                    if(a == false){help=k}
+                    var value=this.findInCatgory(a,actualChange[k]);
+                    //actualChange[k]=value;
+                    console.log(a+"   "+value);
+                }
+                //console.log(actualChange);
             }
         }
     }
-    throw('invalid element or category in function findInCategory');  
-}
+    this.removeLastCharakters=function(string){
+        var len = string.length;
+        return string.slice(0,len-4);
+        
+    }
+    this.findInCatgory=function(category,el){
+        var element=[];
+        if(element.length==undefined){element[0]=el}
+        if(element.length != undefined){element=el}
+        if (element ==""){return element};
+        var findingList=this.keyList[category];
+        //console.log(findingList);
+        if(findingList==undefined){return element};
+        for(var i=0;i<findingList.length;i++){
+            var elementsToReturn=[];
+            //console.log(element.length);
+            for(var j=0;j<element.length;j++){
+                for (k in findingList[i]){
+                
+                    if(k==element[j]){
+                        //console.log(findingList[i][k])
+                        elementsToReturn[j]=findingList[i][k];
+                    }
+            }
+                if(element.length == 1){return elementsToReturn[0]}
+                //return elementsToReturn;
+                console.log('abc',elementsToReturn);
+                //else{console.log('a:  '+findingList[i][k],element)}
+            }
+        }
+    throw('invalid element or category in function findInCategory  '+element+'     '+category);  
+    }
     this.allKeyElements=function(){
         var i=0
         for(k in this.keyList){
@@ -57,15 +88,21 @@ this.findInCatgory=function(category,element){
         }
     }
 this.returnCategoryName=function(string){
-    for(var i=0;i<this.keyElements.length;i++){
-        
-        var ifContain=this.include(string,this.keyElements[i]);
-        if(ifContain!=-1){return ifContain};
+    if(string.length>5){
+        var slicedString=this.removeLastCharakters(string);
     }
+    for(var i=0;i<this.keyElements.length;i++){
+        //console.log(this.keyElements[i])
+        var ifContain=this.isThereString(this.keyElements[i],slicedString);
+        if(ifContain==true){return this.keyElements[i]};
+        //console.log(ifContain);
+    }
+    return string;
+    //throw('wrong string in function returnCategoryName')
     
 }
-this.include=function(arr,obj) {
-    return (arr.indexOf(obj) != -1);
+this.isThereString=function(keyString,stringToFind) {
+    return (keyString.indexOf(stringToFind) != -1);
 }
 this.creatKeyList=function(){
     for (k in this.keyArray){ //techer
