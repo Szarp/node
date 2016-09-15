@@ -6,9 +6,9 @@ function asd(){
    // console.log(x.keyList);
     x.allKeyElements();
     //var a=x.returnCategoryName('teachersid');
-   x.changeIdForElements();
+   var a=x.changeIdForElements();
     //x.changeIdForElements();
-    console.log();
+    console.log(a);
     
     
 }
@@ -19,8 +19,10 @@ function getSubstitution(){
     this.substitutionList={};
     this.keyElements=[];
     this.changeIdForElements=function(){
+        var changes=new Array(this.dataArray.length);
         for (var i=0;i<this.dataArray.length;i++){
             var actualChange=this.dataArray[i];
+            var newObj={};
             for (k in actualChange){
 
                 if (k == 'changes'){
@@ -36,47 +38,71 @@ function getSubstitution(){
                 }
 
                 else{
-                    var help=''
-                    var a=this.returnCategoryName(k);
-                    if(a == false){help=k}
-                    var value=this.findInCatgory(a,actualChange[k]);
+                    var help='';
+                    var categoryName=this.returnCategoryName(k);
+                    if(categoryName == false){help=k}
+                    var tableElement=this.changeToTable(actualChange[k]);
+                    var value=this.findInCatgory(categoryName,tableElement);
+                    //var newObj={}
+                    newObj[categoryName]=value
+                    //changes[i][categoryName]
+                    
                     //actualChange[k]=value;
-                    console.log(a+"   "+value);
+                    //console.log(a+"   "+value);
                 }
+                changes[i]=newObj;
                 //console.log(actualChange);
             }
         }
+        return changes;
+    }
+    this.changeToTable = function(element){
+        
+        if(element.constructor === Array){
+            //if(Array.isArray(element)){console.log('yes')}
+            //console.log('hi',element )
+            return element;
+            //console.log('is table:  ' + element +'  '+category )
+        }
+        else{
+            var newElement=[];
+            newElement[0]=element;
+            return newElement;
+            //console.log('is string: ' + element)
+        }
+        
     }
     this.removeLastCharakters=function(string){
         var len = string.length;
         return string.slice(0,len-4);
         
     }
-    this.findInCatgory=function(category,el){
-        var element=[];
-        if(element.length==undefined){element[0]=el}
-        if(element.length != undefined){element=el}
-        if (element ==""){return element};
+    this.findInCatgory=function(category,element){
+        if (element[0] == ""){return element};
         var findingList=this.keyList[category];
         //console.log(findingList);
-        if(findingList==undefined){return element};
+        if(findingList == undefined){return element};
+        var elementsToReturn=[];
         for(var i=0;i<findingList.length;i++){
-            var elementsToReturn=[];
+            //console.log('loop');
             //console.log(element.length);
             for(var j=0;j<element.length;j++){
                 for (k in findingList[i]){
-                
-                    if(k==element[j]){
+                   // console.log(element[j],k)
+                    if(k == element[j]){
                         //console.log(findingList[i][k])
                         elementsToReturn[j]=findingList[i][k];
                     }
+                    break;
             }
-                if(element.length == 1){return elementsToReturn[0]}
+                
                 //return elementsToReturn;
-                console.log('abc',elementsToReturn);
+                //console.log('abc',elementsToReturn);
                 //else{console.log('a:  '+findingList[i][k],element)}
             }
         }
+        //console.log('hey',element);
+        return elementsToReturn;
     throw('invalid element or category in function findInCategory  '+element+'     '+category);  
     }
     this.allKeyElements=function(){
