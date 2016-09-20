@@ -17,33 +17,35 @@ app.get('/', function (req, res) {
     host: 'zso11.edupage.org',
     path: '/substitution/?',
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': Buffer.byteLength(data)
-    }
   };
 
   var httpreq = http.request(options, function (response) {
       var x="";
       //var y=1;
     response.setEncoding('utf8');
+      console.log(response);
     response.on('data', function (chunk) {
         //var z=isThereString(chunk,"{teachers:{");
         //if(z==true){y=1;}
             x+=chunk;
-      console.log("body: " + x.length);
+      //console.log("body: " + x.length);
         //fs.writeFileSync(__dirname+'/json/pageZSO.txt', chunk, 'utf-8');
     });
     response.on('end', function() {
         var y=x.indexOf('"teachers":{');
-        console.log('index of is: '+y)
-        x=x.slice(y-2,x.length);
-        fs.writeFileSync(__dirname+'/json/pageZSO.txt', x, 'utf-8');
+        //console.log('index of is: '+y)
+        //x=x.slice(y-2,x.length);
+       // fs.writeFileSync(__dirname+'/json/pageZSO.txt', x, 'utf-8');
       res.send('ok');
     })
   });
   httpreq.write(data);
   httpreq.end();
+});
+app.get('/test2', function (req, res) {
+    asf();
+        res.send('ok');
+    
 });
 app.get('/test', function (req, res) {
     //var a=userMod.changes();
@@ -55,6 +57,77 @@ app.get('/test', function (req, res) {
 
 
 app.listen(8090);
+function asf(){
+    /*
+    var z=new Date()
+    z.setDate(8);
+    var x=new getJsonFromHtml(); 
+    x.fileString=fs.readFileSync(__dirname+'/json/pageZSO.txt', 'utf-8');
+    var a=x.indexOfStringInFile('gsh');
+    var b=x.fileString.slice(a-8,a-1);
+    var c=x.fileString.slice(a+4,a+12);
+    var year = z.getFullYear();
+    var month = z.getMonth();
+    var day = z.getDate();
+    if(month<10){month='0'+month;};
+    if(day<10){day='0'+day;};
+    //console.log(b);
+    //console.log(c);
+    if(z.getMonth)
+    var d=year+'-'+month+'-'+day;
+    console.log(d);
+    */
+    var z=new setDate();
+    //z.todayIs()
+    //z.tommorowIS();
+    z.yeasterdayIS();
+    console.log(z.dispalyTime());
+}
+function getGPIDandGSH(file){
+    var gshString='gsh';
+    var a=file.indexOf('gsh');
+    var gpid=file.slice(a-8,a-1);
+    var gsh=file.slice(a+4,a+12);
+    return [gpid,gsh];
+}
+function setDate(){
+    //this.Today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    //this.day
+    //this.month
+    //this.year
+    this.dispalyTime=function(){
+        return this.year+'-'+this.month+'-'+this.day;
+    }
+    this.updateTime=function(){
+        this.year = this.Today.getFullYear();
+        this.month = this.Today.getMonth();
+        this.day = this.Today.getDate();
+        if(this.month<10){this.month='0'+this.month;};
+        if(this.day<10){this.day='0'+this.day;};
+    }
+    this.todayIs=function(){
+        this.Today = new Date();
+        this.updateTime();
+
+    }
+    this.tommorowIS=function(){
+        this.Today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        this.updateTime();
+    }
+    this.yeasterdayIS=function(){
+        this.Today = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+        this.updateTime();
+    }
+    this.setDate=function(year,month,day){
+        this.Today=new Date();
+        this.Today.setFullYear(year);
+        this.Today.setDate(day);
+        this.Today.setMonth(month);
+        this.updateTime();
+        
+    }
+    
+}
 function asd(){
     /*
     var x=new getSubstitution(); 
