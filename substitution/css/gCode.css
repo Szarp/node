@@ -1,0 +1,318 @@
+
+
+.pageStyle{
+    margin-left: 50px; 
+    margin-right: 50px;
+    text-align: center;
+}
+.overlay{
+    opacity:0.8;
+    background-color:lightgreen;
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
+}
+.patternCards {
+    height: 40vh;
+    justify-content: space-between;
+      list-style: none;
+      -ms-box-orient: horizontal;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -moz-flex;
+      display: -webkit-flex;
+      display: flex;
+}
+.findTable {
+    height: 50vh;
+    justify-content: center;
+      list-style: none;
+      -ms-box-orient: horizontal;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -moz-flex;
+      display: -webkit-flex;
+      display: flex;
+}
+.elementsList{
+    text-align: left;
+    font-size:15px;
+}
+.elementsList ul{
+    list-style: outside none none;
+
+    padding-left: 0px;
+    margin:0px;
+}
+.elementsList li{
+    color: #4078c0;
+     font-size: 14px;
+    font-weight: bold;
+    border-top: 1px solid #e5e5e5;
+    display: block;
+    font-size: 14px;
+    padding: 6px 64px 6px 30px;
+    position: relative;
+
+}
+.code{
+
+    
+}
+.scaleColor{
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color:none;
+    height: 200px;
+    z-index:3;
+    
+}
+.scaleColor ul{
+    position: relative;
+    z-index: 5;
+    padding-left: 30px;
+    padding-right: 5px;
+    color: blue;
+    list-style: none;
+    
+}
+.scaleColor li{
+    height: 15px;
+    width: 40px;
+    background-color:lightblue;
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+.svgColor{
+position: relative; 
+   top: -125px; 
+   left: 0px;
+    height: 115px;
+    width: 105px;
+    z-index:0;
+    background-color: lightgray;   
+    display: block;
+}
+.toolInput{
+    width: 50px;
+    
+}
+input[type=number] {
+    width: 70px;
+    border: 1px solid #ccc;
+    color: #f4a74a;/* zielony 81991c*/
+    border-bottom:2px solid #ccc; 
+    background-color: transparent;
+    margin-left: 10px;
+}
+.panelBody{
+    background-color: #eaeaea;
+    
+}
+select {
+  border: 1px solid #111;
+  background: transparent;
+  width: 70px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+@media screen and (min-width: 0\0) {
+  select {
+    background: none;
+
+  }
+}
+.her{
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #fefefe;
+}
+.navigation {
+    list-style: none;
+    margin: 0; 
+    background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: flex-end;
+}
+.choseMenu{
+    list-style: none;
+    margin: 0;
+    padding-top: 1em;
+
+
+}
+.choseMenu a{
+    /*display:inline-flex;*/
+    text-decoration: none;
+    border: 1px solid red;
+  /*display: block;*/
+  padding: 0.2em;
+  color: #333;
+}
+.choseMenu li{
+    text-align: center;
+    padding-bottom: 1em;
+}
+.navigation a {
+    margin: 0;
+    padding: 0;
+  text-decoration: none;
+  display: block;
+  padding: 1em;
+  color: #333;
+}
+
+.navigation a:hover {
+    color: #4078c0;
+}
+.mainContent{
+    background-color: #fefefe;
+    margin-left: 10px;
+    margin-right: 10px;
+    /*border: 1px solid black;*/
+}
+.boxed-group{
+    border-radius: 3px;
+    margin-bottom: 30px;
+    position: relative;  
+}
+.boxed-group-action {
+    position: relative;
+    z-index: 2;
+    float: right;
+    margin: 6px 10px 0px 0px;
+}
+.boxed-group > h3, .boxed-group .heading {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #f5f5f5;
+    border-color: #d8d8d8 #d8d8d8 -moz-use-text-color;
+    border-image: none;
+    border-radius: 3px 3px 0 0;
+    border-style: solid solid none;
+    border-width: 1px 1px 0;
+    display: block;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+    padding: 9px 10px 10px;
+    color: #666;
+}
+.boxed-group-inner {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #d8d8d8;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: #666;
+    font-size: 13px;
+    padding: 10px;
+}
+.boxed-group-section{
+    background: #fff none repeat scroll 0 0;
+    border-top: 1px solid #d8d8d8;
+    color: #666;
+    font-size: 13px;
+    padding: 10px;
+    color: #4078c0;
+    }
+.first{
+    border-top:none;
+}
+.scrollableList{
+    padding: 0px;    
+}
+.scrollableList ul{
+    list-style: outside none none;
+    text-align: left;
+    padding: 0px;
+    margin:0px;
+    width:auto; 
+    height: 200px; 
+    overflow: auto;
+}
+.scrollableList li{
+    color: #4078c0;
+     font-size: 14px;
+    font-weight: bold;
+    border-top: 1px solid #e5e5e5;
+    display: block;
+    font-size: 14px;
+    padding: 6px 64px 6px 30px;
+    position: relative;
+}
+.chooseDay li:hover{
+    color: black;   
+}
+.search-repo button{
+    border: 0px;
+    padding: 0px;
+}
+.chooseDay ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: outside none none;
+    margin-top: 6px;
+    padding-left:0px;
+}
+.chooseDay li{
+    border-bottom: 2px solid red;
+}
+.chooseDay li:hover{
+    border-bottom: 2px solid blue;
+}
+.search-repo input{
+    width: 100px;
+    padding-left:10px;
+    padding-right: 10px;
+}
+.chooseDay{
+ background-color: #fafafa;
+}
+.btn{
+    position: relative;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #333;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -moz-user-select: none;
+    background-color: #EEE;
+    background-image: linear-gradient(#FCFCFC, #EEE);
+    border: 1px solid #D5D5D5;
+    border-radius: 3px;
+}
+.edit-btn {
+    font-size: 13px;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #FFF;
+    margin-left: 5px;
+background-color: #60B044;
+background-image: linear-gradient(#8ADD6D, #60B044);
+border-color: #5CA941;
+}
+.edit-btn:hover{
+    background-color: #569E3D;
+    background-image: linear-gradient(#79D858, #569E3D);
+    border-color: #4A993E;
+}

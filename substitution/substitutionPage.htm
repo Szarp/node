@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Substitution</title>
+        <meta name="description" content="Interaktywny">
+        <link rel="stylesheet" href="css/webGraph.css">
+        <link rel="stylesheet" href="css/webPage.css">
+        <link rel="stylesheet" href="css/radioItem.css">
+         <link rel="stylesheet" href="css/mediaSize.css">
+         <link rel="stylesheet" href="css/webGraph.css">
+        <link rel="stylesheet" href="css/elementsMenu.css">
+        <link rel="stylesheet" href="css/gCode.css">
+        <script type="text/javascript" src="js/sendForm.js"></script>
+
+        
+    </head>
+    <body onload="testNumberFive()">
+        <script>
+        </script>
+ 
+
+<ul class="navigation">
+  <li><a id="navbar_home" href="#">Home</a></li>
+  <li><a id="navbar_substitution" href="#">Zastępstwa</a></li>
+  <li><a id="navbar_settings" href="#">Ustawienia</a></li>
+</ul>
+
+<div id="mainContent" class="mainContent flex-container2">
+        <div id="substitutionList" class=" pageStyle" style="display:none;">
+            <div  class="boxed-group" id="elementsContent">
+                    <h3>Zastępstwa</h3>
+                    <div class="boxed-group-inner" style="padding:0px;">
+                        <div class="chooseDay">
+                            <ul>
+                                <li id="todayBtn" onclick="testFunc();">today</li>
+                                <li id="tommorowBtn">tomorrow</li>
+                                <li id="chooseBtn">choose</li>
+                            </ul>
+                        </div>
+                        <div class="scrollableList" id='elementsList'>
+                    <ul id="displaySubstitutions">
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>3</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>10</li>
+                            <li>11</li>
+                            <li>12</li>
+                        </ul>
+                            </div>
+                    </div>
+                </div>
+        </div>
+        <div id="homePage" class=" pageStyle" style="display:block;">
+            <div  class="boxed-group" id="elementsContent">
+                    <h3>Home</h3>
+                    <div class="boxed-group-inner">
+                      Witam na pierwszej wersji zastępst. Pobiera zastępswa ze strony ZSO.
+                    </div>
+     
+
+                </div>
+
+        </div>
+        <div id="settingsMenu"class=" pageStyle" style="display:none;">
+            <div class="boxed-group">
+                <h3>Settings</h3>
+                <div class="boxed-group-inner">
+                    <div class="boxed-group-section first">
+                        <table>
+                          <tr>
+                            <td>class:</td>
+                            <td>                        
+                                <select  id="specieSelect">
+                                    <option  value="all">All</option>
+                                    <option  value="1b">1b</option>
+                                </select>
+                            </td>
+                          </tr>
+                            <tr>
+                                <td>notification:</td>
+                                <td>                        
+                                    <select  id="fillPropertySpecie">
+                                        <option value="yes">yes</option>
+                                        <option value="no">no</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <a id="saveBtn" class="edit-btn btn" onclick="getForm()">Save settings</a>
+                    </div>
+     
+
+                </div>
+            </div>
+        </div>
+    
+</div>
+    </body>
+</html>
