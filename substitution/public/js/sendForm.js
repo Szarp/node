@@ -82,5 +82,25 @@ function testNumberFive(){
         changeDisplayOnClick(mainEvents[k]);
     }
     console.log('hi');
-    
+}
+function testNumberFour(){
+    sendObj('/testXml',obj,hey);
+}
+function hey(xx){
+    console.log(xx);
+}
+var obj={'hey':'my name is skrilex','hey2':89};
+    var sendObj = function(url,json_obj,callback){
+    var http = new XMLHttpRequest();
+    //var url = "get_data";
+    var string_obj=JSON.stringify(json_obj);
+        console.log(string_obj);
+    http.open("POST", url, true);
+    http.setRequestHeader("Content-type", "application/json");
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            callback(http.responseText);
+        }
+    }
+    http.send(string_obj);
 }
