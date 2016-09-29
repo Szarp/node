@@ -23,11 +23,11 @@ app.use(function (req, res, next) {
         var randomNumber=Math.random().toString();
         randomNumber=randomNumber.substring(2,randomNumber.length);
         res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
-        console.log('cookie created successfully');
+        //console.log('cookie created successfully');
     } 
     else{
     // yes, cookie was already present 
-        console.log('cookie exists', cookie);
+       // console.log('cookie exists', cookie);
     } 
     next(); // <-- important!
 });
@@ -88,6 +88,9 @@ app.get('/test', function (req, res) {
 app.post('/testXml', function(req, res){
     console.log(req.body);
     console.log(req.cookies.cookieName);
+    getCookie(function(){
+        console.log('added');
+    });
     //console.log(res.headers);
     
     res.send('ok');
@@ -145,6 +148,19 @@ function getDateFromGcall(){
   
 
 app.listen(8090);
+// some places where save
+//place /zso11
+//colections users
+//login, password, data
+// substitutions
+//
+function dataForMongo(){
+    this.place='/zso11';
+    this.userCol='users';
+    this.substitutionCol='substitution';
+    
+}
+
 function asf(){
 
     var z=new setDate();
@@ -155,28 +171,68 @@ function asf(){
 }
 
 // 2016-09-26
-    var getCookie=function(){
+    function getCookie(callback){
         //this.ex('ab');
-        this.url='http://zso11.edupage.org/substitution/?';
-        request(this.url,function(err,res,body){
+        var url='http://zso11.edupage.org/substitution/?';
+        request(url,function(err,res,body){
             if(!err && res.statusCode ==200){
-                var params=getGPIDandGSH(body);
-                var cookie=res.headers['set-cookie'];
+                getGPIDandGSH(body,function(params){
+                    var cookie=res.headers['set-cookie'];
+                    var data = {
+                        'gpid':params[0],
+                        'gsh':params[1],
+                        'cookie':cookie
+                    }
+                    console.log(JSON.stringify(data));
+                    saveToCollection(['testCollection',data],function(){
+                        console.log('data added: '+data);
+                        
+                    })
+                    
+                });
                 //ex(this.body);
-                  console.log('hi',params[0],params[1],cookie);
+                //  console.log('hi',params[0],params[1],cookie);
                 //save somewhere
             }
+        });
+        setImmediate(function() {
+                callback();
+            });
+    }
+    function saveToCollection(params,callback){
+        //[collection,{data}]
+        var collectionName = params[0];
+        var data = params[1];
+        var url = 'mongodb://localhost:27017/test2';
+        MongoClient.connect(url, function(err, db) {
+            assert.equal(null,err);
+            var collection=db.collection(collectionName);
+            collection.insert(data, {w: 1}, function(err1, records){
+                assert.equal(null,err1);
+                //console.log("Record added as "+records[0]._id);
+            });
+            setImmediate(function() {
+                callback();
+            });
+        db.close();
         })
     }
-
-    var getGPIDandGSH=function(z){
+    var getGPIDandGSH=function(data,callback){
         //console.log('mi');
         var gshString='gsh';
-        var a=z.indexOf('gsh');
-        var gpid=z.slice(a-8,a-1);
-        var gsh=z.slice(a+4,a+12);
-        return[gpid,gsh];
+        var a=data.indexOf('gsh');
+        var gpid=data.slice(a-8,a-1);
+        var gsh=data.slice(a+4,a+12);
+        setImmediate(function() {
+            callback([gpid,gsh]);
+        });
     }
+    function getCookie(data,callback){
+        var url='http://zso11.edupage.org/substitution/?';
+        
+        callback(data)
+    }
+    
 function setDate(){
     //this.Today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
     //this.day
@@ -246,7 +302,7 @@ function asd(){
     
 }
 
-
+//------------
 function getJsonFromHtml(){
     //this.fileString
     //this.slicedString
