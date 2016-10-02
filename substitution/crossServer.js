@@ -1,16 +1,21 @@
-var express = require('express');
-var fs= require('fs');
-var querystring = require('querystring');
-var http = require('http');
-var userMod = require('./getSubstitution.js');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var request= require('request');
-var querystring = require('querystring');
+var express = require('express'),
+    fs= require('fs'),
+    querystring = require('querystring'),
+    http = require('http'),
+    userMod = require(__dirname +'/myModules/getSubstitution.js'),
+    jsonFromHtml = require(__dirname +'/myModules/getJsonFromHtml.js'),
+    setDate = require(__dirname +'/myModules/setDate.js'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    request= require('request'),
+    MongoClient = require('mongodb').MongoClient,
+    assert = require('assert'),
+    querystring = require('querystring');
 
-var substitution =new userMod();
-
+var substitution =new jsonFromHtml();
+var user= new userMod();
 var app = express();
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing
@@ -113,38 +118,7 @@ app.get('/testSetCookie', function(req, resp){
 
 });
 //hi 7594161 6a5e61df [ 'PHPSESSID=856sgp5ehj7to5f6khsme58pc4; path=/' ]
-function getDateFromGcall(){
-    var url2='http://zso11.edupage.org/gcall';
-    var gDate=['7594161', '6a5e61df'];
-    var cookie='PHPSESSID=856sgp5ehj7to5f6khsme58pc4;';
-    var form = {
-        gpid:gDate[0],
-        gsh:gDate[1],
-        action:"switch",
-        date:"2016-09-26",
-        _LJSL:"2,1"
-    };
 
-    var formData = querystring.stringify(form);
-    //console.log(formData);
-    var contentLength = formData.length;
-
-    request({
-        headers: {
-          'Content-Length': contentLength,
-          'Content-Type': 'application/x-www-form-urlencoded',
-            'Cookie' : cookie
-        },
-        uri: url2,
-        body: formData,
-        method: 'POST'
-      }, function (err, res, body) {
-        //it works!
-       // console.log(res);
-        fs.writeFileSync(__dirname+'/json/dataEx.txt', body, 'utf-8');
-        console.log(body);
-      });
-}
   
 
 app.listen(8090);
@@ -153,13 +127,227 @@ app.listen(8090);
 //colections users
 //login, password, data
 // substitutions
-//
-function dataForMongo(){
-    this.place='/zso11';
-    this.userCol='users';
-    this.substitutionCol='substitution';
+
+function getSomeSubstitution(date,callback){
+    getData(date,function(data){
+        convertToSubstitutions(data,function(convertedData){
+            saveSubstitutions(date,convertedData,function(){
+                console.log('save substitution '+ date);
+                setImmediate(function() {
+                    callback();
+                });
+                
+            })
+            
+        })
+    })
+              //console.log(x);
+
+}
+
+
+function saveSubstitutions(date,data,callback){
+    var dataToSave={};
+        dataToSave['substitution']=data;
+        console.log(dataToSave);
+        modifyById(date,'substitutions',dataToSave,function(){
+            setImmediate(function() {
+                callback();
+            });
+            //console.log('saved substitutions '+date);
+            
+            //ok;
+        })
     
 }
+function convertToSubstitutions(data,callback){
+    //console.log('hi');
+    var response;
+    substitution.fileString=data;
+    var err=substitution.testIfCorrectFile();
+    //console.log(err);
+    if(err){
+        substitution.getJsonObj();
+        user.keyArray=JSON.parse(substitution.keyObj);
+        user.dataArray=JSON.parse(substitution.dataObj);
+        console.log(substitution.dataObj);
+        response=user.changes();
+        //fs.writeFileSync(__dirname+'/json/dataEx.txt', JSON.stringify(user.dataArray), 'utf-8');
+    }
+    else{
+        response='no substitutions';
+    }
+    setImmediate(function() {
+        callback(response);
+    });
+    
+    
+    
+}
+function getData(date,callback){
+    downloadData(date,function(err,body){
+        if(err){
+            getCookie(function(){
+                downloadData(date,function(err,newBody){
+                    setImmediate(function() {
+                        callback(newBody);
+                    });
+                })
+            });
+        }
+        else{
+            setImmediate(function() {
+                callback(body);
+            });
+        }   
+    });
+}
+function downloadData(date,callback){
+    var url1='http://zso11.edupage.org/gcall';
+    findById('params','testCollection',function(params){    
+     //var gDate=['7593327', '1dc1b4b7'];
+    var cookie=params['cookie'];
+    var form = {
+        gpid:params['gpid'],
+        gsh:params['gsh'],
+        action:"switch",
+        date:date,
+        _LJSL:"2,1"
+    };
+    var formData = querystring.stringify(form);
+    var contentLength = formData.length;
+
+    request({
+        headers: {
+          'Content-Length': contentLength,
+          'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie' : cookie
+        },
+        uri: url1,
+        body: formData,
+        method: 'POST'
+      }, function (err, res, body) {
+        assert.equal(null,err);
+                setImmediate(function() {
+                callback(body.length<100,body);
+            });
+            //console.log(body);
+        
+      });
+
+    });
+
+        
+    
+}
+    
+
+    function getCookie(callback){
+        //this.ex('ab');
+        var url='http://zso11.edupage.org/substitution/?';
+        request(url,function(err,res,body){
+            if(!err && res.statusCode ==200){
+                getGPIDandGSH(body,function(params){
+                    var cookie=res.headers['set-cookie'];
+                    var data = {
+                        'gpid':params[0],
+                        'gsh':params[1],
+                        'cookie':cookie
+                    }
+                    console.log(JSON.stringify(data));
+                    modifyById('params','testCollection',data,function(){
+                        console.log('data added: '+data);
+                        
+                    })
+                setImmediate(function() {
+                callback(data);
+            });
+                    
+                });
+                //ex(this.body);
+                //  console.log('hi',params[0],params[1],cookie);
+                //save somewhere
+            }
+
+        });
+
+    }
+    function saveToCollection(params,callback){
+        //[collection,{data}]
+        var collectionName = params[0];
+        var data = params[1];
+        var url = 'mongodb://localhost:27017/test2';
+        MongoClient.connect(url, function(err, db) {
+            assert.equal(null,err);
+            var collection=db.collection(collectionName);
+            collection.insert(data, {w: 1}, function(err1, records){
+                assert.equal(null,err1);
+                //console.log("Record added as "+records[0]._id);
+            });
+            setImmediate(function() {
+                callback();
+            });
+        db.close();
+        })
+    }  
+    function modifyById(id,collectionName,paramsToModify,callback){
+        //[collection,{data}]
+        //var collectionName = collection;
+        var data = paramsToModify;
+        var url = 'mongodb://localhost:27017/test2';
+        MongoClient.connect(url, function(err, db) {
+            assert.equal(null,err);
+            var collection=db.collection(collectionName);
+            collection.findAndModify(
+              {_id: id}, // query
+                [['_id','asc']],  // sort order
+              {$set: paramsToModify}, // replacement, replaces only the field "hi"
+              [{upsert:true}], // options
+              function(err, object) {
+                  if (err){
+                      //console.warn(err.message);  // returns error if no matching object found
+                  }else{
+                      console.dir(object);
+                  }
+              });
+        
+            setImmediate(function() {
+                callback();
+            });
+        db.close();
+        })
+    }    
+    function findById(id,collectionName,callback){
+        //[collection,{data}]
+        //var collectionName = collection;
+        //var data = paramsToModify;
+        var url = 'mongodb://localhost:27017/test2';
+        MongoClient.connect(url, function(err, db) {
+            assert.equal(null,err);
+            var collection=db.collection(collectionName);
+            collection.findOne({_id:id},function(err, doc) {
+            assert.equal(null, err);
+            //assert.equal(null, doc);
+            //assert.equal(2, doc.b);
+                setImmediate(function() {
+                callback(doc);
+            });   
+        db.close();
+      });
+        
+        //db.close();
+        })
+    }
+    var getGPIDandGSH=function(data,callback){
+        //console.log('mi');
+        var gshString='gsh';
+        var a=data.indexOf('gsh');
+        var gpid=data.slice(a-8,a-1);
+        var gsh=data.slice(a+4,a+12);
+        setImmediate(function() {
+            callback([gpid,gsh]);
+        });
+    }
 
 function asf(){
 
@@ -170,8 +358,12 @@ function asf(){
     console.log(z.dispalyTime());
 }
 
-// 2016-09-26
-    function getCookie(callback){
+
+        
+        
+        
+    
+    function getParams(callback){
         //this.ex('ab');
         var url='http://zso11.edupage.org/substitution/?';
         request(url,function(err,res,body){
@@ -199,6 +391,7 @@ function asf(){
                 callback();
             });
     }
+//exports.name=func();
     function saveToCollection(params,callback){
         //[collection,{data}]
         var collectionName = params[0];
@@ -227,50 +420,9 @@ function asf(){
             callback([gpid,gsh]);
         });
     }
-    function getCookie(data,callback){
-        var url='http://zso11.edupage.org/substitution/?';
-        
-        callback(data)
-    }
-    
-function setDate(){
-    //this.Today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-    //this.day
-    //this.month
-    //this.year
-    this.dispalyTime=function(){
-        return this.year+'-'+this.month+'-'+this.day;
-    }
-    this.updateTime=function(){
-        this.year = this.Today.getFullYear();
-        this.month = this.Today.getMonth()+1;
-        this.day = this.Today.getDate();
-        if(this.month<10){this.month='0'+this.month;};
-        if(this.day<10){this.day='0'+this.day;};
-    }
-    this.todayIs=function(){
-        this.Today = new Date();
-        this.updateTime();
 
-    }
-    this.tommorowIS=function(){
-        this.Today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-        this.updateTime();
-    }
-    this.yeasterdayIS=function(){
-        this.Today = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
-        this.updateTime();
-    }
-    this.setDate=function(year,month,day){
-        this.Today=new Date();
-        this.Today.setFullYear(year);
-        this.Today.setDate(day);
-        this.Today.setMonth(month);
-        this.updateTime();
-        
-    }
     
-}
+
 function asd(){
     /*
     var x=new getSubstitution(); 
@@ -302,110 +454,6 @@ function asd(){
     
 }
 
-//------------
-function getJsonFromHtml(){
-    //this.fileString
-    //this.slicedString
-    //this.keyObj
-    findBraces.call(this);
-    this.teacherString='"teachers":{';
-    this.dataString='DataSource([';
-    //this.teacherString='teacher';
-    this.getJsonObj=function(){
-        this.cutFromTeacher();
-            var keyIndex=this.iterateArray(['{','}']);
-            this.keyObj=this.fileString.slice(keyIndex[0],keyIndex[1]+1);
-        this.cutFromDataSource();
-            var dataIndex=this.iterateArray(['[',']']);
-            this.dataObj=this.fileString.slice(dataIndex[0],dataIndex[1]+1);
-        
-        
-        
-    }
-    this.iterateArray =function(pattern){
-        var x=0;
-        for (var i=0; i < this.fileString.length; i++) {
-            var char =this.fileString.charAt(i);
-            //console.log('char: '+char);
-            if(char ==pattern[0] && x==0){
-                this.startBracing(i);
-                x=1;
-            }
-                
-                this.findBracketObject(char,i,pattern);
-                //console.log('brace: '+this.braceCounter);
-            
-            if(this.isObjFound == true){
-                return[this.beginOfArray,this.endOfArray];
-            }
-        }
-            //console.log(texto.charAt(i)); 
-        
-    }
-    this.indexOfStringInFile=function(string){
-        var index=this.fileString.indexOf(string);
-        if(index == -1){
-            console.log('problem with finding teacherString: ');
-            console.log(Date());
-            console.log(string);
-            return;
-        }
-        return index;
-        
-    }
-    this.cutFromTeacher=function(){
-        var beginpoint=this.indexOfStringInFile(this.teacherString);
-        this.fileString=this.fileString.slice(beginpoint-2,this.fileString.length);
-    }    
-    this.cutFromDataSource=function(){
-        var beginpoint=this.indexOfStringInFile(this.dataString);
-        this.fileString=this.fileString.slice(beginpoint+this.dataString.length-1,this.fileString.length);
-    }
-    this.findKeyObject=function(){
-        
-        
-    }
-    this.findBraces=function(){//klamry
-        this.startBracing();
-        var a=this.iterateArray();
-        console.log(a);
-        
-    }
-}
-function findBraces(){
-    //this.counter=0;
-    this.findBracketObject=function(char,indexOfChar,pattern){
-        //if(char !='{' && char != '{'){
-          //  throw('bad char in module findBraces');
-        //}
-        if(char == pattern[0]){
-            this.beginBrace();
-        }
-        if(char == pattern[1]){
-            this.endBrace();
-        }
-        this.stopFindingBraces(indexOfChar);
-    }
-    this.startBracing=function(indexOfBrace){
-        this.braceCounter=0;
-        this.endOfArray=0;
-        this.isObjFound=false;
-        this.beginOfArray=indexOfBrace;
-    }
-    this.beginBrace=function(){
-       this.braceCounter+=1;
-        
-    }
-    this.endBrace=function(){
-        this.braceCounter-=1;  
-    }
-    this.stopFindingBraces=function(indexOfBrace){
-        if(this.braceCounter==0){
-            this.endOfArray=indexOfBrace;
-            this.isObjFound=true;
-        }
-    }
-}
 
 
 

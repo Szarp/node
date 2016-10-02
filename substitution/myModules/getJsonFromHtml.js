@@ -1,4 +1,4 @@
-var findBraces = require('myModules/findBraces.js');
+var findBraces = require(__dirname +'/findBraces.js');
 module.exports = function getJsonFromHtml(){
     //this.fileString
     //this.slicedString
@@ -7,6 +7,16 @@ module.exports = function getJsonFromHtml(){
     this.teacherString='"teachers":{';
     this.dataString='DataSource([';
     //this.teacherString='teacher';
+    this.testIfCorrectFile=function(){
+        var err;
+        var index=this.fileString.indexOf(this.teacherString);
+        err = true;
+        if(index == -1){
+            err=false;
+        }
+        return err;
+        
+    }
     this.getJsonObj=function(){
         this.cutFromTeacher();
             var keyIndex=this.iterateArray(['{','}']);

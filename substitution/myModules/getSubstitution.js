@@ -23,7 +23,7 @@ module.exports=function(){
     this.keyElements=[];
     this.allChanges=[];
     this.changes=function(){
-        //this.returnChanges();
+        this.returnChanges();
         //this.createKeyList();
         console.log('im here');
         return this.allChanges;
@@ -46,15 +46,33 @@ module.exports=function(){
             for (k in actualChange){
 
                 if (k == 'changes'){
-                    /*
-                    var toChange = actualChange[k];
-                    for(var i=0; i<toChange.length;i++){
-                        for (l in toChange[i]){
-                           // console.log(l +"  "+toChange[i][l]);
+                    if(actualChange["cancelled"]==false){
+                        var changes=[];
+                        var someObj={};
+                        var toChange = actualChange[k];
+                        //console.log(toChange);
+                        //someObj={};
+                        for(var j=0; j<toChange.length;j++){
+                            var name = toChange[j]['column'];
+                            var categoryName=this.returnCategoryName(name);
+                            //console.log(categoryName);
+                            var value1 = toChange[j]['new'];
+                            //console.log(value1);
+                            if(value1 != undefined){
+                                var tableElement=this.changeToTable(value1);
+                                var value = this.findInCatgory(categoryName,tableElement);
+                                someObj[categoryName]=value;
+                                //console.log(newObj);
 
+                                
+                            }
                         }
+                        var x={};
+                        //x['changes']=someObj
+                        console.log(someObj);
+                        this.allChanges[i]['changes']=someObj;
+                        //console.log(someObj);
                     }
-    */
                 }
 
                 else{
@@ -64,7 +82,7 @@ module.exports=function(){
                     var tableElement=this.changeToTable(actualChange[k]);
                     var value=this.findInCatgory(categoryName,tableElement);
                     //var newObj={}
-                    newObj[categoryName]=value
+                    newObj[categoryName]=value;
                     //changes[i][categoryName]
                     
                     //actualChange[k]=value;
@@ -74,6 +92,7 @@ module.exports=function(){
                 //console.log(actualChange);
             }
         }
+        //console.log(this.allChanges);
         return;
     }
     this.changeToTable = function(element){
