@@ -25,7 +25,7 @@ module.exports=function(){
     this.changes=function(){
         this.returnChanges();
         //this.createKeyList();
-        console.log('im here');
+        //console.log('im here');
         return this.allChanges;
     }
     this.returnChanges=function(){
@@ -69,7 +69,7 @@ module.exports=function(){
                         }
                         var x={};
                         //x['changes']=someObj
-                        console.log(someObj);
+                        //console.log(someObj);
                         this.allChanges[i]['changes']=someObj;
                         //console.log(someObj);
                     }
