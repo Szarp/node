@@ -1,5 +1,4 @@
-var exampleData=['asdf','sdfg','xcvbn','werty'];
-//var keyNames=['"typ"','"lekcja"','"nauczyciel"','"grupa"','"klasa"','"przedmiot"','"komentarz"','"sala"','"zmiany"'];
+
 function getForm(){
     var a = document.getElementById('specieSelect').value;
     var b = document.getElementById('fillPropertySpecie').value;
@@ -42,40 +41,7 @@ function testFunc() {
     x.data=exampleData;
     x.refreshUl();
 }
-function appendSubstitutions(){
-    //this.data
-    this.liList=[];
-    this.listId='displaySubstitutions';
-    this.listToEdit=document.getElementById(this.listId);
-    var text;
-    this.refreshUl=function(){
-        if(this.liList==undefined){
-            console.log('problem with append');
-        }
-        this.clearEditList();
-        this.crateLiElements();
-        this.appendLiElements();
-    }
-    this.crateLiElements=function(){
-        for(var i=0;i<this.data.length;i++){
-            text=this.data[i];
-            this.liList[i]=document.createElement("li");
-            this.liList[i].appendChild(document.createTextNode(text));
-        }
-    }
-    this.appendLiElements=function(){
-        for(var i=0;i<this.data.length;i++){
-            this.listToEdit.appendChild(this.liList[i])
-        }
-        
-    }
-    this.clearEditList=function(){
-        //console.log('hi');
-        this.listToEdit.innerHTML='';// = '';
-        console.log(this.listToEdit.innerHTML);// = '';
-        
-    }
-}
+
 function testNumberFive(){
     for (k in mainEvents){
         //console.log(mainEvents[k]);
@@ -88,8 +54,7 @@ function testNumberFour(){
 //    /getChange();
     var z = new translateChanges();
     z.data=exData;
-    z.getChange();
-    z.tableTest();
+    z.displayData();
     
 }
 function hey(xx){
@@ -110,17 +75,11 @@ var obj={'hey':'my name is skrilex','hey2':89};
     }
     http.send(string_obj);
 }
-    function getChange(){
-        for(var i=0;i<exData.length;i++){
-            console.log(exData[i]);
-        }
-    }
 function fieldsToFill(){
-    this.fields2=['"typ"','"lekcja"','"nauczyciel"','"grupa"','"klasa"','"przedmiot"','"komentarz"','"sala"','"zmiany"'];
     this.fields={
         cancelled:'typ',
         note:'komentarz',
-        perioid:'lekcja',
+        periods:'lekcja',
         subject:'przedmiot',
         teachers:'nauczyciel',
         classes:'klasa',
@@ -132,30 +91,38 @@ function fieldsToFill(){
 }
 function translateChanges(){
     //this.data
-    this.i;
-    this.parsedData=[];
+    this.divId='someId';
+    this.parsedData="";
+    this.finalTables="";
     fieldsToFill.call(this);
+    this.displayData=function(){
+        this.getChange();
+        this.tableTest();
+    }
     this.getChange = function(){
+        var string="";
         for(var j=0;j<this.data.length;j++){
             this.assignParams(this.data[j]);
-            console.log(this.parsedData);
+            string=this.beginOfTable()+this.parsedData+this.endOfTable();
+            //
+            this.finalTables+=string;
+            this.parsedData="";
+            //console.log(fi//);
         }
 
     }
     this.addToArray=function(keyText,keyValue,tabs){
         var text = this.createElement(keyText,keyValue,tabs);
         if(text !=""){
-            this.parsedData[this.i]=text;
-            this.i++;
+            this.parsedData+=text;
+            //this.i++;
         }
     }
     this.tableTest=function(){
-        var a = document.getElementById('table1');
+        var el = document.getElementById(this.divId);
         var text="";
-        for(var i=0;i<this.parsedData.length;i++){
-            text+=this.parsedData[i];
-        }
-        a.innerHTML=text;
+        //console.log(a.innerHTML);
+        el.innerHTML=this.finalTables;
     }
     this.assignParams = function(oneChange){
         this.i=0;
@@ -197,22 +164,40 @@ function translateChanges(){
     }
     this.getType= function(value){
         if(value=='true'){
+            this.style='backBlue'
             return 'anulowanie';
         }
         else{
+            this.style='backRed'
             return 'zastępstwo';
         }
     }
     this.createElement=function(key,value,tabs){
         if(key==undefined||value==""){return '';};
+        var tabString=this.createTabs(tabs);
+        //console.log('tabs',tabs);
+        var string = '<tr><td>'+tabString+'"'+key+'":<span>"'+value+'"</span></td></tr>';
+        return string;
+    }
+    this.createTabs=function(tabs){
         var tabString="";
         for(var i=0;i<tabs*4;i++){
             tabString+='a';
         }
-        //console.log('tabs',tabs);
-        var string = '<tr><td><span style="visibility: hidden;">'+tabString+'</span>"'+key+'":<span>"'+value+'"</span></td></tr>';
-        return string;
+        if(tabs !=0){
+            return '<span style="visibility: hidden;">'+tabString+'</span>'
+        }
+        else{
+            return '';
+        }
         
+    }
+    this.beginOfTable=function(){
+        return '<table class="displayChanges '+this.style+'"><tbody>'
+        
+    }
+    this.endOfTable=function(){
+        return '</tbody></table>';
     }
     
 }

@@ -28,8 +28,8 @@
   <li><a id="navbar_settings" href="#">Ustawienia</a></li>
 </ul>
 
-<div id="mainContent" class="mainContent flex-container2">
-        <div id="substitutionList" class=" pageStyle" style="display:block;">
+<div id="mainContent" class="flex-container nowrap">
+        <div id="substitutionList" class="" style="display:block;">
             <div  class="boxed-group" id="elementsContent">
                     <h3>Zastępstwa</h3>
                     <div class="boxed-group-inner" style="padding:0px;">
@@ -41,7 +41,7 @@
                             </ul>
                         </div>
                         <div class="scrollableList" id='elementsList'>
-                         <div class="boxed-group-section first">
+                         <div class="boxed-group-section first" id="someId">
                         <table class="displayChanges" id="table1" >
                           <tr>
                             <td>"typ":<span>"help"</span></td>
@@ -52,7 +52,35 @@
                             </tr>
                             <tr >
                                 
-                                <td ><span style="color:white">aaaa</span>"przedmiot":</td>
+                                <td ><span style="visibility: hidden;">aaaa</span>"przedmiot":</td>
+                            </tr>
+                            <tr>
+                                <td>"nauczyciel":</td>
+                            </tr>
+                            <tr>
+                                <td>Klasa:</td>
+                            </tr>
+                            <tr>
+                                <td>"grupa":</td>
+                            </tr>
+                            <tr>
+                                <td>Komentarz:</td>
+                            </tr>
+                            <tr>
+                                <td>Sala:</td>
+                            </tr>
+                        </table>
+                             <table class="displayChanges" id="table2" >
+                          <tr>
+                            <td>"typ":<span>"help"</span></td>
+  
+                          </tr>
+                            <tr>
+                                <td>"lekcja":</td>
+                            </tr>
+                            <tr >
+                                
+                                <td ><span style="visibility: hidden;">aaaa</span>"przedmiot":</td>
                             </tr>
                             <tr>
                                 <td>"nauczyciel":</td>
@@ -89,8 +117,8 @@
         <div id="settingsMenu"class=" pageStyle" style="display:none;">
             <div class="boxed-group">
                 <h3>Settings</h3>
-                <div class="boxed-group-inner">
-                    <div class="boxed-group-section first">
+                <div class="boxed-group-inner" >
+                    <div class="boxed-group-section first" >
                         <table>
                           <tr>
                             <td>class:</td>

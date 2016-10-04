@@ -23,6 +23,7 @@
       display: -moz-flex;
       display: -webkit-flex;
       display: flex;
+    justify-content: center;
       background: lightblue;
     }
  .nowrap  { 

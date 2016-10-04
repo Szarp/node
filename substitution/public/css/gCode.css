@@ -1,170 +1,3 @@
-/*
-@accent-keyword: #446fbd;
-@accent-atom: #e88501;
-@accent-number: #6d8600;
-@accent-def: #8757ad;
-@accent-variable: #535353;
-@accent-variable-2: #535353;
-@accent-variable-3: #535353;
-@accent-property: #8757ad;
-@accent-operator: #535353;
-@accent-comment: #949494;
-@accent-string: #e88501;
-@accent-string-2: #e88501;
-@accent-meta: #535353;
-@accent-error: #dc322f;
-@accent-qualifier: #446fbd;
-@accent-builtin: #446fbd;
-@accent-bracket: #222;
-@accent-tag: #446fbd;
-@accent-attribute: #6d8600;
-@accent-header: #d33682;
-@accent-quote: #446fbd;
-@accent-hr: #e88501;
-@accent-link: #8757ad;
-@accent-rangeinfo: #6c71c4;
-@accent-minus: #dc322f;
-@accent-plus: #859900;
-@match-text: #121212;
-@cm-match-highlight: #f5ee92;
-@cm-current-match-highlight: #f7c44e;
-*/
-.displayChanges tr{
-    /*border: 1px solid red;*/
-    text-align: left;
-    color: #8757ad;
-    padding-bottom: 1px;
-    padding-top: 1px;
-     padding-left : 10px;
-    /*#e88501*/
-}
-.displayChanges span{
-    text-align: left;
-    color: #e88501;
-    /*#e88501*/
-}
-.displayChanges{
-    font-family: 'Source Code Pro', monospace;
-
-
-}
-.displayChanges td{
-width: 20px;
-}
-.pageStyle{
-    margin-left: 50px; 
-    margin-right: 50px;
-    text-align: center;
-}
-.overlay{
-    opacity:0.8;
-    background-color:lightgreen;
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0px;
-    left:0px;
-    z-index:1000;
-}
-.patternCards {
-    height: 40vh;
-    justify-content: space-between;
-      list-style: none;
-      -ms-box-orient: horizontal;
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -moz-flex;
-      display: -webkit-flex;
-      display: flex;
-}
-.findTable {
-    height: 50vh;
-    justify-content: center;
-      list-style: none;
-      -ms-box-orient: horizontal;
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -moz-flex;
-      display: -webkit-flex;
-      display: flex;
-}
-.elementsList{
-    text-align: left;
-    font-size:15px;
-}
-.elementsList ul{
-    list-style: outside none none;
-
-    padding-left: 0px;
-    margin:0px;
-}
-.elementsList li{
-    color: #4078c0;
-     font-size: 14px;
-    font-weight: bold;
-    border-top: 1px solid #e5e5e5;
-    display: block;
-    font-size: 14px;
-    padding: 6px 64px 6px 30px;
-    position: relative;
-
-}
-.code{
-
-    
-}
-.scaleColor{
-    border: 1px solid black;
-    border-radius: 10px;
-    background-color:none;
-    height: 200px;
-    z-index:3;
-    
-}
-.scaleColor ul{
-    position: relative;
-    z-index: 5;
-    padding-left: 30px;
-    padding-right: 5px;
-    color: blue;
-    list-style: none;
-    
-}
-.scaleColor li{
-    height: 15px;
-    width: 40px;
-    background-color:lightblue;
-    margin-bottom: 0px;
-    border-radius: 0px;
-}
-.svgColor{
-position: relative; 
-   top: -125px; 
-   left: 0px;
-    height: 115px;
-    width: 105px;
-    z-index:0;
-    background-color: lightgray;   
-    display: block;
-}
-.toolInput{
-    width: 50px;
-    
-}
-input[type=number] {
-    width: 70px;
-    border: 1px solid #ccc;
-    color: #f4a74a;/* zielony 81991c*/
-    border-bottom:2px solid #ccc; 
-    background-color: transparent;
-    margin-left: 10px;
-}
-.panelBody{
-    background-color: #eaeaea;
-    
-}
 select {
   border: 1px solid #111;
   background: transparent;
@@ -181,10 +14,55 @@ select {
 
   }
 }
-.her{
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #e5e5e5;
-    background-color: #fefefe;
+.first{
+    border-top:none;
+}
+
+.scrollableList{
+    
+    padding: 0px;    
+}
+.scrollableList ul{
+    
+    list-style: outside none none;
+    text-align: left;
+    padding: 0px;
+    margin:0px;
+    width:auto; 
+    /*height: 200px; */
+    overflow: auto;
+}
+.scrollableList li {
+
+    color: #4078c0;
+     font-size: 14px;
+    font-weight: bold;
+    border-top: 1px solid #e5e5e5;
+    display: block;
+    font-size: 14px;
+    padding: 6px 0px 6px 6px;
+    position: relative;
+}
+.chooseDay li:hover{
+    color: black;   
+}
+
+.chooseDay ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: outside none none;
+    margin-top: 6px;
+    padding-left:0px;
+}
+.chooseDay li{
+    border-bottom: 2px solid red;
+}
+.chooseDay li:hover{
+    border-bottom: 2px solid blue;
+}
+
+.chooseDay{
+ background-color: #fafafa;
 }
 .navigation {
     list-style: none;
@@ -199,25 +77,6 @@ select {
   -webkit-flex-flow: row wrap;
   justify-content: flex-end;
 }
-.choseMenu{
-    list-style: none;
-    margin: 0;
-    padding-top: 1em;
-
-
-}
-.choseMenu a{
-    /*display:inline-flex;*/
-    text-decoration: none;
-    border: 1px solid red;
-  /*display: block;*/
-  padding: 0.2em;
-  color: #333;
-}
-.choseMenu li{
-    text-align: center;
-    padding-bottom: 1em;
-}
 .navigation a {
     margin: 0;
     padding: 0;
@@ -229,12 +88,6 @@ select {
 
 .navigation a:hover {
     color: #4078c0;
-}
-.mainContent{
-    background-color: #fefefe;
-    margin-left: 10px;
-    margin-right: 10px;
-    /*border: 1px solid black;*/
 }
 .boxed-group{
     border-radius: 3px;
@@ -274,7 +127,96 @@ select {
     font-size: 13px;
     padding: 10px;
 }
+/*
+@accent-keyword: #446fbd;
+@accent-atom: #e88501;
+@accent-number: #6d8600;
+@accent-def: #8757ad;
+@accent-variable: #535353;
+@accent-variable-2: #535353;
+@accent-variable-3: #535353;
+@accent-property: #8757ad;
+@accent-operator: #535353;
+@accent-comment: #949494;
+@accent-string: #e88501;
+@accent-string-2: #e88501;
+@accent-meta: #535353;
+@accent-error: #dc322f;
+@accent-qualifier: #446fbd;
+@accent-builtin: #446fbd;
+@accent-bracket: #222;
+@accent-tag: #446fbd;
+@accent-attribute: #6d8600;
+@accent-header: #d33682;
+@accent-quote: #446fbd;
+@accent-hr: #e88501;
+@accent-link: #8757ad;
+@accent-rangeinfo: #6c71c4;
+@accent-minus: #dc322f;
+@accent-plus: #859900;
+@match-text: #121212;
+@cm-match-highlight: #f5ee92;
+@cm-current-match-highlight: #f7c44e;
+#ebefef #dee5e6 #ff5d99*/
+.backBlue{
+    background-color: aliceblue;
+    
+}
+.backRed{
+    background-color:#FFD8D6;
+    
+}
+.flex-contenta{
+    padding: 5px;
+    list-style: none;
+    border: 1px solid silver;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    background: lightblue;
+}
+.displayChanges tr{
+    /*border: 1px solid red;*/
+    text-align: left;
+    color: #8757ad;
+    padding-bottom: 1px;
+    padding-top: 1px;
+     padding-left : 10px;
+    /*#e88501*/
+}
+.displayChanges span{
+    text-align: left;
+    color: #e88501;
+    /*#e88501*/
+}
+.displayChanges{
+    font-family: 'Source Code Pro', monospace;
+    border-radius: 10px;
+    margin: 5px;
+    text-align: left;
+
+
+
+
+
+}
+.displayChanges td{
+width: 20px;
+}
+.pageStyle{
+    margin-left: 50px; 
+    margin-right: 50px;
+    text-align: center;
+}
 .boxed-group-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
     background: #fff none repeat scroll 0 0;
     border-top: 1px solid #d8d8d8;
     color: #666;
@@ -282,77 +224,7 @@ select {
     padding: 10px;
     color: #4078c0;
     }
-.first{
-    border-top:none;
-}
-.scrollableList{
-    
-    padding: 0px;    
-}
-.scrollableList ul{
-    
-    list-style: outside none none;
-    text-align: left;
-    padding: 0px;
-    margin:0px;
-    width:auto; 
-    /*height: 200px; */
-    overflow: auto;
-}
-.scrollableList li {
 
-    color: #4078c0;
-     font-size: 14px;
-    font-weight: bold;
-    border-top: 1px solid #e5e5e5;
-    display: block;
-    font-size: 14px;
-    padding: 6px 0px 6px 6px;
-    position: relative;
-}
-
-.changeElement{
-    font-size: 20px;
-    height: 30px;
-    display: flex;
-    justify-content: space-around;
-    list-style: outside none none;
-    margin-top: 6px;
-    padding-left:0px;
-}
-.changeElement li{
-    border-top: 0px;
-        
-    
-}
-.chooseDay li:hover{
-    color: black;   
-}
-.search-repo button{
-    border: 0px;
-    padding: 0px;
-}
-.chooseDay ul{
-    display: flex;
-    justify-content: space-around;
-    list-style: outside none none;
-    margin-top: 6px;
-    padding-left:0px;
-}
-.chooseDay li{
-    border-bottom: 2px solid red;
-}
-.chooseDay li:hover{
-    border-bottom: 2px solid blue;
-}
-.search-repo input{
-    width: 100px;
-    padding-left:10px;
-    padding-right: 10px;
-}
-.chooseDay{
- background-color: #fafafa;
-}
 .btn{
     position: relative;
     display: inline-block;
