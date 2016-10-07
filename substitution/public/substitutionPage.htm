@@ -3,23 +3,22 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Substitution</title>
         <meta name="description" content="Interaktywny">
-        <link rel="stylesheet" href="css/webGraph.css">
+
         <link rel="stylesheet" href="css/webPage.css">
-        <link rel="stylesheet" href="css/radioItem.css">
+
          <link rel="stylesheet" href="css/mediaSize.css">
-         <link rel="stylesheet" href="css/webGraph.css">
-        <link rel="stylesheet" href="css/elementsMenu.css">
+
         <link rel="stylesheet" href="css/gCode.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
         <script type="text/javascript" src="js/sendForm.js"></script>
 
         
     </head>
-    <body onload="testNumberFive()">
-        <script>
-        </script>
+    <body onload="onLoadFunc()">
+
  
 
 <ul class="navigation">
@@ -28,15 +27,15 @@
   <li><a id="navbar_settings" href="#">Ustawienia</a></li>
 </ul>
 
-<div id="mainContent" class="flex-container nowrap">
-        <div id="substitutionList" class="" style="display:block;">
-            <div  class="boxed-group" id="elementsContent">
+<div class="flex-container nowrap basicSettings" id="mainContent" >
+        <div class="" id="substitutionList"   >
+            <div  class="item-size  boxed-group" id="elementsContent">
                     <h3>Zastępstwa</h3>
                     <div class="boxed-group-inner" style="padding:0px;">
                         <div class="chooseDay">
                             <ul>
-                                <li id="todayBtn" onclick="testFunc();">today</li>
-                                <li id="tommorowBtn" onclick="testNumberFour();" >tomorrow</li>
+                                <li id="todayBtn" >today</li>
+                                <li id="tommorowBtn"  >tomorrow</li>
                                 <li id="chooseBtn">choose</li>
                             </ul>
                         </div>
@@ -103,11 +102,11 @@
                     </div>
                 </div>
         </div>
-        <div id="homePage" class=" pageStyle" style="display:none;">
+        <div id="homePage" class="" style="display:none;">
             <div  class="boxed-group" id="elementsContent">
                     <h3>Home</h3>
                     <div class="boxed-group-inner">
-                      Witam na pierwszej wersji zastępst. Pobiera zastępswa ze strony ZSO.
+                      Witam na pierwszej wersji zastępstw. Pobiera zastępswa ze strony ZSO.
                     </div>
      
 
@@ -123,9 +122,22 @@
                           <tr>
                             <td>class:</td>
                             <td>                        
-                                <select  id="specieSelect">
-                                    <option  value="all">All</option>
+                                <select  id="setClass">
+                                    <option  value="">set</option>
+                                    <option  value="null">All</option>
+                                    <option  value="1ga">1ga</option>
+                                    <option  value="1gb">1gb</option><option  value="1gc">1gc</option><option  value="1gd">1gd</option><option  value="2ga">2ga</option><option  value="2gd">2gb</option><option  value="2gc">2gc</option><option  value="2gd">2gd</option> <option  value="3ga">3ga</option><option  value="3gb">3gb</option><option  value="3gc">3gc</option><option  value="3gd">3gd</option><option  value="1a">1a</option>
                                     <option  value="1b">1b</option>
+                                    <option  value="1c">1c</option>
+                                    <option  value="1d">1d</option>
+                                    <option  value="2a">2a</option>
+                                    <option  value="2b">2b</option>
+                                    <option  value="2c">2c</option>
+                                    <option  value="2d">2d</option>
+                                    <option  value="3a">3a</option>
+                                    <option  value="3b">3b</option>
+                                    <option  value="3c">3c</option>
+                                    <option  value="3d">3d</option>
                                 </select>
                             </td>
                           </tr>
@@ -133,13 +145,14 @@
                                 <td>notification:</td>
                                 <td>                        
                                     <select  id="fillPropertySpecie">
+                                        <option value="">set</option>
                                         <option value="yes">yes</option>
                                         <option value="no">no</option>
                                     </select>
                                 </td>
                             </tr>
                         </table>
-                        <a id="saveBtn" class="edit-btn btn" onclick="getForm()">Save settings</a>
+                        <a id="saveBtn" class="edit-btn btn" onclick="">Save settings</a>
                     </div>
      
 

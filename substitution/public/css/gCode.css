@@ -8,41 +8,12 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
-@media screen and (min-width: 0\0) {
-  select {
-    background: none;
 
-  }
-}
 .first{
     border-top:none;
 }
 
-.scrollableList{
-    
-    padding: 0px;    
-}
-.scrollableList ul{
-    
-    list-style: outside none none;
-    text-align: left;
-    padding: 0px;
-    margin:0px;
-    width:auto; 
-    /*height: 200px; */
-    overflow: auto;
-}
-.scrollableList li {
 
-    color: #4078c0;
-     font-size: 14px;
-    font-weight: bold;
-    border-top: 1px solid #e5e5e5;
-    display: block;
-    font-size: 14px;
-    padding: 6px 0px 6px 6px;
-    position: relative;
-}
 .chooseDay li:hover{
     color: black;   
 }
@@ -62,6 +33,7 @@ select {
 }
 
 .chooseDay{
+    font-size: 1.5em;
  background-color: #fafafa;
 }
 .navigation {
@@ -76,6 +48,7 @@ select {
   display: flex;
   -webkit-flex-flow: row wrap;
   justify-content: flex-end;
+    font-size: 15px;
 }
 .navigation a {
     margin: 0;
@@ -112,7 +85,7 @@ select {
     border-style: solid solid none;
     border-width: 1px 1px 0;
     display: block;
-    font-size: 14px;
+    /*font-size: 14px;*/
     line-height: 17px;
     margin: 0;
     padding: 9px 10px 10px;
@@ -124,40 +97,10 @@ select {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     color: #666;
-    font-size: 13px;
+   /* font-size: 13px; */
     padding: 10px;
 }
-/*
-@accent-keyword: #446fbd;
-@accent-atom: #e88501;
-@accent-number: #6d8600;
-@accent-def: #8757ad;
-@accent-variable: #535353;
-@accent-variable-2: #535353;
-@accent-variable-3: #535353;
-@accent-property: #8757ad;
-@accent-operator: #535353;
-@accent-comment: #949494;
-@accent-string: #e88501;
-@accent-string-2: #e88501;
-@accent-meta: #535353;
-@accent-error: #dc322f;
-@accent-qualifier: #446fbd;
-@accent-builtin: #446fbd;
-@accent-bracket: #222;
-@accent-tag: #446fbd;
-@accent-attribute: #6d8600;
-@accent-header: #d33682;
-@accent-quote: #446fbd;
-@accent-hr: #e88501;
-@accent-link: #8757ad;
-@accent-rangeinfo: #6c71c4;
-@accent-minus: #dc322f;
-@accent-plus: #859900;
-@match-text: #121212;
-@cm-match-highlight: #f5ee92;
-@cm-current-match-highlight: #f7c44e;
-#ebefef #dee5e6 #ff5d99*/
+
 .backBlue{
     background-color: aliceblue;
     
@@ -199,11 +142,16 @@ select {
     border-radius: 10px;
     margin: 5px;
     text-align: left;
+    /*font-size: 20px;*/
 
 
 
 
+}
 
+.saveBtn{
+    padding-top: 5px;
+    
 }
 .displayChanges td{
 width: 20px;
@@ -212,6 +160,7 @@ width: 20px;
     margin-left: 50px; 
     margin-right: 50px;
     text-align: center;
+       
 }
 .boxed-group-section{
     display: flex;
@@ -220,7 +169,7 @@ width: 20px;
     background: #fff none repeat scroll 0 0;
     border-top: 1px solid #d8d8d8;
     color: #666;
-    font-size: 13px;
+    
     padding: 10px;
     color: #4078c0;
     }

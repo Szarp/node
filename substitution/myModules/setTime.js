@@ -1,10 +1,10 @@
 
-module.exports = function setDate(){
+module.exports = function setTime(){
     //this.Today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
     //this.day
     //this.month
     //this.year
-    this.dispalyTime=function(){
+    this.displayTime=function(){
         return this.year+'-'+this.month+'-'+this.day;
     }
     this.updateTime=function(){
@@ -19,15 +19,16 @@ module.exports = function setDate(){
         this.updateTime();
 
     }
-    this.tommorowIS=function(){
+    this.tommorowIs=function(){
         this.Today = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
         this.updateTime();
     }
-    this.yeasterdayIS=function(){
+    this.yeasterdayIs=function(){
         this.Today = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
         this.updateTime();
     }
-    this.setDate=function(year,month,day){
+    /*
+    this.setTime=function(year,month,day){
         this.Today=new Date();
         this.Today.setFullYear(year);
         this.Today.setDate(day);
@@ -35,5 +36,6 @@ module.exports = function setDate(){
         this.updateTime();
         
     }
+    */
     
 }

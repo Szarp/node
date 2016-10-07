@@ -1,8 +1,9 @@
 
-.item-size{
+.someStyle{
     margin-left: auto;
     margin-right: auto;
 }
+
 .flex-item {
       background: tomato;
       margin-top: 5px;
