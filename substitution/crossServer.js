@@ -1,7 +1,8 @@
 var express = require('express'),
     fs= require('fs'),
+    https =require('https'),
     //querystring = require('querystring'),
-    http = require('http'),
+    //http = require('http'),
     //userMod = require(__dirname +'/myModules/getSubstitution.js'),
    // jsonFromHtml = require(__dirname +'/myModules/getJsonFromHtml.js'),
     //setDate = require(__dirname +'/myModules/setDate.js'),
@@ -14,10 +15,36 @@ var express = require('express'),
     mongo=require(__dirname+'/myModules/mongoFunctions.js');
     setTime = require(__dirname+'/myModules/setTime.js');
    // querystring = require('querystring');
-
+///Users/bartek/gitrepo/node/substitution/myModules/serverReqest.js'
 //var substitution =new jsonFromHtml();
 //var user= new userMod();
 var app = express();
+//'Users/bartek/Documents/2016/
+//var https = require('https');
+//var app = express();
+
+var opts = {
+   
+  // Specify the key file for the server
+  key: fs.readFileSync('/Users/bartek/Documents/2016/wsskey.pem'),
+   
+  // Specify the certificate file
+  cert: fs.readFileSync('/Users/bartek/Documents/2016/wsscert.pem'),
+   
+  // Specify the Certificate Authority certificate
+  ca: fs.readFileSync('/Users/bartek/Documents/2016/cacert.pem'),
+   
+  // This is where the magic happens in Node.  All previous
+  // steps simply setup SSL (except the CA).  By requesting
+  // the client provide a certificate, we are essentially
+  // authenticating the user.
+  //requestCert: true,
+   
+  // If specified as "true", no unauthenticated traffic
+  // will make it to the route specified.
+  //rejectUnauthorized: true
+};
+//var app = module.exports = express.createServer(opts);
 var time = new setTime();
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -73,6 +100,15 @@ app.get('/test', function (req, res) {
     //console.log(a);
     res.send('ok');
 });
+app.post('/', function (req, res) {
+    console.log(req.body);
+    res.sendFile( __dirname + '/public/substitutionPage.htm');
+    //var a=userMod.changes();
+    //us.changes();
+   // asd();
+    //console.log(a);
+    //res.send('ok');
+});
 
 app.post('/testXml', function(req, res){
     console.log(req.body);
@@ -116,8 +152,27 @@ setInterval(function () {
     }
     
     console.log('second passed'); 
-}, 1000*60*6); 
-app.listen(8090);
+}, 1000*60*6);
+/*
+setTimeout(function () { 
+    var updateTime=[];
+    time.todayIs();
+    updateTime[0]=time.displayTime();
+    time.tommorowIs()
+    updateTime[1]=time.displayTime();
+    for(var i=0;i<updateTime.length;i++){
+        myFunc.subs(updateTime[i],function(y){
+            
+            console.log(y);
+        })
+        
+    }
+    
+    console.log('second passed'); 
+}, 1000);
+*/
+https.createServer(opts, app).listen(8090);
+//app.listen(8090);
 // some places where save
 //place /zso11
 //colections users
